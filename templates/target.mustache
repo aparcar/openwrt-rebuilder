@@ -1,0 +1,60 @@
+    <p>
+	  {{ images_repro }} ({{ images_repro_percent }}%) out of {{ images_total }}
+	  built images and {{ packages_repro }} ({{ packages_repro_percent }}%) out of
+	  {{ packages_total }} built packages were reproducible in our test setup.
+	</p>
+	<p>
+	  These tests were last run on {{ today }} for version using diffoscope {{
+	  diffoscope_version }}.
+    </p>
+    <p style="clear:both;">
+    </p>
+    <table>
+      <tr>
+        <th>Images for <code>{{ target }}</code></th>
+      </tr>
+      {{ #images }}
+      <tr>
+	  	{{ #repro }}
+        <td><img src="{{ root }}/static/weather-clear.png" alt="reproducible icon" /> {{ name }} ({{ sha256sum }}, {{ size }}K) is reproducible.</td>
+	  	{{ /repro }}
+	  	{{ ^repro }}
+		<td><a href="{{ root }}/{{ version }}/{{ target }}/{{ name }}.html"><img src="{{ root }}/static/weather-showers-scattered.png" alt="unreproducible icon"> {{ name }}</a> ({{ size }}K) is unreproducible.</td>
+	  	{{ /repro }}
+      </tr>
+      {{ /images }}
+    </table>
+    <table>
+      <tr>
+        <th>Unreproducible and otherwise broken packages</th>
+      </tr>
+      {{ #packages }}
+	  	{{ ^repro }}
+      <tr>
+		<td><a href="{{ root }}/{{ version }}/{{ target }}/{{ name }}.html"><img src="{{ root }}/static/weather-showers-scattered.png" alt="unreproducible icon"> {{ name }}</a> ({{ size }}K) is unreproducible.</td>
+      </tr>
+	  	{{ /repro }}
+      {{ /packages }}
+    </table>
+    <table>
+      <tr>
+        <th>Reproducible packages</th>
+      </tr>
+      {{ #packages }}
+	    {{ #repro }}
+	  <tr>
+        <td><img src="{{ root }}/static/weather-clear.png" alt="reproducible icon" /> {{ name }} ({{ sha256sum }}, {{ size }}K) is reproducible.</td>
+	  </tr>
+	  	{{ /repro }}
+	  {{ /packages }}
+    </table>
+    <table>
+      <tr>
+        <th>Missing files after rebuild</th>
+      </tr>
+      {{ #missing}}
+      <tr>
+	  	<td>{{ name }}</td>
+      </tr>
+	  {{ /missing }}
+    </table>

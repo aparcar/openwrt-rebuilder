@@ -1,0 +1,46 @@
+.rebuild:
+  variables:
+    BUILD_LOG_DIR: "$CI_PROJECT_DIR/logs"
+  image:
+    name: aparcar/rebuild-diffoscope
+    entrypoint: [""]
+  stage: build
+  script:
+    - python3 rebuild.py
+  artifacts:
+    paths:
+      - output
+      - logs
+    expire_in: 1 week
+  only:
+    - master
+
+rebuild-ath79-generic:
+  extends: .rebuild
+  variables:
+    TARGET: "ath79/generic"
+
+rebuild-x86-64:
+  extends: .rebuild
+  variables:
+    TARGET: "x86/64"
+
+rebuild-ramips-mt7621:
+  extends: .rebuild
+  variables:
+    TARGET: "ramips/mt7621"
+
+rebuild-ramips-mt7620:
+  extends: .rebuild
+  variables:
+    TARGET: "ramips/mt7620"
+
+pages:
+  stage: deploy
+  script:
+    - cp -vr output/* public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
