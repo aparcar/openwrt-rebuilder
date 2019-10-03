@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Install libncurses-dev
+      run: sudo apt-get install libncurses-dev
+
+    - name: Run rebuilder
+      run: python3 -u rebuild.py
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: results
+        path: results/

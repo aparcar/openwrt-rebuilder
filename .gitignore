@@ -1,0 +1,8 @@
+.direnv/
+.vscode/
+__pycache__/
+dist/
+openwrt_rebuilder.egg-info/
+output/
+rebuild/
+results/
