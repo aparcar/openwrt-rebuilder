@@ -3,6 +3,8 @@ name: CI
 on:
   push:
     branches: [ master ]
+  schedule:
+    - cron:  "0 0 * * *"
 
 jobs:
   build:
@@ -21,6 +23,11 @@ jobs:
 
     - name: Run rebuilder
       run: python3 -u rebuild.py
+      env:
+        REBUILDER_MAINTAINER: "Paul Spooren"
+        REBUILDER_CONTACT: "mail@aparcar.org"
+        REBUILDER_NAME: "aparcar-openwrt-github"
+        REBUILDER_URI: "https://github.com/aparcar/openwrt-rebuilder"
 
     - uses: actions/upload-artifact@v2
       with:
