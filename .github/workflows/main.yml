@@ -1,4 +1,4 @@
-name: CI
+name: Rebuild OpenWrt
 
 on:
   push:
@@ -9,6 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - ath79/generic
+          - x86/64
 
     steps:
     - uses: actions/checkout@v2
@@ -21,9 +26,10 @@ jobs:
     - name: Install libncurses-dev
       run: sudo apt-get install libncurses-dev
 
-    - name: Run rebuilder
+    - name: Run rebuilder on ${{ matrix.target }}
       run: python3 -u rebuild.py
       env:
+        TARGET: ${{ matrix.target }}
         REBUILDER_MAINTAINER: "Paul Spooren"
         REBUILDER_CONTACT: "mail@aparcar.org"
         REBUILDER_NAME: "aparcar-openwrt-github"
