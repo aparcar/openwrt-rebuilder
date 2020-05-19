@@ -12,11 +12,17 @@ jobs:
     strategy:
       matrix:
         target:
-          - ath79/generic
-          - x86/64
-          - ramips/mt7620
-          - ramips/mt7621
-          - rockchip/armv8
+          - ath79-generic
+          - bcm47xx-generic
+          - lantiq-xrx200
+          - kirkwood-generic
+          - omap-generic
+          - ramips-mt7620
+          - ramips-mt7621
+          - rockchip-armv8
+          - sunxi-cortexa8
+          - tegra-generic
+          - x86-64
 
     steps:
     - uses: actions/checkout@v2

@@ -31,7 +31,7 @@ rebuilder = {
 
 
 # target to be build
-target = environ.get("TARGET", "ath79/generic")
+target = environ.get("TARGET", "ath79/generic").replace("-", "/")
 
 # version to be build
 rebuild_version = environ.get("VERSION", "SNAPSHOT")
