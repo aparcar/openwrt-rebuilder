@@ -44,6 +44,16 @@ jobs:
         REBUILDER_NAME: "aparcar-openwrt-github"
         REBUILDER_URI: "https://github.com/aparcar/openwrt-rebuilder"
 
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: ${{ matrix.target }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_S3_ENDPOINT: images.aparcar.org
+        SOURCE_DIR: rebuild/
+
     - uses: actions/upload-artifact@v2
       with:
         name: results-${{ matrix.target }}
