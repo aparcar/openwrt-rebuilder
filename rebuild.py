@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Copyright © 2019 Paul Spooren <mail@aparcar.org>
@@ -21,6 +21,10 @@ from shutil import rmtree
 from subprocess import run
 from tempfile import NamedTemporaryFile
 from urllib.request import urlopen
+from in_toto.models import metadata, link
+from in_toto.runlib import record_artifacts_as_dict
+from in_toto.util import (generate_and_write_ed25519_keypair, 
+        import_ed25519_privatekey_from_file)
 
 rebuilder = {
     "maintainer": environ.get("REBUILDER_MAINTAINER", "unknown"),
@@ -67,19 +71,15 @@ else:
     target_dir = f"releases/{rebuild_version}/targets/{target}"
 
 # ignore everything except packages and images
-ignore_files = re.compile(
-    "|".join(
-        [
-            "kernel-debug.tar.bz2",
-            "openwrt-imagebuilder",
-            "openwrt-sdk",
-            "sha256sums.sig",
-            r".+\.buildinfo",
-            r".+\.json",
-            r".+\.manifest",
-        ]
-    )
-)
+ignore_files =  [
+            "./**kernel-debug.tar.bz2",
+            "./**openwrt-imagebuilder",
+            "./**openwrt-sdk",
+            "./**sha256sums.sig",
+            "./**.buildinfo",
+            "./**.json",
+            "./**.manifest",
+]
 
 rbvf = {
     "origin_uri": origin_url,
@@ -87,6 +87,27 @@ rbvf = {
     "results": [],
     "rebuilder": rebuilder,
 }
+
+def capture_materials():
+
+    attestation = link.Link(name='rebuild')
+    # FIXME: we probably want to record either the rebulid directory
+    # or a commit id for it.
+    attestation.materials = record_artifacts_as_dict('rebuild', 
+            exclude_patterns=ignore_files)
+    return attestation
+
+
+def capture_products(attestation, rbvf = None):
+    attestation.products = record_artifacts_as_dict('output', 
+            exclude_patterns=ignore_files)
+    attestation.environment['rbvf'] = rbvf
+    # FIXME: we need a more thorough  keygen information
+    generate_and_write_ed25519_keypair('rebuilder.key')
+    key = import_ed25519_privatekey_from_file('rebuilder.key')
+    signed_attestation = metadata.Metablock(signed=attestation)
+    signed_attestation.sign(key)
+    return signed_attestation
 
 
 def run_command(cmd, cwd=".", ignore_errors=False, capture=False, env={}, timeout=None):
@@ -496,6 +517,7 @@ def rebuild():
     checkout_commit()
     update_feeds()
     setup_config_buildinfo()
+    attestation = capture_materials()
     make("clean", "V=s")
     setup_key()
     make("tools/tar/compile")
@@ -513,6 +535,7 @@ def rebuild():
     compare_checksums()
     if use_diffoscope:
         diffoscope_multithread()
+    capture_products(attestation, rbvf=rbvf).dump('rebuild.link')
     rmtree(rebuild_path / target_dir)
 
 
