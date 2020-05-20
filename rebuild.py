@@ -144,50 +144,6 @@ def parse_origin_sha256sums():
     return parse_sha256sums(rebuild_path / "sha256sums_origin")
 
 
-def exchange_signature(origin_name):
-    origin_file = NamedTemporaryFile()
-    rebuild_file = rebuild_path / target_dir / origin_name
-    sig_path = rebuild_path.with_suffix(".sig")
-
-    if get_file(f"{origin_url}/{target_dir}/{origin_name}", origin_file.name):
-        print("Error downloading {}".format(origin_name))
-        origin_file.close()
-        return
-    # extract original signatur in temporary file
-    run_command(
-        [
-            rebuild_path / "staging_dir/host/bin/fwtool",
-            "-s",
-            sig_path,
-            origin_file.name,
-        ],
-        ignore_errors=True,
-    )
-    if sig_path.stat().st_size > 0:
-        # remove random signatur of rebuild
-        run_command(
-            [
-                rebuild_path / "staging_dir/host/bin/fwtool",
-                "-t",
-                "-s",
-                "/dev/null",
-                rebuild_file,
-            ],
-        )
-        # add original signature to rebuild file
-        run_command(
-            [
-                rebuild_path / "staging_dir/host/bin/fwtool",
-                "-S",
-                sig_path,
-                rebuild_file,
-            ],
-            ignore_errors=True,
-        )
-        print("Attached origin signature to {}".format(rebuild_file))
-    origin_file.close()
-
-
 def clone_git():
     # initial clone of openwrt.git
     if not rebuild_path.is_dir():
@@ -335,7 +291,6 @@ def make(*cmd):
             "make",
             "IGNORE_ERRORS='n m'",
             "BUILD_LOG=1",
-            f"BIN_DIR={rebuild_path}/{target_dir}",
             f"BUILD_LOG_DIR={results_path}/logs",
             f"-j{j}",
         ]
@@ -381,7 +336,7 @@ def parse_origin_packages():
 
 def compare_checksums():
     # iterate over all sums in origin sha256sums and check rebuild files
-    rebuild_sha256sums = parse_sha256sums(rebuild_path / target_dir / "sha256sums")
+    rebuild_sha256sums = parse_sha256sums(bin_path / target_dir / "sha256sums")
     packages = parse_origin_packages()
 
     for origin_name, origin_sum in parse_origin_sha256sums().items():
@@ -468,7 +423,7 @@ def diffoscope(result):
         [
             "diffoscope",
             origin_file.name,
-            rebuild_path / result["artifacts"]["binary_uri"],
+            bin_path / result["artifacts"]["binary_uri"],
             "--html",
             str(results_path / result["artifacts"]["binary_uri"]) + ".html",
         ],
@@ -513,7 +468,6 @@ def rebuild():
     compare_checksums()
     if use_diffoscope:
         diffoscope_multithread()
-    rmtree(rebuild_path / target_dir)
 
 
 if __name__ == "__main__":
