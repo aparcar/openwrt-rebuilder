@@ -336,7 +336,7 @@ def parse_origin_packages():
 
 def compare_checksums():
     # iterate over all sums in origin sha256sums and check rebuild files
-    rebuild_sha256sums = parse_sha256sums(bin_path / target_dir / "sha256sums")
+    rebuild_sha256sums = parse_sha256sums(bin_path / target / "sha256sums")
     packages = parse_origin_packages()
 
     for origin_name, origin_sum in parse_origin_sha256sums().items():
@@ -375,8 +375,8 @@ def compare_checksums():
                 except:
                     print(dict(pkg))
 
-                artifacts["diffoscope_html_uri"] = f"{target_dir}/{origin_name}.html"
-                artifacts["binary_uri"] = f"{target_dir}/{origin_name}"
+                artifacts["diffoscope_html_uri"] = f"{origin_name}.html"
+                artifacts["binary_uri"] = f"{origin_name}"
             else:
                 status = "reproducible"
             add_result(
@@ -393,8 +393,8 @@ def compare_checksums():
                 status = "notfound"
             elif origin_sum != rebuild_sha256sums[origin_name]:
                 status = "unreproducible"
-                artifacts["diffoscope_html_uri"] = f"{target_dir}/{origin_name}.html"
-                artifacts["binary_uri"] = f"{target_dir}/{origin_name}"
+                artifacts["diffoscope_html_uri"] = f"{origin_name}.html"
+                artifacts["binary_uri"] = f"{origin_name}"
             else:
                 status = "reproducible"
             add_result(
@@ -410,9 +410,9 @@ def diffoscope(result):
     Download file from openwrt server and compare it, store in output_path
     """
     origin_file = NamedTemporaryFile()
-    download_url = f'{origin_url}/{result["artifacts"]["binary_uri"]}'
+    download_url = f'{origin_url}/{target_dir}/{result["artifacts"]["binary_uri"]}'
 
-    if not (rebuild_path / result["artifacts"]["binary_uri"]).is_file():
+    if not (bin_path / target / result["artifacts"]["binary_uri"]).is_file():
         return
 
     if get_file(download_url, origin_file.name):
@@ -423,7 +423,7 @@ def diffoscope(result):
         [
             "diffoscope",
             origin_file.name,
-            bin_path / result["artifacts"]["binary_uri"],
+            bin_path / target / result["artifacts"]["binary_uri"],
             "--html",
             str(results_path / result["artifacts"]["binary_uri"]) + ".html",
         ],
@@ -437,7 +437,7 @@ def diffoscope(result):
 def diffoscope_multithread():
     """Run diffoscope over non reproducible files in all available threads"""
 
-    (results_path / target_dir / "packages").mkdir(exist_ok=True, parents=True)
+    (results_path / "packages").mkdir(exist_ok=True, parents=True)
     pool = Pool(cpu_count() + 1)
     pool.map(
         diffoscope, filter(lambda x: x["status"] == "unreproducible", rbvf["results"]),
@@ -464,6 +464,7 @@ def rebuild():
         add_kmods_feed()
     make("target/install")
     make("buildinfo", "V=s")
+    make("json_overview_image_info")
     make("checksum", "V=s")
     compare_checksums()
     if use_diffoscope:

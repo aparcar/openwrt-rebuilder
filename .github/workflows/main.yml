@@ -44,6 +44,9 @@ jobs:
         REBUILDER_NAME: "aparcar-openwrt-github"
         REBUILDER_URI: "https://github.com/aparcar/openwrt-rebuilder"
 
+    - name: Cleanup build root
+      run: rm -rf rebuild/staging_dir rebuild/build_dir
+
     - uses: jakejarvis/s3-sync-action@master
       with:
         args: --acl public-read --follow-symlinks --delete
