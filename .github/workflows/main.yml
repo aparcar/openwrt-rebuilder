@@ -10,19 +10,78 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: False
       matrix:
         target:
+          - apm821xx/nand
+          - apm821xx/sata
+          - archs38/generic
+          - armvirt/32
+          - armvirt/64
+          - at91/sam9x
+          - at91/sama5
+          - ath25/generic
           - ath79/generic
+          - ath79/mikrotik
+          - ath79/nand
+          - ath79/tiny
+          - bcm27xx/bcm2708
+          - bcm27xx/bcm2709
+          - bcm27xx/bcm2710
+          - bcm27xx/bcm2711
           - bcm47xx/generic
-          - lantiq/xrx200
+          - bcm47xx/legacy
+          - bcm47xx/mips74k
+          - bcm53xx/generic
+          - bcm63xx/generic
+          - bcm63xx/smp
+          - cns3xxx/generic
+          - gemini/generic
+          - imx6/generic
+          - ipq40xx/generic
+          - ipq806x/generic
           - kirkwood/generic
+          - lantiq/ase
+          - lantiq/falcon
+          - lantiq/xrx200
+          - lantiq/xway
+          - lantiq/xway_legacy
+          - layerscape/armv7
+          - layerscape/armv8_64b
+          - malta/be
+          - mediatek/mt7622
+          - mediatek/mt7623
+          - mediatek/mt7629
+          - mpc85xx/generic
+          - mpc85xx/p1020
+          - mpc85xx/p2020
+          - mvebu/cortexa53
+          - mvebu/cortexa72
+          - mvebu/cortexa9
+          - mxs/generic
+          - octeon/generic
+          - octeontx/generic
           - omap/generic
+          - oxnas/ox820
+          - pistachio/generic
           - ramips/mt7620
           - ramips/mt7621
+          - ramips/mt76x8
+          - ramips/rt288x
+          - ramips/rt305x
+          - ramips/rt3883
+          - rb532/generic
           - rockchip/armv8
+          - samsung/s5pv210
+          - sunxi/cortexa53
+          - sunxi/cortexa7
           - sunxi/cortexa8
           - tegra/generic
           - x86/64
+          - x86/generic
+          - x86/geode
+          - x86/legacy
+          - zynq/generic
 
     steps:
     - uses: actions/checkout@v2
