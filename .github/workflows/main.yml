@@ -15,7 +15,6 @@ jobs:
         target:
           - apm821xx/nand
           - apm821xx/sata
-          - archs38/generic
           - armvirt/32
           - armvirt/64
           - at91/sam9x
@@ -47,7 +46,6 @@ jobs:
           - lantiq/xway
           - lantiq/xway_legacy
           - layerscape/armv7
-          - layerscape/armv8_64b
           - malta/be
           - mediatek/mt7622
           - mediatek/mt7623
