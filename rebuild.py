@@ -334,12 +334,11 @@ def parse_origin_packages():
     return packages
 
 
-def compare_checksums():
+def compare_checksums(origin_sha256sums, origin_packages):
     # iterate over all sums in origin sha256sums and check rebuild files
     rebuild_sha256sums = parse_sha256sums(bin_path / target / "sha256sums")
-    packages = parse_origin_packages()
 
-    for origin_name, origin_sum in parse_origin_sha256sums().items():
+    for origin_name, origin_sum in origin_sha256sums.items():
         # except the meta files defined above
         if ignore_files.match(origin_name):
             print(f"Skipping file {origin_name}")
@@ -355,7 +354,7 @@ def compare_checksums():
 
             status = "untested"
 
-            pkg = packages.get(origin_name.split("/")[1], {})
+            pkg = origin_packages.get(origin_name.split("/")[1], {})
             if not pkg:
                 print(f"ERROR: {origin_name} not in upstream Packages")
                 continue
@@ -452,6 +451,8 @@ def rebuild():
     update_feeds()
     setup_config_buildinfo()
     make("clean", "V=s")
+    origin_packages = parse_origin_packages()
+    origin_sha256sums = parse_origin_sha256sums()
     setup_key()
     make("tools/tar/compile")
     make("tools/install")
@@ -466,7 +467,7 @@ def rebuild():
     make("buildinfo", "V=s")
     make("json_overview_image_info")
     make("checksum", "V=s")
-    compare_checksums()
+    compare_checksums(origin_sha256sums, origin_packages)
     if use_diffoscope:
         diffoscope_multithread()
 
