@@ -15,7 +15,7 @@ import json
 import re
 from datetime import datetime
 from multiprocessing import Pool, cpu_count
-from os import environ
+from os import environ, symlink
 from pathlib import Path
 from shutil import rmtree
 from subprocess import run
@@ -43,6 +43,8 @@ branch = environ.get("BRANCH", "master")
 rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "rebuild"))
 
 bin_path = rebuild_path / "bin/targets"
+
+dl_path = Path(environ.get("DL_PATH", rebuild_path / "dl"))
 
 # where to find the origin builds
 origin_url = environ.get("ORIGIN_URL", "https://downloads.cdn.openwrt.org")
@@ -74,9 +76,6 @@ ignore_files = re.compile(
             "openwrt-imagebuilder",
             "openwrt-sdk",
             "sha256sums.sig",
-            r".+\.buildinfo",
-            r".+\.json",
-            r".+\.manifest",
         ]
     )
 )
@@ -138,8 +137,7 @@ def parse_sha256sums(path: Path):
 
 def parse_origin_sha256sums():
     get_file(
-        f"{origin_url}/{target_dir}/sha256sums",
-        rebuild_path / "sha256sums_origin",
+        f"{origin_url}/{target_dir}/sha256sums", rebuild_path / "sha256sums_origin",
     )
     return parse_sha256sums(rebuild_path / "sha256sums_origin")
 
@@ -318,8 +316,7 @@ def add_result(component, target, name, version, cpe, status, artifacts):
 
 def parse_origin_packages():
     get_file(
-        f"{origin_url}/{target_dir}/packages/Packages",
-        rebuild_path / "Packages",
+        f"{origin_url}/{target_dir}/packages/Packages", rebuild_path / "Packages",
     )
     packages = {}
     linebuffer = ""
@@ -404,6 +401,16 @@ def compare_checksums(origin_sha256sums, origin_packages):
     run_command(["gzip", "-f", "-k", "rbvf.json"], results_path)
 
 
+def make_download():
+    if rebuild_path / "dl" != dl_path and not dl_path.exists():
+        print(f'Symlink {rebuild_path / "dl"} -> {dl_path.absolute()}')
+        symlink(
+            dl_path.absolute(), rebuild_path / "dl",
+        )
+
+    make("download")
+
+
 def diffoscope(result):
     """
     Download file from openwrt server and compare it, store in output_path
@@ -451,6 +458,7 @@ def rebuild():
     update_feeds()
     setup_config_buildinfo()
     make("clean", "V=s")
+    make_download()
     origin_packages = parse_origin_packages()
     origin_sha256sums = parse_origin_sha256sums()
     setup_key()

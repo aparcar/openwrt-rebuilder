@@ -6,11 +6,12 @@ variables:
   REBUILDER_CONTACT: "mail@aparcar.org"
   REBUILDER_NAME: "aparcar-openwrt-gitlab"
   REBUILDER_URI: "https://gitlab.com/aparcar/rebuild"
+  DL_PATH: "./dl"
   USE_DIFFOSCOPE: 1
 
 cache:
   paths:
-  - ./rebuild
+  - ./dl
 
 .rebuild:
   image:
@@ -18,6 +19,7 @@ cache:
     entrypoint: [""]
   stage: rebuild
   script:
+    - mkdir -p ./dl
     - python3 -u rebuild.py
   artifacts:
     paths:
