@@ -3,6 +3,7 @@ name: Rebuild OpenWrt
 on:
   push:
     branches: [ master ]
+
   schedule:
     - cron:  "0 0 * * *"
 
@@ -12,6 +13,8 @@ jobs:
     strategy:
       fail-fast: False
       matrix:
+        version:
+          - snapshot
         target:
           - apm821xx/nand
           - apm821xx/sata
@@ -113,12 +116,12 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_S3_ENDPOINT: https://images.aparcar.org
         SOURCE_DIR: rebuild/bin/targets/${{ matrix.target }}/
-        DEST_DIR: ${{ matrix.target }}/
+        DEST_DIR: snapshots/${{ matrix.target }}/
 
     - name: sanitize target
       run: echo ::set-env name=target_sani::$(echo ${{ matrix.target }} | tr "/" "_")
 
     - uses: actions/upload-artifact@v2
       with:
-        name: results-${{ env.target_sani }}
+        name: results-snapshots-${{ env.target_sani }}
         path: results/

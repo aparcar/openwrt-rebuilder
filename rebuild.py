@@ -36,9 +36,6 @@ target = environ.get("TARGET", "ath79/generic").replace("-", "/")
 # version to be build
 rebuild_version = environ.get("VERSION", "SNAPSHOT")
 
-# branch to be build
-branch = environ.get("BRANCH", "master")
-
 # where to build OpenWrt
 rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "rebuild"))
 
@@ -64,9 +61,11 @@ results_path = Path(environ.get("RESULTS_DIR", Path.cwd() / "results"))
 if rebuild_version == "SNAPSHOT":
     print("Using snapshots/")
     target_dir = f"snapshots/targets/{target}"
+    branch = "master"
 else:
     print(f"Using releases/{rebuild_version}/")
     target_dir = f"releases/{rebuild_version}/targets/{target}"
+    branch = f'openwrt-{rebuild_version.rsplit(".", maxsplit=1)[0]}'
 
 # ignore everything except packages and images
 ignore_files = re.compile(
@@ -220,6 +219,25 @@ def checkout_commit():
     print(f"Checking out {branch}")
     run_command(["git", "checkout", branch], rebuild_path)
     run_command(["git", "reset", "--hard", commit], rebuild_path)
+
+    if rebuild_version != "SNAPSHOT":
+        run_command(
+            ["git", "branch", "-f", "-D", f"v{rebuild_version}"],
+            rebuild_path,
+            ignore_errors=True,
+        )
+        run_command(
+            [
+                "git",
+                "checkout",
+                f"v{rebuild_version}",
+                "-f",
+                "-b",
+                f"v{rebuild_version}",
+            ],
+            rebuild_path,
+        )
+
     local_getver = run_command(
         ["bash", "./scripts/getver.sh"], rebuild_path, capture=True
     )

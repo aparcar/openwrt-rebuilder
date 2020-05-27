@@ -1,0 +1,63 @@
+name: Rebuild OpenWrt
+
+on:
+  push:
+    branches: [ master ]
+
+  schedule:
+    - cron:  "0 0 * * 0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: False
+      matrix:
+        version:
+          - 19.07.3
+        target:
+          - ath79/generic
+          - x86/64
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Install libncurses-dev
+      run: sudo apt-get install libncurses-dev
+
+    - name: Run rebuilder on ${{ matrix.target }}
+      run: python3 -u rebuild.py
+      env:
+        TARGET: ${{ matrix.target }}
+        REBUILDER_MAINTAINER: "Paul Spooren"
+        REBUILDER_CONTACT: "mail@aparcar.org"
+        REBUILDER_NAME: "aparcar-openwrt-github"
+        REBUILDER_URI: "https://github.com/aparcar/openwrt-rebuilder"
+        VERSION: ${{ matrix.version }}
+
+    - name: Cleanup build root
+      run: rm -rf rebuild/staging_dir rebuild/build_dir
+
+    - uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete
+      env:
+        AWS_S3_BUCKET: rebuild
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_S3_ENDPOINT: https://images.aparcar.org
+        SOURCE_DIR: rebuild/bin/targets/${{ matrix.target }}/
+        DEST_DIR: releases/${{ matrix.version }}/${{ matrix.target }}/
+
+    - name: sanitize target
+      run: echo ::set-env name=target_sani::$(echo ${{ matrix.target }} | tr "/" "_")
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: results-${{ matrix.version }}-${{ env.target_sani }}
+        path: results/
