@@ -13,8 +13,6 @@ jobs:
     strategy:
       fail-fast: False
       matrix:
-        version:
-          - snapshot
         target:
           - apm821xx/nand
           - apm821xx/sata
