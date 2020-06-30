@@ -1,4 +1,4 @@
-name: Rebuild OpenWrt
+name: Rebuild OpenWrt Release
 
 on:
   push:
