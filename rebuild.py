@@ -312,7 +312,6 @@ def make(*cmd):
         ]
         + list(cmd),
         rebuild_path,
-        capture=True,
     )
 
 
