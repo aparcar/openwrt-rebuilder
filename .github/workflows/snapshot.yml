@@ -11,73 +11,7 @@ jobs:
       fail-fast: False
       matrix:
         target:
-          - apm821xx/nand
-          - apm821xx/sata
-          - armvirt/32
-          - armvirt/64
-          - at91/sam9x
-          - at91/sama5
-          - ath25/generic
           - ath79/generic
-          - ath79/mikrotik
-          - ath79/nand
-          - ath79/tiny
-          - bcm27xx/bcm2708
-          - bcm27xx/bcm2709
-          - bcm27xx/bcm2710
-          - bcm27xx/bcm2711
-          - bcm47xx/generic
-          - bcm47xx/legacy
-          - bcm47xx/mips74k
-          - bcm53xx/generic
-          - bcm63xx/generic
-          - bcm63xx/smp
-          - cns3xxx/generic
-          - gemini/generic
-          - imx6/generic
-          - ipq40xx/generic
-          - ipq806x/generic
-          - kirkwood/generic
-          - lantiq/ase
-          - lantiq/falcon
-          - lantiq/xrx200
-          - lantiq/xway
-          - lantiq/xway_legacy
-          - layerscape/armv7
-          - malta/be
-          - mediatek/mt7622
-          - mediatek/mt7623
-          - mediatek/mt7629
-          - mpc85xx/generic
-          - mpc85xx/p1020
-          - mpc85xx/p2020
-          - mvebu/cortexa53
-          - mvebu/cortexa72
-          - mvebu/cortexa9
-          - mxs/generic
-          - octeon/generic
-          - octeontx/generic
-          - omap/generic
-          - oxnas/ox820
-          - pistachio/generic
-          - ramips/mt7620
-          - ramips/mt7621
-          - ramips/mt76x8
-          - ramips/rt288x
-          - ramips/rt305x
-          - ramips/rt3883
-          - rb532/generic
-          - rockchip/armv8
-          - samsung/s5pv210
-          - sunxi/cortexa53
-          - sunxi/cortexa7
-          - sunxi/cortexa8
-          - tegra/generic
-          - x86/64
-          - x86/generic
-          - x86/geode
-          - x86/legacy
-          - zynq/generic
 
     steps:
     - uses: actions/checkout@v2
@@ -101,17 +35,6 @@ jobs:
 
     - name: Cleanup build root
       run: rm -rf rebuild/staging_dir rebuild/build_dir
-
-    - uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --acl public-read --follow-symlinks --delete
-      env:
-        AWS_S3_BUCKET: rebuild
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_S3_ENDPOINT: https://images.aparcar.org
-        SOURCE_DIR: rebuild/bin/targets/${{ matrix.target }}/
-        DEST_DIR: snapshots/${{ matrix.target }}/
 
     - name: sanitize target
       run: echo ::set-env name=target_sani::$(echo ${{ matrix.target }} | tr "/" "_")
