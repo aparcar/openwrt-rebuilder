@@ -17,7 +17,6 @@ from datetime import datetime
 from multiprocessing import Pool, cpu_count
 from os import environ, symlink
 from pathlib import Path
-from shutil import rmtree
 from subprocess import run
 from tempfile import NamedTemporaryFile
 from urllib.request import urlopen
@@ -451,7 +450,7 @@ def diffoscope(result):
             str(results_path / result["artifacts"]["binary_uri"]) + ".html",
         ],
         ignore_errors=True,
-        timeout=180,
+        timeout=300,
     )
 
     origin_file.close()
