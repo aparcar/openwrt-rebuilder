@@ -17,6 +17,7 @@ jobs:
           - 19.07.4
         target:
           - "ath79/generic"
+          - "x86/64"
 
     steps:
     - uses: actions/checkout@v2
@@ -27,7 +28,9 @@ jobs:
         python-version: 3.8
 
     - name: Install dependencies
-      run: sudo apt-get install libncurses-dev diffoscope
+      run: |
+        sudo apt-get install libncurses-dev python3-pip diffoscope
+        pip3 install diffoscope
 
     - name: Run rebuilder on ${{ matrix.target }}
       run: python3 -u rebuild.py
@@ -43,8 +46,8 @@ jobs:
     - name: Cleanup build root
       run: rm -rf rebuild/staging_dir rebuild/build_dir
 
-    - name: sanitize target
-      run: echo ::set-env name=target_sani::$(echo ${{ matrix.target }} | tr "/" "_")
+    - name: Sanitize target
+      run: echo "target_sani=$(echo ${{ matrix.target }} | tr '/' '_')" >> "$GITHUB_ENV"
 
     - uses: actions/upload-artifact@v2
       with:
