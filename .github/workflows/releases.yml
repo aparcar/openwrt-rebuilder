@@ -3,12 +3,12 @@ name: Rebuild OpenWrt Release
 on:
   push:
     branches: [ master ]
-
   schedule:
-    - cron:  "0 0 * * 0"
+    - cron:  "0 0 * * 1"
 
 jobs:
   build:
+    name: ${{ matrix.version }} - ${{ matrix.target }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: False
@@ -26,8 +26,8 @@ jobs:
       with:
         python-version: 3.8
 
-    - name: Install libncurses-dev
-      run: sudo apt-get install libncurses-dev
+    - name: Install dependencies
+      run: sudo apt-get install libncurses-dev diffoscope
 
     - name: Run rebuilder on ${{ matrix.target }}
       run: python3 -u rebuild.py
@@ -38,6 +38,7 @@ jobs:
         REBUILDER_NAME: "aparcar-openwrt-github"
         REBUILDER_URI: "https://github.com/aparcar/openwrt-rebuilder"
         VERSION: ${{ matrix.version }}
+        USE_DIFFOSCOPE: True
 
     - name: Cleanup build root
       run: rm -rf rebuild/staging_dir rebuild/build_dir
@@ -49,3 +50,11 @@ jobs:
       with:
         name: results-${{ matrix.version }}-${{ env.target_sani }}
         path: results/
+
+    - name: Deploy GitHub page
+      uses: peaceiris/actions-gh-pages@v3.7.0-6
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./results/
+        destination_dir: ./${{ matrix.version }}/${{ matrix.target }}/
+        keep_files: true
