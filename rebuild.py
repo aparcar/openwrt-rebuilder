@@ -86,7 +86,9 @@ rbvf = {
 }
 
 
-def run_command(cmd, cwd=".", ignore_errors=False, capture=False, env={}, timeout=None):
+def run_command(
+    cmd, cwd=".", ignore_errors=False, capture=False, env={}, timeout=None, shell=False
+):
     """
     Run a command in shell
     """
@@ -100,6 +102,7 @@ def run_command(cmd, cwd=".", ignore_errors=False, capture=False, env={}, timeou
         text=True,
         env=current_env,
         timeout=timeout,
+        shell=shell,
     )
 
     if proc.returncode and not ignore_errors:
@@ -135,7 +138,8 @@ def parse_sha256sums(path: Path):
 
 def parse_origin_sha256sums():
     get_file(
-        f"{origin_url}/{target_dir}/sha256sums", rebuild_path / "sha256sums_origin",
+        f"{origin_url}/{target_dir}/sha256sums",
+        rebuild_path / "sha256sums_origin",
     )
     return parse_sha256sums(rebuild_path / "sha256sums_origin")
 
@@ -165,7 +169,9 @@ def setup_config_buildinfo():
 
 def setup_feeds_buildinfo():
     # download origin buildinfo file containing the feeds
-    feeds = get_file(f"{origin_url}/{target_dir}/feeds.buildinfo",)
+    feeds = get_file(
+        f"{origin_url}/{target_dir}/feeds.buildinfo",
+    )
     feeds = feeds.replace("git.openwrt.org/project/luci", "github.com/openwrt/luci")
     feeds = feeds.replace(
         "git.openwrt.org/feed/routing", "github.com/openwrt-routing/packages"
@@ -332,7 +338,8 @@ def add_result(component, target, name, version, cpe, status, artifacts):
 
 def parse_origin_packages():
     get_file(
-        f"{origin_url}/{target_dir}/packages/Packages", rebuild_path / "Packages",
+        f"{origin_url}/{target_dir}/packages/Packages",
+        rebuild_path / "Packages",
     )
     packages = {}
     linebuffer = ""
@@ -410,7 +417,13 @@ def compare_checksums(origin_sha256sums, origin_packages):
             else:
                 status = "reproducible"
             add_result(
-                "images", target, origin_name, commit, "", status, artifacts,
+                "images",
+                target,
+                origin_name,
+                commit,
+                "",
+                status,
+                artifacts,
             )
 
     Path(results_path / "rbvf.json").write_text(json.dumps(rbvf, indent="    "))
@@ -421,7 +434,8 @@ def make_download():
     if rebuild_path / "dl" != dl_path and not dl_path.exists():
         print(f'Symlink {rebuild_path / "dl"} -> {dl_path.absolute()}')
         symlink(
-            dl_path.absolute(), rebuild_path / "dl",
+            dl_path.absolute(),
+            rebuild_path / "dl",
         )
 
     make("download")
@@ -441,17 +455,23 @@ def diffoscope(result):
         print("Error downloading {}".format(download_url))
         return
 
-    run_command(
-        [
-            "diffoscope",
-            origin_file.name,
-            bin_path / target / result["artifacts"]["binary_uri"],
-            "--html",
-            str(results_path / result["artifacts"]["binary_uri"]) + ".html",
-        ],
-        ignore_errors=True,
-        timeout=300,
-    )
+    try:
+        run_command(
+            [
+                "diffoscope",
+                origin_file.name,
+                bin_path / target / result["artifacts"]["binary_uri"],
+                "--html",
+                str(results_path / result["artifacts"]["binary_uri"]) + ".html",
+            ],
+            ignore_errors=True,
+            timeout=60,
+            shell=True,
+        )
+    except Exception as e:
+        print(
+            f"Diffoscope failed on comparing {result['artifacts']['binary_uri']} with {e}"
+        )
 
     origin_file.close()
 
@@ -462,7 +482,8 @@ def diffoscope_multithread():
     (results_path / "packages").mkdir(exist_ok=True, parents=True)
     pool = Pool(cpu_count() + 1)
     pool.map(
-        diffoscope, filter(lambda x: x["status"] == "unreproducible", rbvf["results"]),
+        diffoscope,
+        filter(lambda x: x["status"] == "unreproducible", rbvf["results"]),
     )
 
 
