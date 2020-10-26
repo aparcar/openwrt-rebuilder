@@ -1,4 +1,4 @@
-name: Rebuild OpenWrt Release
+name: Rebuild OpenWrt
 
 on:
   push:
@@ -14,6 +14,7 @@ jobs:
       fail-fast: False
       matrix:
         version:
+          - SNAPSHOT
           - 19.07.4
         target:
           - "ath79/generic"
