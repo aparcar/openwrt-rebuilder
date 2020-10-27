@@ -54,7 +54,9 @@ use_diffoscope = environ.get("USE_DIFFOSCOPE", False)
 j = environ.get("j", cpu_count() + 1)
 
 # where to store rendered html and diffoscope output
-results_path = Path(environ.get("RESULTS_DIR", Path.cwd() / "results"))
+results_path = Path(
+    environ.get("RESULTS_DIR", Path.cwd() / f"results/{rebuild_version}/{target}")
+)
 
 
 if rebuild_version == "SNAPSHOT":
@@ -426,6 +428,7 @@ def compare_checksums(origin_sha256sums, origin_packages):
                 artifacts,
             )
 
+    results_path.mkdir(exist_ok=True, parents=True)
     Path(results_path / "rbvf.json").write_text(json.dumps(rbvf, indent="    "))
     run_command(["gzip", "-f", "-k", "rbvf.json"], results_path)
 
@@ -457,15 +460,15 @@ def diffoscope(result):
 
     try:
         run_command(
-            [
+            " ".join([
                 "diffoscope",
                 origin_file.name,
-                bin_path / target / result["artifacts"]["binary_uri"],
+                str(bin_path / target / result["artifacts"]["binary_uri"]),
                 "--html",
                 str(results_path / result["artifacts"]["binary_uri"]) + ".html",
-            ],
+            ]),
             ignore_errors=True,
-            timeout=60,
+            timeout=180,
             shell=True,
         )
     except Exception as e:

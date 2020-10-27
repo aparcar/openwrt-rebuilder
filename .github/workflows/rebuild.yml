@@ -41,6 +41,7 @@ jobs:
         REBUILDER_CONTACT: "mail@aparcar.org"
         REBUILDER_NAME: "aparcar-openwrt-github"
         REBUILDER_URI: "https://github.com/aparcar/openwrt-rebuilder"
+        RESULTS_DIR: ./results
         VERSION: ${{ matrix.version }}
         USE_DIFFOSCOPE: True
 
