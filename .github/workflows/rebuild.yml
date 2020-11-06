@@ -31,7 +31,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install libncurses-dev python3-pip diffoscope
-        pip3 install diffoscope
+        pip3 install diffoscope==151
 
     - name: Run rebuilder on ${{ matrix.target }}
       run: python3 -u rebuild.py
