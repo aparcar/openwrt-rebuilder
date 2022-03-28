@@ -1,10 +1,8 @@
 name: Rebuild OpenWrt
 
 on:
-  push:
-    branches: [ master ]
-  schedule:
-    - cron:  "0 0 * * 1"
+  - push
+  - workflow_dispatch
 
 jobs:
   build:
@@ -15,51 +13,73 @@ jobs:
       matrix:
         version:
           - SNAPSHOT
-          - 19.07.4
         target:
           - "ath79/generic"
+          - "ipq40xx/generic"
+          - "mediatek/mt7622"
+          - "ramips/mt7621"
+          - "x86/generic"
           - "x86/64"
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.10"
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
+      - name: Install dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install libncurses-dev qemu-utils clang-12 \
+            build-essential ccache ecj fastjar file g++ gawk \
+            gettext git java-propose-classpath libelf-dev libncurses5-dev \
+            libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
+            python3-distutils python3-setuptools python3-dev rsync subversion \
+            swig time xsltproc zlib1g-dev mkisofs
+          sudo apt-get -y install \
+            diffoscope \
+            python3-pip \
+            u-boot-tools \
+            squashfs-tools \
+            libguestfs-tools \
+            disorderfs
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get install libncurses-dev python3-pip diffoscope
-        pip3 install diffoscope==151
+          pip install diffoscope
 
-    - name: Run rebuilder on ${{ matrix.target }}
-      run: python3 -u rebuild.py
-      env:
-        TARGET: ${{ matrix.target }}
-        REBUILDER_MAINTAINER: "Paul Spooren"
-        REBUILDER_CONTACT: "mail@aparcar.org"
-        REBUILDER_NAME: "aparcar-openwrt-github"
-        REBUILDER_URI: "https://github.com/aparcar/openwrt-rebuilder"
-        RESULTS_DIR: ./results
-        VERSION: ${{ matrix.version }}
-        USE_DIFFOSCOPE: True
+      - name: Setup disorderfs
+        run: |
+          mkdir -p original reversed
+          disorderfs original reversed
 
-    - name: Cleanup build root
-      run: rm -rf rebuild/staging_dir rebuild/build_dir
+      - uses: actions/checkout@v2
+        with:
+          path: reversed/
 
-    - name: Sanitize target
-      run: echo "target_sani=$(echo ${{ matrix.target }} | tr '/' '_')" >> "$GITHUB_ENV"
+      - name: Run rebuilder on ${{ matrix.target }}
+        run: |
+          cd reversed/
+          python3 -u rebuild.py
+        env:
+          TARGET: ${{ matrix.target }}
+          RESULTS_DIR: ./results
+          VERSION: ${{ matrix.version }}
+          USE_DIFFOSCOPE: True
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: results-${{ matrix.version }}-${{ env.target_sani }}
-        path: results/
+      - name: Cleanup build root
+        run: |
+          rm -rf original/rebuild/staging_dir original/rebuild/build_dir
 
-    - name: Deploy GitHub page
-      uses: peaceiris/actions-gh-pages@v3.7.0-6
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./results/
-        destination_dir: ./${{ matrix.version }}/${{ matrix.target }}/
-        keep_files: true
+      - name: Sanitize target
+        run: echo "target_sani=$(echo ${{ matrix.target }} | tr '/' '_')" >> "$GITHUB_ENV"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: rebuild-${{ matrix.version }}-${{ env.target_sani }}
+          path: original/rebuild/bin/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: results-${{ matrix.version }}-${{ env.target_sani }}
+          path: original/results/

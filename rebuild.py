@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright © 2019 Paul Spooren <mail@aparcar.org>
+# Copyright © 2022 Paul Spooren <mail@aparcar.org>
 #
 # Based on the reproducible_openwrt.sh
 #   © 2014-2019 Holger Levsen <holger@layer-acht.org>
@@ -13,6 +13,7 @@
 import email.parser
 import json
 import re
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from multiprocessing import Pool, cpu_count
 from os import environ, symlink
@@ -21,12 +22,36 @@ from subprocess import run
 from tempfile import NamedTemporaryFile
 from urllib.request import urlopen
 
-rebuilder = {
-    "maintainer": environ.get("REBUILDER_MAINTAINER", "unknown"),
-    "contact": environ.get("REBUILDER_CONTACT", "unknown"),
-    "name": environ.get("REBUILDER_NAME", "unknown"),
-    "uri": environ.get("REBUILDER_URI", "unknown"),
-}
+
+@dataclass
+class Result:
+    name: str
+    version: str
+    arch: str
+    distribution: str
+    status: str
+    metadata: dict = field(default_factory=dict)
+    log: str = None
+    epoch: int = 0
+    diffoscope: str = None
+    files: dict = field(default_factory=dict)
+
+
+@dataclass
+class Results:
+    reproducible: list[Result] = field(default_factory=list)
+    pending: list[Result] = field(default_factory=list)
+    unreproducible: list[Result] = field(default_factory=list)
+    notfound: list[Result] = field(default_factory=list)
+
+
+@dataclass
+class Suite:
+    packages: Results = field(default_factory=Results)
+    images: Results = field(default_factory=Results)
+
+
+suite = Suite()
 
 
 # target to be build
@@ -38,12 +63,12 @@ rebuild_version = environ.get("VERSION", "SNAPSHOT")
 # where to build OpenWrt
 rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "rebuild"))
 
-bin_path = rebuild_path / "bin/targets"
+bin_path = rebuild_path / "bin/"
 
 dl_path = Path(environ.get("DL_PATH", rebuild_path / "dl"))
 
 # where to find the origin builds
-origin_url = environ.get("ORIGIN_URL", "https://downloads.cdn.openwrt.org")
+origin_url = environ.get("ORIGIN_URL", "https://downloads.openwrt.org")
 
 # where to get the openwrt source git
 openwrt_git = environ.get("OPENWRT_GIT", "https://github.com/openwrt/openwrt.git")
@@ -61,31 +86,14 @@ results_path = Path(
 
 if rebuild_version == "SNAPSHOT":
     print("Using snapshots/")
-    target_dir = f"snapshots/targets/{target}"
+    release_dir = "snapshots"
+    target_dir = f"{release_dir}/targets/{target}"
     branch = "master"
 else:
     print(f"Using releases/{rebuild_version}/")
-    target_dir = f"releases/{rebuild_version}/targets/{target}"
+    release_dir = f"releases/{rebuild_version}"
+    target_dir = f"{release_dir}/targets/{target}"
     branch = f'openwrt-{rebuild_version.rsplit(".", maxsplit=1)[0]}'
-
-# ignore everything except packages and images
-ignore_files = re.compile(
-    "|".join(
-        [
-            "kernel-debug.tar.bz2",
-            "openwrt-imagebuilder",
-            "openwrt-sdk",
-            "sha256sums.sig",
-        ]
-    )
-)
-
-rbvf = {
-    "origin_uri": origin_url,
-    "origin_name": "openwrt",
-    "results": [],
-    "rebuilder": rebuilder,
-}
 
 
 def run_command(
@@ -94,7 +102,7 @@ def run_command(
     """
     Run a command in shell
     """
-    print("Running {} in {}".format(cmd, cwd))
+    print(f"Running {cmd} in {cwd}")
     current_env = environ.copy()
     current_env.update(env)
     proc = run(
@@ -105,10 +113,11 @@ def run_command(
         env=current_env,
         timeout=timeout,
         shell=shell,
+        umask=0o22,
     )
 
     if proc.returncode and not ignore_errors:
-        print("Error running {}".format(cmd))
+        print(f"Error running {cmd}")
         quit()
 
     if capture:
@@ -117,7 +126,7 @@ def run_command(
 
 
 # return content of online file or stores it locally if path is given
-def get_file(url, path=None):
+def get_file(url, path=None, json_content=False):
     print(f"Downloading {url}")
     try:
         content = urlopen(url).read()
@@ -126,11 +135,15 @@ def get_file(url, path=None):
         return 1
 
     if path:
-        print("storing to {}".format(path))
+        print(f"Storing to {path}")
         Path(path).write_bytes(content)
         return 0
+
     else:
-        return content.decode()
+        if json_content:
+            return json.loads(content.decode())
+        else:
+            return content.decode()
 
 
 # parse the origin sha256sums file from openwrt
@@ -164,7 +177,8 @@ def setup_config_buildinfo():
 
     # don't build imagebuilder or sdk to save some time
     (rebuild_path / ".config").write_text(
-        config_content + "\nCONFIG_COLLECT_KERNEL_DEBUG=n\nCONFIG_IB=n\nCONFIG_SDK=n\n"
+        config_content
+        + "\nCONFIG_COLLECT_KERNEL_DEBUG=n\nCONFIG_IB=n\nCONFIG_SDK=n\nCONFIG_BPF_TOOLCHAIN_HOST=y\nCONFIG_MAKE_TOOLCHAIN=n\n"
     )
     make("defconfig")
 
@@ -173,16 +187,6 @@ def setup_feeds_buildinfo():
     # download origin buildinfo file containing the feeds
     feeds = get_file(
         f"{origin_url}/{target_dir}/feeds.buildinfo",
-    )
-    feeds = feeds.replace("git.openwrt.org/project/luci", "github.com/openwrt/luci")
-    feeds = feeds.replace(
-        "git.openwrt.org/feed/routing", "github.com/openwrt-routing/packages"
-    )
-    feeds = feeds.replace(
-        "git.openwrt.org/feed/telephony", "github.com/openwrt/telephony"
-    )
-    feeds = feeds.replace(
-        "git.openwrt.org/feed/packages", "github.com/openwrt/packages"
     )
     (rebuild_path / "feeds.conf").write_text(feeds)
     print(feeds)
@@ -196,28 +200,6 @@ def setup_version_buildinfo():
     print(f"Remote getver.sh: {commit_string}")
     # ... and parse the actual commit to checkout
     commit = commit_string.split("-")[1]
-
-
-def setup_key():
-    """Add fake but reproducible keys"""
-
-    # insecure private key to build the images
-    (rebuild_path / "key-build").write_text("# fake private key")
-
-    (rebuild_path / "key-build.ucert").write_text("# fake certificate")
-
-    # spoof the official openwrt public key to prevent adding another key in the binary
-    if rebuild_version == "SNAPSHOT":
-        usign_key = "OpenWrt snapshot release signature\n"
-        usign_key += "RWS1BD5w+adc3j2Hqg9+b66CvLR7NlHbsj7wjNVj0XGt/othDgIAOJS+"
-    else:
-        usign_key = "OpenWrt 19.07 release signature\n"
-        usign_key += "RWT5S53W/rrJY9BiIod3JF04AZ/eU1xDpVOb+rjZzAQBEcoETGx8BXEK"
-
-    (rebuild_path / "key-build.pub").write_text(usign_key)
-
-    # this specific key is odly chmodded to 600
-    (rebuild_path / "key-build.pub").chmod(0o600)
 
 
 def checkout_commit():
@@ -258,52 +240,7 @@ def update_feeds():
     run_command(["./scripts/feeds", "install", "-a"], rebuild_path)
 
 
-def add_kmods_feed():
-    """Add kmod feed to image
-
-    Snapshot builds contain a special feeds pointing to compatible kmods
-    """
-    target_staging_dir = Path(
-        run_command(
-            ["make", "--no-print-directory", "val.STAGING_DIR_ROOT"],
-            rebuild_path,
-            capture=True,
-            env={"TOPDIR": rebuild_path, "INCLUDE_DIR": rebuild_path / "include"},
-        ).strip()
-    )
-
-    kernelversion = "-".join(
-        run_command(
-            [
-                "make",
-                "--no-print-directory",
-                "-C",
-                "target/linux/",
-                "val.LINUX_VERSION",
-                "val.LINUX_RELEASE",
-                "val.LINUX_VERMAGIC",
-            ],
-            rebuild_path,
-            capture=True,
-            env={"TOPDIR": rebuild_path, "INCLUDE_DIR": rebuild_path / "include"},
-        ).splitlines()
-    )
-
-    distfeeds_orig = (target_staging_dir / "etc/opkg/distfeeds.conf").read_text()
-
-    distfeeds_kmods = re.sub(
-        r"^(src/gz .*)_core (.*)/packages\n",
-        r"\1_core \2/packages\n\1_kmods \2/kmods/{}\n".format(kernelversion),
-        distfeeds_orig,
-        re.MULTILINE,
-    )
-
-    print(distfeeds_kmods)
-    (rebuild_path / "files/etc/opkg").mkdir(parents=True, exist_ok=True)
-    (rebuild_path / "files/etc/opkg/distfeeds.conf").write_text(distfeeds_kmods)
-
-
-def make(*cmd):
+def make(*cmd, j=j):
     """Convinience function to run make
 
     Autoamtically run multithreaded and creates logs
@@ -322,30 +259,10 @@ def make(*cmd):
     )
 
 
-def add_result(component, target, name, version, cpe, status, artifacts):
-    rbvf["results"].append(
-        {
-            "suite": rebuild_version,
-            "component": component,
-            "target": target,
-            "build_date": int(datetime.utcnow().timestamp()),
-            "name": name,
-            "version": version,
-            "cpe": cpe,
-            "status": status,
-            "artifacts": artifacts,
-        }
-    )
-
-
-def parse_origin_packages():
-    get_file(
-        f"{origin_url}/{target_dir}/packages/Packages",
-        rebuild_path / "Packages",
-    )
+def parse_packages(packages_str):
     packages = {}
     linebuffer = ""
-    for line in (rebuild_path / "Packages").read_text().splitlines():
+    for line in packages_str.splitlines():
         if line == "":
             parser = email.parser.Parser()
             package = parser.parsestr(linebuffer)
@@ -356,81 +273,87 @@ def parse_origin_packages():
     return packages
 
 
-def compare_checksums(origin_sha256sums, origin_packages):
-    # iterate over all sums in origin sha256sums and check rebuild files
-    rebuild_sha256sums = parse_sha256sums(bin_path / target / "sha256sums")
+def parse_profiles(profiles_uri):
+    if not isinstance(profiles_uri, Path):
+        profiles = get_file(
+            f"{origin_url}/{target_dir}/profiles.json", json_content=True
+        )
+    else:
+        profiles = json.loads(profiles_uri.read_text())
 
-    for origin_name, origin_sum in origin_sha256sums.items():
-        # except the meta files defined above
-        if ignore_files.match(origin_name):
-            print(f"Skipping file {origin_name}")
-            continue
+    files = {}
 
-        print("checking {}".format(origin_name))
-        artifacts = {}
+    for _, profile in profiles["profiles"].items():
+        for image in profile["images"]:
+            files[image["name"]] = image["sha256"]
 
-        # files ending with ipk are considered packages
-        if origin_name.startswith("packages/"):
-            if not origin_name.endswith(".ipk"):
-                continue
+    return files
 
-            status = "untested"
 
-            pkg = origin_packages.get(origin_name.split("/")[1], {})
-            if not pkg:
-                print(f"ERROR: {origin_name} not in upstream Packages")
-                continue
+def compare_profiles(profiles_origin):
+    profiles_rebuild = parse_profiles(bin_path / "targets" / target / "profiles.json")
 
-            if origin_name not in rebuild_sha256sums:
-                status = "notfound"
-            elif origin_sum != rebuild_sha256sums[origin_name]:
-                status = "unreproducible"
-                try:
-                    artifacts["buildlog_uri"] = str(
-                        results_path
-                        / "logs/package"
-                        / pkg["Section"]
-                        / pkg["Package"]
-                        / "compile.txt"
-                    )
-                except:
-                    print(dict(pkg))
-
-                artifacts["diffoscope_html_uri"] = f"{origin_name}.html"
-                artifacts["binary_uri"] = f"{origin_name}"
-            else:
-                status = "reproducible"
-            add_result(
-                "packages",
-                target,
-                pkg.get("Package"),
-                pkg.get("Version"),
-                pkg.get("CPE-ID", ""),
-                status,
-                artifacts,
-            )
+    for filename_origin, checksum_origin in profiles_origin.items():
+        name = filename_origin
+        diffoscope = None
+        if filename_origin not in profiles_rebuild:
+            status = "notfound"
+        elif checksum_origin != profiles_rebuild[filename_origin]:
+            status = "unreproducible"
+            diffoscope = f"{filename_origin}.html"
         else:
-            if origin_name not in rebuild_sha256sums:
-                status = "notfound"
-            elif origin_sum != rebuild_sha256sums[origin_name]:
-                status = "unreproducible"
-                artifacts["diffoscope_html_uri"] = f"{origin_name}.html"
-                artifacts["binary_uri"] = f"{origin_name}"
-            else:
-                status = "reproducible"
-            add_result(
-                "images",
-                target,
-                origin_name,
-                commit,
-                "",
-                status,
-                artifacts,
-            )
+            status = "reproducible"
 
-    results_path.mkdir(exist_ok=True, parents=True)
-    Path(results_path / "rbvf.json").write_text(json.dumps(rbvf, indent="    "))
-    run_command(["gzip", "-f", "-k", "rbvf.json"], results_path)
+        getattr(getattr(suite, "images"), status).append(
+            Result(
+                name=name,
+                version=commit,
+                arch=target,
+                distribution="openwrt",
+                status=status,
+                diffoscope=diffoscope,
+                log=None,
+                files={status: [f"targets/{target}/{filename_origin}"]},
+            )
+        )
+
+
+def compare_packages(packages_origin, rebuild_path):
+
+    packages_rebuild = parse_packages(
+        (bin_path / rebuild_path / "Packages").read_text()
+    )
+
+    for package_origin, data_origin in packages_origin.items():
+        diffoscope = None
+        if package_origin not in packages_rebuild:
+            status = "notfound"
+        elif data_origin["SHA256sum"] != packages_rebuild[package_origin]["SHA256sum"]:
+            status = "unreproducible"
+            diffoscope = f"{package_origin}.html"
+        else:
+            status = "reproducible"
+
+        getattr(getattr(suite, "packages"), status).append(
+            Result(
+                name=data_origin["Package"],
+                version=data_origin["Version"],
+                arch=data_origin["Architecture"],
+                distribution="openwrt",
+                status=status,
+                diffoscope=diffoscope,
+                log=f'logs/package/{data_origin["Section"]}/{data_origin["Package"]}/{"compile.txt"}',
+                files={status: [f"{rebuild_path}/{package_origin}"]},
+            )
+        )
+
+
+def compare_packages_target(packages_origin):
+    compare_packages(packages_origin, f"targets/{target}/packages")
+
+
+def compare_packages_base(packages_origin):
+    compare_packages(packages_origin, f"packages/{get_arch()}/base")
 
 
 def make_download():
@@ -449,45 +372,59 @@ def diffoscope(result):
     Download file from openwrt server and compare it, store in output_path
     """
     origin_file = NamedTemporaryFile()
-    download_url = f'{origin_url}/{target_dir}/{result["artifacts"]["binary_uri"]}'
+    rebuild_file = bin_path / result.files["unreproducible"][0]
 
-    if not (bin_path / target / result["artifacts"]["binary_uri"]).is_file():
+    if not rebuild_file.is_file():
+        print(f"Not found: {rebuild_file}")
         return
 
+    download_url = f'{origin_url}/{release_dir}/{result.files["unreproducible"][0]}'
     if get_file(download_url, origin_file.name):
-        print("Error downloading {}".format(download_url))
+        print(f"Error downloading {download_url}")
         return
 
     try:
         run_command(
-            " ".join([
-                "diffoscope",
-                origin_file.name,
-                str(bin_path / target / result["artifacts"]["binary_uri"]),
-                "--html",
-                str(results_path / result["artifacts"]["binary_uri"]) + ".html",
-            ]),
+            " ".join(
+                [
+                    "diffoscope",
+                    origin_file.name,
+                    str(rebuild_file),
+                    "--html",
+                    str(results_path / result.diffoscope),
+                ]
+            ),
             ignore_errors=True,
             timeout=180,
             shell=True,
         )
     except Exception as e:
         print(
-            f"Diffoscope failed on comparing {result['artifacts']['binary_uri']} with {e}"
+            f'Diffoscope failed on comparing {result.files["unreproducible"][0]} with {e}'
         )
 
     origin_file.close()
+
+
+def get_arch():
+    return run_command(
+        ["make", "--no-print-directory", "val.ARCH_PACKAGES"],
+        rebuild_path,
+        capture=True,
+        env={"TOPDIR": rebuild_path, "INCLUDE_DIR": rebuild_path / "include"},
+    ).strip()
 
 
 def diffoscope_multithread():
     """Run diffoscope over non reproducible files in all available threads"""
 
     (results_path / "packages").mkdir(exist_ok=True, parents=True)
-    pool = Pool(cpu_count() + 1)
-    pool.map(
-        diffoscope,
-        filter(lambda x: x["status"] == "unreproducible", rbvf["results"]),
-    )
+    # pool = Pool(cpu_count() + 1)
+    pool = Pool(1)
+    for kind in ["images", "packages"]:
+        for result in getattr(suite, kind).unreproducible:
+            print(f"Compare {kind}/{result.name}")
+            diffoscope(result)
 
 
 def rebuild():
@@ -497,11 +434,16 @@ def rebuild():
     checkout_commit()
     update_feeds()
     setup_config_buildinfo()
-    make("clean", "V=s")
     make_download()
-    origin_packages = parse_origin_packages()
-    origin_sha256sums = parse_origin_sha256sums()
-    setup_key()
+
+    packages_origin_base = parse_packages(
+        get_file(f"{origin_url}/{release_dir}/packages/{get_arch()}/base/Packages")
+    )
+    packages_origin_target = parse_packages(
+        get_file(f"{origin_url}/{target_dir}/packages/Packages")
+    )
+    profiles_origin = parse_profiles(f"{origin_url}/{target_dir}/profiles.json")
+
     make("tools/tar/compile")
     make("tools/install")
     make("toolchain/install")
@@ -509,13 +451,20 @@ def rebuild():
     make("package/compile")
     make("package/install")
     make("package/index", "CONFIG_SIGNED_PACKAGES=")
-    if rebuild_version == "SNAPSHOT":
-        add_kmods_feed()
     make("target/install")
     make("buildinfo", "V=s")
-    make("json_overview_image_info")
+    make("json_overview_image_info", "V=s", j=1)
     make("checksum", "V=s")
-    compare_checksums(origin_sha256sums, origin_packages)
+
+    compare_profiles(profiles_origin)
+    compare_packages_base(packages_origin_base)
+    compare_packages_target(packages_origin_target)
+
+    results_path.mkdir(exist_ok=True, parents=True)
+    Path(results_path / "output.json").write_text(
+        json.dumps({rebuild_version: {target: asdict(suite)}}, indent="    ")
+    )
+
     if use_diffoscope:
         diffoscope_multithread()
 
