@@ -379,7 +379,7 @@ def diffoscope(result):
         return
 
     download_url = f'{origin_url}/{release_dir}/{result.files["unreproducible"][0]}'
-    if get_file(download_url, origin_file.name):
+    if get_file(download_url, str(origin_file)):
         print(f"Error downloading {download_url}")
         return
 
