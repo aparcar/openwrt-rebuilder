@@ -371,8 +371,8 @@ def diffoscope(result):
     """
     Download file from openwrt server and compare it, store in output_path
     """
-    origin_file = NamedTemporaryFile()
     rebuild_file = bin_path / result.files["unreproducible"][0]
+    origin_file = rebuild_file.parent / (rebuild_file.name + ".orig")
 
     if not rebuild_file.is_file():
         print(f"Not found: {rebuild_file}")
@@ -388,7 +388,7 @@ def diffoscope(result):
             " ".join(
                 [
                     "diffoscope",
-                    origin_file.name,
+                    str(origin_file),
                     str(rebuild_file),
                     "--html",
                     str(results_path / result.diffoscope),
@@ -402,8 +402,6 @@ def diffoscope(result):
         print(
             f'Diffoscope failed on comparing {result.files["unreproducible"][0]} with {e}'
         )
-
-    origin_file.close()
 
 
 def get_arch():
