@@ -87,3 +87,37 @@ jobs:
         with:
           name: results-${{ matrix.version }}-${{ env.target_sani }}
           path: original/results/
+
+      - name: Upload packages to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: libremesh/lime-feed
+          publish_dir: bin/packages/x86_64/libremesh/
+          destination_dir: ${{ env.DEST_DIR }}
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs:
+      - build
+
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Download rebuild results
+        uses: actions/download-artifact@v2
+        with:
+          path: results
+
+      - name: Flatten the artifacts hierarchy
+        run: |
+          rsync -avh --remove-source-files results/results-*/ results/
+          find results/ -type d -empty -delete
+
+      - name: Upload results
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: aparcar/openwrt-rebuild-results
+          publish_dir: results/
