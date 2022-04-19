@@ -118,6 +118,11 @@ def run_command(
 
     if proc.returncode and not ignore_errors:
         print(f"Error running {cmd}")
+
+        error_txt = (results_path / "logs" / "error.txt")
+        if error_txt.exists():
+            print(f"Found error.txt with the following content:\n{error_txt.read_text()}")
+
         quit()
 
     if capture:
