@@ -25,7 +25,7 @@ The following `env` variables are possible to change the rebuilders behavior:
     BRANCH # default:  "master"
 
     # where to build OpenWrt
-    REBUILD_DIR # default:  Path.cwd() / "rebuild"
+    REBUILD_DIR # default:  Path.cwd() / "openwrt"
 
     # where to find the origin builds
     ORIGIN_URL # default:  "https://downloads.cdn.openwrt.org"

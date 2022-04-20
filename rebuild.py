@@ -59,7 +59,7 @@ target = environ.get("TARGET", "ath79/generic").replace("-", "/")
 rebuild_version = environ.get("VERSION", "SNAPSHOT")
 
 # where to build OpenWrt
-rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "rebuild"))
+rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "openwrt"))
 
 bin_path = rebuild_path / "bin/"
 
