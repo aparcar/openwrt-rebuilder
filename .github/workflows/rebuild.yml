@@ -73,7 +73,7 @@ jobs:
 
       - name: Cleanup build root
         run: |
-          rm -rf original/rebuild/staging_dir original/rebuild/build_dir
+          rm -rf original/openwrt/staging_dir original/openwrt/build_dir
 
       - name: Sanitize target
         run: echo "target_sani=$(echo ${{ matrix.target }} | tr '/' '_')" >> "$GITHUB_ENV"
@@ -81,7 +81,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: rebuild-${{ matrix.version }}-${{ env.target_sani }}
-          path: original/rebuild/bin/
+          path: original/openwrt/bin/
 
       - uses: actions/upload-artifact@v2
         with:
