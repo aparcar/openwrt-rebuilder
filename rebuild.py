@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright © 2022 Paul Spooren <mail@aparcar.org>
+# Copyright © 2022 - 2025 Paul Spooren <mail@aparcar.org>
 #
 # Based on the reproducible_openwrt.sh
 #   © 2014-2019 Holger Levsen <holger@layer-acht.org>
@@ -10,7 +10,6 @@
 #
 # Released under the GPLv2
 
-import email.parser
 import json
 import re
 from dataclasses import asdict, dataclass, field
@@ -19,6 +18,7 @@ from os import environ, symlink
 from pathlib import Path
 from subprocess import run
 from urllib.request import urlopen
+import os
 
 
 @dataclass
@@ -53,13 +53,13 @@ suite = Suite()
 
 
 # target to be build
-target = environ.get("TARGET", "ath79/generic").replace("-", "/")
+target = environ.get("TARGET", "x86/64").replace("-", "/")
 
 # version to be build
 rebuild_version = environ.get("VERSION", "SNAPSHOT")
 
 # where to build OpenWrt
-rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "openwrt"))
+rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "build" / rebuild_version))
 
 bin_path = rebuild_path / "bin/"
 
@@ -71,14 +71,14 @@ origin_url = environ.get("ORIGIN_URL", "https://downloads.openwrt.org")
 # where to get the openwrt source git
 openwrt_git = environ.get("OPENWRT_GIT", "https://github.com/openwrt/openwrt.git")
 
-use_diffoscope = environ.get("USE_DIFFOSCOPE", False)
+use_diffoscope = environ.get("USE_DIFFOSCOPE", True)
 
 # number of cores to use
 j = environ.get("j", cpu_count() + 1)
 
 # where to store rendered html and diffoscope output
 results_path = Path(
-    environ.get("RESULTS_DIR", Path.cwd() / f"results/{rebuild_version}/{target}")
+    environ.get("RESULTS_DIR", Path.cwd() / "results" / rebuild_version / target)
 )
 
 
@@ -91,11 +91,22 @@ else:
     print(f"Using releases/{rebuild_version}/")
     release_dir = f"releases/{rebuild_version}"
     target_dir = f"{release_dir}/targets/{target}"
-    branch = f'openwrt-{rebuild_version.rsplit(".", maxsplit=1)[0]}'
+    branch = f"openwrt-{rebuild_version.rsplit('.', maxsplit=1)[0]}"
+
+print("Testing for")
+print(f"Target {target}")
+print(f"Branch {branch}")
 
 
 def run_command(
-    cmd, cwd=".", ignore_errors=False, capture=False, env={}, timeout=None, shell=False
+    cmd,
+    cwd=".",
+    ignore_errors=False,
+    capture=False,
+    env={},
+    timeout=None,
+    shell=False,
+    input_data=None,
 ):
     """
     Run a command in shell
@@ -111,16 +122,19 @@ def run_command(
         env=current_env,
         timeout=timeout,
         shell=shell,
+        input=input_data,
         umask=0o22,
     )
 
     if proc.returncode and not ignore_errors:
         print(f"Error running {cmd}")
-        quit()
+        quit(proc.returncode)
 
     if capture:
         print(proc.stderr)
         return proc.stdout
+
+    return proc
 
 
 # return content of online file or stores it locally if path is given
@@ -146,7 +160,8 @@ def get_file(url, path=None, json_content=False):
 
 # parse the origin sha256sums file from openwrt
 def parse_sha256sums(path: Path):
-    return {v: k for k, v in re.findall(r"(.+?) \*(.+?)\n", path.read_text())}
+    print(path)
+    return {v: k for k, v in re.findall(r"(.+?) \*(?:.*/)?(.+?)\n", path.read_text())}
 
 
 def parse_origin_sha256sums():
@@ -155,6 +170,14 @@ def parse_origin_sha256sums():
         rebuild_path / "sha256sums_origin",
     )
     return parse_sha256sums(rebuild_path / "sha256sums_origin")
+
+
+def parse_package_sha256sums(architecture):
+    get_file(
+        f"{origin_url}/{release_dir}/packages/{architecture}/sha256sums",
+        rebuild_path / "sha256sums_packages",
+    )
+    return parse_sha256sums(rebuild_path / "sha256sums_packages")
 
 
 def clone_git():
@@ -176,7 +199,11 @@ def setup_config_buildinfo():
     # don't build imagebuilder or sdk to save some time
     (rebuild_path / ".config").write_text(
         config_content
-        + "\nCONFIG_COLLECT_KERNEL_DEBUG=n\nCONFIG_IB=n\nCONFIG_SDK=n\nCONFIG_BPF_TOOLCHAIN_HOST=y\nCONFIG_MAKE_TOOLCHAIN=n\n"
+        + """CONFIG_COLLECT_KERNEL_DEBUG=n
+CONFIG_IB=n
+CONFIG_SDK=n
+CONFIG_BPF_TOOLCHAIN_HOST=y
+CONFIG_MAKE_TOOLCHAIN=n"""
     )
     make("defconfig")
 
@@ -198,6 +225,27 @@ def setup_version_buildinfo():
     print(f"Remote getver.sh: {commit_string}")
     # ... and parse the actual commit to checkout
     commit = commit_string.split("-")[1]
+
+
+def setup_kernelmagic():
+    global kernelversion
+
+    kernelversion = "-".join(
+        run_command(
+            [
+                "make",
+                "--no-print-directory",
+                "-C",
+                "target/linux/",
+                "val.LINUX_VERSION",
+                "val.LINUX_RELEASE",
+                "val.LINUX_VERMAGIC",
+            ],
+            rebuild_path,
+            capture=True,
+            env={"TOPDIR": rebuild_path, "INCLUDE_DIR": rebuild_path / "include"},
+        ).splitlines()
+    )
 
 
 def checkout_commit():
@@ -238,6 +286,41 @@ def update_feeds():
     run_command(["./scripts/feeds", "install", "-a"], rebuild_path)
 
 
+def apply_patches():
+    """Apply patches for the current rebuild version"""
+
+    patches_dir = Path.cwd() / "patches" / rebuild_version
+    if not patches_dir.exists():
+        print(f"No patches directory found for version {rebuild_version}")
+        return
+
+    patch_files = sorted(patches_dir.glob("*.patch"))
+    if not patch_files:
+        print(f"No patches found in {patches_dir}")
+        return
+
+    print(f"Applying {len(patch_files)} patches for version {rebuild_version}")
+
+    for patch_file in patch_files:
+        print(f"Applying patch: {patch_file.name}")
+        try:
+            # Try applying with -p1 first (most common)
+            result = run_command(
+                ["git", "apply", patch_file],
+                cwd=rebuild_path,
+                ignore_errors=False,
+            )
+
+            if result.returncode == 0:
+                print(f"  Successfully applied {patch_file.name}")
+            else:
+                print(f"  Failed to apply {patch_file.name}")
+                print(f"  Error: {result.stderr}")
+
+        except Exception as e:
+            print(f"  Error applying {patch_file.name}: {e}")
+
+
 def make(*cmd, j=j):
     """Convinience function to run make
 
@@ -258,17 +341,7 @@ def make(*cmd, j=j):
 
 
 def parse_packages(packages_str):
-    packages = {}
-    linebuffer = ""
-    for line in packages_str.splitlines():
-        if line == "":
-            parser = email.parser.Parser()
-            package = parser.parsestr(linebuffer)
-            packages[package["Filename"]] = package
-            linebuffer = ""
-        else:
-            linebuffer += line + "\n"
-    return packages
+    return json.loads(packages_str)
 
 
 def parse_profiles(profiles_uri):
@@ -316,47 +389,109 @@ def compare_profiles(profiles_origin):
         )
 
 
-def compare_packages(packages_origin, rebuild_path):
-
-    packages_rebuild = parse_packages(
-        (bin_path / rebuild_path / "Packages").read_text()
+def compare_packages_target():
+    package_version_map = {}
+    rebuild_packages = parse_packages(
+        (bin_path / "targets" / target / "packages" / "index.json").read_text()
     )
 
-    for package_origin, data_origin in packages_origin.items():
+    for package, version in rebuild_packages["packages"].items():
+        package_version_map[f"{package}-{version}"] = (package, version)
+
+    print(package_version_map)
+
+    rebuild_sums = parse_sha256sums(bin_path / "targets" / target / "sha256sums")
+    origin_sums = parse_origin_sha256sums()
+
+    print(origin_sums)
+
+    for filename_rebuild, checksum_origin in rebuild_sums.items():
         diffoscope = None
-        if package_origin not in packages_rebuild:
-            status = "notfound"
-        elif data_origin["SHA256sum"] != packages_rebuild[package_origin]["SHA256sum"]:
-            status = "unreproducible"
-            diffoscope = f"{package_origin}.html"
-        else:
-            status = "reproducible"
 
-        getattr(getattr(suite, "packages"), status).append(
-            Result(
-                name=data_origin["Package"],
-                version=data_origin["Version"],
-                arch=data_origin["Architecture"],
-                distribution="openwrt",
-                status=status,
-                diffoscope=diffoscope,
-                log=f'logs/package/{data_origin["Section"]}/{data_origin["Package"]}/{"compile.txt"}',
-                files={status: [f"{rebuild_path}/{package_origin}"]},
+        if filename_rebuild.endswith((".ipk", ".apk")):
+            if filename_rebuild not in origin_sums:
+                status = "notfound"
+            elif checksum_origin != origin_sums[filename_rebuild]:
+                status = "unreproducible"
+                diffoscope = f"{filename_rebuild}.html"
+            else:
+                status = "reproducible"
+
+            map_name = filename_rebuild.rstrip(".ipk").rstrip(".apk")
+            if not map_name in package_version_map:
+                print(map_name)
+                continue
+            package, version = package_version_map[map_name]
+
+            getattr(getattr(suite, "packages"), status).append(
+                Result(
+                    name=package,
+                    version=version,
+                    arch=rebuild_packages["architecture"],
+                    distribution="openwrt",
+                    status=status,
+                    diffoscope=diffoscope,
+                    # log=f"logs/package/{data_origin['Section']}/{data_origin['Package']}/{'compile.txt'}", # TODO
+                    files={status: [f"targets/{target}/packages/{filename_rebuild}"]},
+                )
             )
-        )
 
 
-def compare_packages_target(packages_origin):
-    compare_packages(packages_origin, f"targets/{target}/packages")
+def compare_packages_base():
+    package_version_map = {}
+    architecture = parse_packages(
+        (bin_path / "targets" / target / "packages" / "index.json").read_text()
+    )["architecture"]
 
+    rebuild_packages = parse_packages(
+        (bin_path / "packages" / architecture / "base" / "index.json").read_text()
+    )
 
-def compare_packages_base(packages_origin):
-    compare_packages(packages_origin, f"packages/{get_arch()}/base")
+    for package, version in rebuild_packages["packages"].items():
+        package_version_map[f"{package}-{version}"] = (package, version)
+
+    print(package_version_map)
+
+    rebuild_sums = parse_sha256sums(bin_path / "packages" / architecture / "sha256sums")
+    origin_sums = parse_package_sha256sums(architecture)
+
+    for filename_rebuild, checksum_origin in rebuild_sums.items():
+        diffoscope = None
+
+        if filename_rebuild.endswith((".ipk", ".apk")):
+            if filename_rebuild not in origin_sums:
+                status = "notfound"
+            elif checksum_origin != origin_sums[filename_rebuild]:
+                status = "unreproducible"
+                diffoscope = f"{filename_rebuild}.html"
+            else:
+                status = "reproducible"
+
+            map_name = filename_rebuild.split("/")[-1].rstrip(".ipk").rstrip(".apk")
+            if not map_name in package_version_map:
+                # print(map_name)
+                continue
+            package, version = package_version_map[map_name]
+
+            getattr(getattr(suite, "packages"), status).append(
+                Result(
+                    name=package,
+                    version=version,
+                    arch=rebuild_packages["architecture"],
+                    distribution="openwrt",
+                    status=status,
+                    diffoscope=diffoscope,
+                    # log=f"logs/package/{data_origin['Section']}/{data_origin['Package']}/{'compile.txt'}", # TODO
+                    files={
+                        status: [f"packages/{architecture}/base/{filename_rebuild}"]
+                    },
+                )
+            )
 
 
 def make_download():
     if rebuild_path / "dl" != dl_path and not dl_path.exists():
-        print(f'Symlink {rebuild_path / "dl"} -> {dl_path.absolute()}')
+        print(f"Symlink {rebuild_path / 'dl'} -> {dl_path.absolute()}")
         symlink(
             dl_path.absolute(),
             rebuild_path / "dl",
@@ -369,27 +504,115 @@ def diffoscope(result):
     """
     Download file from openwrt server and compare it, store in output_path
     """
+    print(result.files["unreproducible"][0])
     rebuild_file = bin_path / result.files["unreproducible"][0]
     origin_file = rebuild_file.parent / (rebuild_file.name + ".orig")
+    results_file = results_path / result.diffoscope
+    print(results_file)
+    results_file.touch()
+    results_file.chmod(0o0777)
 
+    download_url = f"{origin_url}/{release_dir}/{result.files['unreproducible'][0]}"
+    if "kmod" in download_url:
+        download_url = download_url.replace("packages", f"kmods/{kernelversion}")
+    print(download_url)
     if not rebuild_file.is_file():
         print(f"Not found: {rebuild_file}")
         return
 
-    download_url = f'{origin_url}/{release_dir}/{result.files["unreproducible"][0]}'
     if get_file(download_url, str(origin_file)):
         print(f"Error downloading {download_url}")
         return
+
+    if rebuild_file.suffix == ".apk":
+        print("bingo")
+        origin_unpack_dir = origin_file.with_suffix(".dir")
+        rebuild_unpack_dir = rebuild_file.with_suffix(".dir")
+        origin_unpack_dir.mkdir(parents=True, exist_ok=True)
+        rebuild_unpack_dir.mkdir(parents=True, exist_ok=True)
+
+        # Unpack origin_file and rebuild_file using apk
+        apk_bin = rebuild_path / "staging_dir" / "host" / "bin" / "apk"
+
+        # Extract origin_file
+        run_command(
+            [
+                str(apk_bin),
+                "--allow-untrusted",
+                "extract",
+                "--destination",
+                str(origin_unpack_dir),
+                str(origin_file),
+            ],
+            ignore_errors=True,
+        )
+
+        # Extract rebuild_file
+        run_command(
+            [
+                str(apk_bin),
+                "--allow-untrusted",
+                "extract",
+                "--destination",
+                str(rebuild_unpack_dir),
+                str(rebuild_file),
+            ],
+            ignore_errors=True,
+        )
+
+        # Extract metadata from origin_file
+        metadata_yaml = origin_unpack_dir / "metadata.yaml"
+        run_command(
+            f"{apk_bin} adbdump {str(origin_file)} > {metadata_yaml}",
+            shell=True,
+            ignore_errors=True,
+        )
+
+        # Extract metadata from rebuild_file
+        metadata_yaml = rebuild_unpack_dir / "metadata.yaml"
+        run_command(
+            f"{apk_bin} adbdump {str(rebuild_file)} > {metadata_yaml}",
+            shell=True,
+            ignore_errors=True,
+        )
+
+        deterministic_ts = 1700000000  # Example fixed timestamp (seconds since epoch)
+
+        def set_deterministic_mtime(path, ts):
+            for p in path.rglob("*"):
+                try:
+                    os.utime(p, (ts, ts))
+                except Exception:
+                    pass
+            os.utime(path, (ts, ts))
+
+        set_deterministic_mtime(origin_unpack_dir, deterministic_ts)
+        set_deterministic_mtime(rebuild_unpack_dir, deterministic_ts)
+
+        origin_file = origin_unpack_dir
+        rebuild_file = rebuild_unpack_dir
 
     try:
         run_command(
             " ".join(
                 [
-                    "diffoscope",
-                    str(origin_file),
-                    str(rebuild_file),
+                    "podman",
+                    "run",
+                    "--rm",
+                    "-t",
+                    "-w",
+                    str(results_path),
+                    "-v",
+                    f"{origin_file}:{origin_file}:ro",
+                    "-v",
+                    f"{rebuild_file}:{rebuild_file}:ro",
+                    "-v",
+                    f"{results_file}:{results_file}:rw",
+                    "registry.salsa.debian.org/reproducible-builds/diffoscope",
+                    str(origin_file.resolve()),
+                    str(rebuild_file.resolve()),
                     "--html",
-                    str(results_path / result.diffoscope),
+                    str(results_file),
                 ]
             ),
             ignore_errors=True,
@@ -398,8 +621,9 @@ def diffoscope(result):
         )
     except Exception as e:
         print(
-            f'Diffoscope failed on comparing {result.files["unreproducible"][0]} with {e}'
+            f"Diffoscope failed on comparing {result.files['unreproducible'][0]} with {e}"
         )
+    results_file.chmod(0o0755)
 
 
 def get_arch():
@@ -416,10 +640,18 @@ def diffoscope_multithread():
 
     (results_path / "packages").mkdir(exist_ok=True, parents=True)
 
+    # Collect all unreproducible results
+    unreproducible_results = []
     for kind in ["images", "packages"]:
         for result in getattr(suite, kind).unreproducible:
             print(f"Compare {kind}/{result.name}")
-            diffoscope(result)
+            unreproducible_results.append(result)
+
+    # Use multiprocessing Pool to run diffoscope in parallel
+    if unreproducible_results:
+        with Pool(processes=cpu_count()) as pool:
+            # with Pool(processes=1) as pool:
+            pool.map(diffoscope, unreproducible_results)
 
 
 def rebuild():
@@ -428,15 +660,11 @@ def rebuild():
     setup_feeds_buildinfo()
     checkout_commit()
     update_feeds()
+    apply_patches()
     setup_config_buildinfo()
+    setup_kernelmagic()
     make_download()
 
-    packages_origin_base = parse_packages(
-        get_file(f"{origin_url}/{release_dir}/packages/{get_arch()}/base/Packages")
-    )
-    packages_origin_target = parse_packages(
-        get_file(f"{origin_url}/{target_dir}/packages/Packages")
-    )
     profiles_origin = parse_profiles(f"{origin_url}/{target_dir}/profiles.json")
 
     make("tools/tar/compile")
@@ -452,10 +680,10 @@ def rebuild():
     make("checksum", "V=s")
 
     compare_profiles(profiles_origin)
-    compare_packages_base(packages_origin_base)
-    compare_packages_target(packages_origin_target)
+    compare_packages_base()
+    compare_packages_target()
 
-    results_path.mkdir(exist_ok=True, parents=True)
+    (results_path / "base").mkdir(exist_ok=True, parents=True)
     Path(results_path / "output.json").write_text(
         json.dumps({rebuild_version: {target: asdict(suite)}}, indent="    ")
     )
