@@ -2,7 +2,6 @@ name: Rebuild OpenWrt
 
 on:
   push:
-
   workflow_dispatch:
     inputs:
       version:
@@ -11,84 +10,109 @@ on:
         default: "SNAPSHOT"
         type: string
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: ${{ matrix.version }} - ${{ matrix.target }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       fail-fast: False
       matrix:
         version:
           - SNAPSHOT
-          - 24.10.2
         target:
-          - "ath79/generic"
+          # - "ath79/generic"
           - "ipq40xx/generic"
+          - "mediatek/filogic"
           - "mediatek/mt7622"
           - "ramips/mt7621"
-          - "x86/generic"
           - "x86/64"
+          - "x86/generic"
+    steps:
+      - name: Verify that podman works
+        run: podman run --rm alpine echo "Podman is working"
+
+      - uses: actions/checkout@v5
+
+      - name: Cache OpenWrt git repository
+        uses: actions/cache@v4
+        with:
+          path: ./build/${{ github.event.inputs.version || matrix.version }}/.git
+          key: openwrt-git-${{ matrix.version }}-${{ github.sha }}
+          restore-keys: |
+            openwrt-git-${{ matrix.version }}-
+            openwrt-git-
+
+      - name: Cache downloads
+        uses: actions/cache@v4
+        with:
+          path: ./build/${{ github.event.inputs.version || matrix.version }}/dl
+          key: openwrt-dl-${{ matrix.version }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
+          restore-keys: |
+            openwrt-dl-${{ matrix.version }}-
+            openwrt-dl-
+
+      - name: Cache feeds
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./build/${{ github.event.inputs.version || matrix.version }}/feeds
+            ./build/${{ github.event.inputs.version || matrix.version }}/package/feeds
+          key: openwrt-feeds-${{ matrix.version }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
+          restore-keys: |
+            openwrt-feeds-${{ matrix.version }}-
+            openwrt-feeds-
+
+      - name: Run rebuilder on ${{ matrix.target }}
+        run: |
+          python3 -u rebuild.py
+        env:
+          TARGET: ${{ matrix.target }}
+          VERSION: ${{ github.event.inputs.version || matrix.version }}
+          USE_DIFFOSCOPE: True
+
+      - name: Slug target name
+        if: always()
+        run: echo "target_slug=$(echo ${{ matrix.target }} | tr '/' '_')" >> "$GITHUB_ENV"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ github.event.inputs.version || matrix.version }}-${{ env.target_slug }}
+          path: results/${{ github.event.inputs.version || matrix.version }}/${{ matrix.target }}/
+
+  overview:
+    name: Generate Overview
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
 
     steps:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
-
-      - name: Install dependencies
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install libncurses-dev qemu-utils clang-12 \
-            build-essential ccache ecj fastjar file g++ gawk \
-            gettext git java-propose-classpath libelf-dev libncurses5-dev \
-            libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
-            python3-distutils python3-setuptools python3-dev rsync subversion \
-            swig time xsltproc zlib1g-dev mkisofs
-          sudo apt-get -y install \
-            diffoscope \
-            python3-pip \
-            u-boot-tools \
-            squashfs-tools \
-            libguestfs-tools \
-            disorderfs \
-            binutils
-
-          pip install diffoscope
-
-      - name: Setup disorderfs
-        run: |
-          mkdir -p original reversed
-          disorderfs original reversed
+          python-version: "3.13"
 
       - uses: actions/checkout@v5
-        with:
-          path: reversed/
 
-      - name: Run rebuilder on ${{ matrix.target }}
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: results-*
+          path: results/
+
+      - name: Combine results and generate hierarchical overview
         run: |
-          cd reversed/
-          python3 -u rebuild.py
-        env:
-          TARGET: ${{ matrix.target }}
-          RESULTS_DIR: ./results
-          VERSION: ${{ github.event.inputs.version || matrix.version }}
-          USE_DIFFOSCOPE: True
+          mkdir -p combined_results/
+          python3 -u ./scripts/combine_results.py
 
-      - name: Cleanup build root
-        run: |
-          rm -rf original/openwrt/staging_dir original/openwrt/build_dir
-
-      - name: Sanitize target
-        run: echo "target_sani=$(echo ${{ matrix.target }} | tr '/' '_')" >> "$GITHUB_ENV"
-
-      - uses: actions/upload-artifact@v4
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
         with:
-          name: rebuild-${{ matrix.version }}-${{ env.target_sani }}
-          path: original/openwrt/bin/
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: results-${{ matrix.version }}-${{ env.target_sani }}
-          path: original/results/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: combined_results/
