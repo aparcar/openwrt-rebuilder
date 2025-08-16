@@ -59,7 +59,7 @@ target = environ.get("TARGET", "ath79/generic").replace("-", "/")
 rebuild_version = environ.get("VERSION", "SNAPSHOT")
 
 # where to build OpenWrt
-rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "openwrt"))
+rebuild_path = Path(environ.get("REBUILD_DIR", Path.cwd() / "build" / rebuild_version))
 
 bin_path = rebuild_path / "bin/"
 
@@ -78,7 +78,7 @@ j = environ.get("j", cpu_count() + 1)
 
 # where to store rendered html and diffoscope output
 results_path = Path(
-    environ.get("RESULTS_DIR", Path.cwd() / f"results/{rebuild_version}/{target}")
+    environ.get("RESULTS_DIR", Path.cwd() / "results" / rebuild_version / target)
 )
 
 
@@ -91,7 +91,11 @@ else:
     print(f"Using releases/{rebuild_version}/")
     release_dir = f"releases/{rebuild_version}"
     target_dir = f"{release_dir}/targets/{target}"
-    branch = f'openwrt-{rebuild_version.rsplit(".", maxsplit=1)[0]}'
+    branch = f"openwrt-{rebuild_version.rsplit('.', maxsplit=1)[0]}"
+
+print("Testing for")
+print(f"Target {target}")
+print(f"Branch {branch}")
 
 
 def run_command(
@@ -116,7 +120,7 @@ def run_command(
 
     if proc.returncode and not ignore_errors:
         print(f"Error running {cmd}")
-        quit()
+        quit(proc.returncode)
 
     if capture:
         print(proc.stderr)
@@ -317,7 +321,6 @@ def compare_profiles(profiles_origin):
 
 
 def compare_packages(packages_origin, rebuild_path):
-
     packages_rebuild = parse_packages(
         (bin_path / rebuild_path / "Packages").read_text()
     )
@@ -340,7 +343,7 @@ def compare_packages(packages_origin, rebuild_path):
                 distribution="openwrt",
                 status=status,
                 diffoscope=diffoscope,
-                log=f'logs/package/{data_origin["Section"]}/{data_origin["Package"]}/{"compile.txt"}',
+                log=f"logs/package/{data_origin['Section']}/{data_origin['Package']}/{'compile.txt'}",
                 files={status: [f"{rebuild_path}/{package_origin}"]},
             )
         )
@@ -356,7 +359,7 @@ def compare_packages_base(packages_origin):
 
 def make_download():
     if rebuild_path / "dl" != dl_path and not dl_path.exists():
-        print(f'Symlink {rebuild_path / "dl"} -> {dl_path.absolute()}')
+        print(f"Symlink {rebuild_path / 'dl'} -> {dl_path.absolute()}")
         symlink(
             dl_path.absolute(),
             rebuild_path / "dl",
@@ -371,12 +374,15 @@ def diffoscope(result):
     """
     rebuild_file = bin_path / result.files["unreproducible"][0]
     origin_file = rebuild_file.parent / (rebuild_file.name + ".orig")
+    results_file = results_path / result.diffoscope
+    results_file.touch()
+    results_file.chmod(0o0777)
 
     if not rebuild_file.is_file():
         print(f"Not found: {rebuild_file}")
         return
 
-    download_url = f'{origin_url}/{release_dir}/{result.files["unreproducible"][0]}'
+    download_url = f"{origin_url}/{release_dir}/{result.files['unreproducible'][0]}"
     if get_file(download_url, str(origin_file)):
         print(f"Error downloading {download_url}")
         return
@@ -385,11 +391,23 @@ def diffoscope(result):
         run_command(
             " ".join(
                 [
-                    "diffoscope",
-                    str(origin_file),
-                    str(rebuild_file),
+                    "podman",
+                    "run",
+                    "--rm",
+                    "-t",
+                    "-w",
+                    str(results_path),
+                    "-v",
+                    f"{origin_file}:{origin_file}:ro",
+                    "-v",
+                    f"{rebuild_file}:{rebuild_file}:ro",
+                    "-v",
+                    f"{results_file}:{results_file}:rw",
+                    "registry.salsa.debian.org/reproducible-builds/diffoscope",
+                    str(origin_file.resolve()),
+                    str(rebuild_file.resolve()),
                     "--html",
-                    str(results_path / result.diffoscope),
+                    str(results_file),
                 ]
             ),
             ignore_errors=True,
@@ -398,8 +416,9 @@ def diffoscope(result):
         )
     except Exception as e:
         print(
-            f'Diffoscope failed on comparing {result.files["unreproducible"][0]} with {e}'
+            f"Diffoscope failed on comparing {result.files['unreproducible'][0]} with {e}"
         )
+    results_file.chmod(0o0755)
 
 
 def get_arch():
@@ -431,12 +450,12 @@ def rebuild():
     setup_config_buildinfo()
     make_download()
 
-    packages_origin_base = parse_packages(
-        get_file(f"{origin_url}/{release_dir}/packages/{get_arch()}/base/Packages")
-    )
-    packages_origin_target = parse_packages(
-        get_file(f"{origin_url}/{target_dir}/packages/Packages")
-    )
+    # packages_origin_base = parse_packages(
+    #     get_file(f"{origin_url}/{release_dir}/packages/{get_arch()}/base/index.json")
+    # )
+    # packages_origin_target = parse_packages(
+    # get_file(f"{origin_url}/{target_dir}/packages/Packages")
+    # )
     profiles_origin = parse_profiles(f"{origin_url}/{target_dir}/profiles.json")
 
     make("tools/tar/compile")
@@ -452,8 +471,8 @@ def rebuild():
     make("checksum", "V=s")
 
     compare_profiles(profiles_origin)
-    compare_packages_base(packages_origin_base)
-    compare_packages_target(packages_origin_target)
+    # compare_packages_base(packages_origin_base)
+    # compare_packages_target(packages_origin_target)
 
     results_path.mkdir(exist_ok=True, parents=True)
     Path(results_path / "output.json").write_text(
