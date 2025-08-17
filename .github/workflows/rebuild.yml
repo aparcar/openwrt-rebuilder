@@ -5,7 +5,13 @@ on:
     branches:
       - main
 
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "OpenWrt version to build"
+        required: false
+        default: "SNAPSHOT"
+        type: string
 
 jobs:
   build:
@@ -68,7 +74,7 @@ jobs:
         env:
           TARGET: ${{ matrix.target }}
           RESULTS_DIR: ./results
-          VERSION: ${{ matrix.version }}
+          VERSION: ${{ github.event.inputs.version || matrix.version }}
           USE_DIFFOSCOPE: True
 
       - name: Cleanup build root
