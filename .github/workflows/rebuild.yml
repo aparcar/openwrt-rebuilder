@@ -2,8 +2,6 @@ name: Rebuild OpenWrt
 
 on:
   push:
-    branches:
-      - main
 
   workflow_dispatch:
     inputs:
@@ -22,6 +20,7 @@ jobs:
       matrix:
         version:
           - SNAPSHOT
+          - 24.10.2
         target:
           - "ath79/generic"
           - "ipq40xx/generic"
