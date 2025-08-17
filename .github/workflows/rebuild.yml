@@ -57,7 +57,7 @@ jobs:
           mkdir -p original reversed
           disorderfs original reversed
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
         with:
           path: reversed/
 
