@@ -80,8 +80,10 @@ jobs:
 
       - name: Setup disorderfs
         run: |
-          mkdir -p original reversed
-          disorderfs original reversed
+          mkdir -p original
+          ln -s original reversed
+          # mkdir -p original reversed
+          # disorderfs original reversed
 
       - uses: actions/checkout@v5
         with:
