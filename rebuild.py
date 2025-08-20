@@ -177,10 +177,10 @@ def setup_config_buildinfo():
     # download buildinfo files
     config_content = get_file(f"{origin_url}/{target_dir}/config.buildinfo")
 
-    # don't build imagebuilder or sdk to save some time
+    # don't build imagebuilder or sdk to save some time, enable ccache
     (rebuild_path / ".config").write_text(
         config_content
-        + "\nCONFIG_COLLECT_KERNEL_DEBUG=n\nCONFIG_IB=n\nCONFIG_SDK=n\nCONFIG_BPF_TOOLCHAIN_HOST=y\nCONFIG_MAKE_TOOLCHAIN=n\n"
+        + "\nCONFIG_COLLECT_KERNEL_DEBUG=n\nCONFIG_IB=n\nCONFIG_SDK=n\nCONFIG_BPF_TOOLCHAIN_HOST=y\nCONFIG_MAKE_TOOLCHAIN=n\nCONFIG_CCACHE=y\n"
     )
     make("defconfig")
 
@@ -248,6 +248,15 @@ def make(*cmd, j=j):
     Autoamtically run multithreaded and creates logs
     """
 
+    # Setup ccache environment for OpenWrt build
+    ccache_env = {
+        "CCACHE_DIR": environ.get("CCACHE_DIR", str(Path.home() / ".ccache")),
+        "CCACHE_MAXSIZE": environ.get("CCACHE_MAXSIZE", "10G"),
+        "CCACHE_COMPRESS": environ.get("CCACHE_COMPRESS", "1"),
+        "CCACHE_COMPRESSLEVEL": environ.get("CCACHE_COMPRESSLEVEL", "6"),
+        "CONFIG_CCACHE": "y",
+    }
+
     run_command(
         [
             "make",
@@ -258,6 +267,7 @@ def make(*cmd, j=j):
         ]
         + list(cmd),
         rebuild_path,
+        env=ccache_env,
     )
 
 
