@@ -7,6 +7,9 @@ from datetime import datetime
 # Collect all output.json files
 combined_data = {}
 artifacts_path = Path("results")
+output_path = Path("combined_results")
+diffoscope_path = output_path / "diffoscope"
+diffoscope_path.mkdir(parents=True, exist_ok=True)
 
 for results_dir in artifacts_path.glob("results-*"):
     output_json_path = results_dir / "output.json"
@@ -24,13 +27,12 @@ for results_dir in artifacts_path.glob("results-*"):
         diffoscope_files = list(results_dir.glob("**/*.html"))
         for html_file in diffoscope_files:
             if html_file.name != "index.html":  # Skip any existing index files
-                dest_path = Path("combined_results/diffoscope") / html_file.name
+                dest_path = diffoscope_path / html_file.name
                 print(f"Copying {html_file} to {dest_path}")
                 shutil.copy2(html_file, dest_path)
 
 # Write combined results
-with open("combined_results/output.json", "w") as f:
-    json.dump(combined_data, f, indent=2)
+(output_path / "output.json").write_text(json.dumps(combined_data, indent=2))
 
 # Build metadata
 build_time = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
@@ -41,7 +43,7 @@ github_run_id = os.environ.get("GITHUB_RUN_ID", "unknown")
 def generate_target_page(version, target, target_data, release_dir):
     """Generate detailed page for a specific target"""
     target_slug = target.replace('/', '_')
-    os.makedirs(f"combined_results/{release_dir}", exist_ok=True)
+    (output_path / release_dir).mkdir(parents=True, exist_ok=True)
 
     html_content = f"""
     <!DOCTYPE html>
@@ -168,8 +170,7 @@ def generate_target_page(version, target, target_data, release_dir):
     </html>
     """
 
-    with open(f"combined_results/{release_dir}/{target_slug}.html", "w") as f:
-        f.write(html_content)
+    (output_path / release_dir / f"{target_slug}.html").write_text(html_content)
 
     return target_stats
 
@@ -187,7 +188,7 @@ def generate_release_page(version, targets_data):
         <style>
             body {{ font-family: Arial, sans-serif; margin: 20px; }}
             .header {{ background: #2c3e50; color: white; padding: 20px; border-radius: 5px; margin-bottom: 20px; }}
-            .breadcrumb {{ margin-bottom: 20px; }}
+            .breadcrumb {{ margin-bottom: 20px; }} All Releases
             .breadcrumb a {{ color: #3498db; text-decoration: none; }}
             .breadcrumb a:hover {{ text-decoration: underline; }}
             .targets-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin: 20px 0; }}
@@ -211,7 +212,7 @@ def generate_release_page(version, targets_data):
     </head>
     <body>
         <div class="breadcrumb">
-            <a href="../index.html">← All Releases</a>
+            <a href="index.html">← All Releases</a>
         </div>
 
         <div class="header">
@@ -304,8 +305,7 @@ def generate_release_page(version, targets_data):
     </html>
     """
 
-    with open(f"combined_results/{release_dir}.html", "w") as f:
-        f.write(html_content)
+    (output_path / f"{release_dir}.html").write_text(html_content)
 
     return version_stats
 
@@ -428,8 +428,7 @@ html_content += f"""
 </html>
 """
 
-with open("combined_results/index.html", "w") as f:
-    f.write(html_content)
+(output_path / "index.html").write_text(html_content)
 
 # Count generated files
 release_pages = len([f for f in Path('combined_results').glob('*.html') if f.name != 'index.html'])

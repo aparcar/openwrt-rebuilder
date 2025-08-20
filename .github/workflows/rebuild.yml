@@ -15,6 +15,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  CCACHE_DIR: /tmp/ccache
+  CCACHE_MAXSIZE: 10G
+  CCACHE_COMPRESS: 1
+  CCACHE_COMPRESSLEVEL: 6
+
 jobs:
   build:
     name: ${{ matrix.version }} - ${{ matrix.target }}
@@ -25,6 +31,7 @@ jobs:
         version:
           - SNAPSHOT
           - 24.10.2
+          - 24.10.3
         target:
           - "ath79/generic"
           - "ipq40xx/generic"
@@ -35,6 +42,76 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Setup ccache
+        run: |
+          mkdir -p $CCACHE_DIR
+          ccache --show-config
+          ccache --zero-stats
+
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ccache-${{ matrix.version }}-${{ matrix.target }}-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ matrix.version }}-${{ matrix.target }}-
+            ccache-${{ matrix.version }}-
+            ccache-
+
+      - name: Cache OpenWrt git repository
+        uses: actions/cache@v4
+        with:
+          path: ./build/${{ github.event.inputs.version || matrix.version }}/.git
+          key: openwrt-git-${{ matrix.version }}-${{ github.sha }}
+          restore-keys: |
+            openwrt-git-${{ matrix.version }}-
+            openwrt-git-
+
+      - name: Cache downloads
+        uses: actions/cache@v4
+        with:
+          path: ./build/${{ github.event.inputs.version || matrix.version }}/dl
+          key: openwrt-dl-${{ matrix.version }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
+          restore-keys: |
+            openwrt-dl-${{ matrix.version }}-
+            openwrt-dl-
+
+      - name: Cache feeds
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./build/${{ github.event.inputs.version || matrix.version }}/feeds
+            ./build/${{ github.event.inputs.version || matrix.version }}/package/feeds
+          key: openwrt-feeds-${{ matrix.version }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
+          restore-keys: |
+            openwrt-feeds-${{ matrix.version }}-
+            openwrt-feeds-
+
+      # - name: Cache build tools
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: |
+      #       ./build/${{ github.event.inputs.version || matrix.version }}/build_dir/host
+      #       ./build/${{ github.event.inputs.version || matrix.version }}/staging_dir/host
+      #       ./build/${{ github.event.inputs.version || matrix.version }}/staging_dir/hostpkg
+      #     key: openwrt-tools-${{ matrix.version }}-${{ matrix.target }}-${{ hashFiles('**/config.buildinfo*') }}
+      #     restore-keys: |
+      #       openwrt-tools-${{ matrix.version }}-${{ matrix.target }}-
+      #       openwrt-tools-${{ matrix.version }}-
+      #       openwrt-tools-
+
+      # - name: Cache toolchain
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: |
+      #       ./build/${{ github.event.inputs.version || matrix.version }}/build_dir/toolchain-*
+      #       ./build/${{ github.event.inputs.version || matrix.version }}/staging_dir/toolchain-*
+      #     key: openwrt-toolchain-${{ matrix.version }}-${{ matrix.target }}-${{ hashFiles('**/config.buildinfo*') }}
+      #     restore-keys: |
+      #       openwrt-toolchain-${{ matrix.version }}-${{ matrix.target }}-
+      #       openwrt-toolchain-${{ matrix.version }}-
+      #       openwrt-toolchain-
+
       - name: Run rebuilder on ${{ matrix.target }}
         run: |
           python3 -u rebuild.py
@@ -42,6 +119,14 @@ jobs:
           TARGET: ${{ matrix.target }}
           VERSION: ${{ github.event.inputs.version || matrix.version }}
           USE_DIFFOSCOPE: True
+          CC: ccache gcc
+          CXX: ccache g++
+
+      - name: Show ccache statistics
+        if: always()
+        run: |
+          ccache --show-stats
+          ccache --show-config
 
       - name: Slug target name
         if: always()
@@ -50,14 +135,14 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: rebuild-${{ matrix.version }}-${{ env.target_slug }}
+          name: rebuild-${{ github.event.inputs.version || matrix.version }}-${{ env.target_slug }}
           path: build/${{ github.event.inputs.version || matrix.version }}/bin/
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: results-${{ matrix.version }}-${{ env.target_slug }}
-          path: results/
+          name: results-${{ github.event.inputs.version || matrix.version }}-${{ env.target_slug }}
+          path: results/${{ github.event.inputs.version || matrix.version }}/${{ matrix.target }}/
 
   overview:
     name: Generate Overview
@@ -76,10 +161,12 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          path: artifacts/
+          pattern: results-*
+          path: results/
 
       - name: Combine results and generate hierarchical overview
         run: |
+          mkdir -p combined_results/
           python3 -u ./scripts/combine_results.py
 
       - name: Publish test report

@@ -6,3 +6,4 @@ openwrt_rebuilder.egg-info/
 output/
 build/
 results/
+combined_results/
