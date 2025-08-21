@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/ubus-2019-12-27-041c9d1c.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 34780  100 34780    0     0  69282      0 --:--:-- --:--:-- --:--:-- 69145
-time: package/system/ubus/download#0.48#0.15#1.47

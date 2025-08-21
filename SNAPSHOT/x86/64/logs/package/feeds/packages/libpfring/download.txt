@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://codeload.github.com/ntop/PF_RING/tar.gz/7.6.0?/libpfring-7.6.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 3729k    0 3729k    0     0  8305k      0 --:--:-- --:--:-- --:--:-- 8287k100 8961k    0 8961k    0     0  6210k      0 --:--:--  0:00:01 --:--:-- 6205k100 14.2M    0 14.2M    0     0  5989k      0 --:--:--  0:00:02 --:--:-- 5986k100 19.0M    0 19.0M    0     0  5956k      0 --:--:--  0:00:03 --:--:-- 5956k
-time: package/feeds/packages/libpfring/download#0.43#0.23#3.61

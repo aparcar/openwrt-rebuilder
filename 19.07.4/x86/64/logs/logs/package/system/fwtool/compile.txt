@@ -1,3 +1,0 @@
-rstrip.sh: /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/fwtool/ipkg-x86_64/fwtool/usr/bin/fwtool: executable
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/fwtool/ipkg-x86_64/fwtool into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/targets/x86/64/packages/fwtool_2_x86_64.ipk
-time: package/system/fwtool/compile#0.38#0.08#0.89

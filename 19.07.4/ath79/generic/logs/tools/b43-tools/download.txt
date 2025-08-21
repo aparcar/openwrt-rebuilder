@@ -1,13 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/b43-tools.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  102k  100  102k    0     0   143k      0 --:--:-- --:--:-- --:--:--  143k
-Hash of the downloaded file does not match (file: 247eb0297f14fbcc828685cc353150f30fa03bf886e7a477aadc4161d9c0458d, requested: f914c36ac566e9e3b5a3a04de16ddb014fcad6a1cf25cdd8e4825c708d28d3f4) - deleting download.
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror2.openwrt.org/sources/b43-tools.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl: (22) The requested URL returned error: 404 Not Found
-Download failed.
-No more mirrors to try - giving up.
-time: tools/b43-tools/download#0.53#0.08#2.10

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/fwtool-2019-11-12-8f7fe925.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  6612  100  6612    0     0  16366      0 --:--:-- --:--:-- --:--:-- 16366
-time: package/system/fwtool/download#0.24#0.05#0.89

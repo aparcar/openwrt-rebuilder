@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://www.nasm.us/pub/nasm/releasebuilds/2.14/nasm-2.14.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100  805k  100  805k    0     0   390k      0  0:00:02  0:00:02 --:--:--  390k
-time: toolchain/nasm/download#0.06#0.01#2.12

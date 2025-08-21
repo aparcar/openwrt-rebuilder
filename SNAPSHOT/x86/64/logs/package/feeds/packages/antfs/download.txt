@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/antfs-2020-02-10-b41ba529.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  242k  100  242k    0     0   307k      0 --:--:-- --:--:-- --:--:--  307k
-time: package/feeds/packages/antfs/download#0.17#0.05#1.02

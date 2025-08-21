@@ -1,5 +1,0 @@
-Makefile:92: WARNING: skipping grub2 -- package has no install section
-mkdir: cannot create directory '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl': File exists
-Makefile:92: recipe for target '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl/grub-2.02.tar.xz' failed
-make[2]: *** [/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl/grub-2.02.tar.xz] Error 1
-time: package/boot/grub2/download#0.16#0.03#0.32

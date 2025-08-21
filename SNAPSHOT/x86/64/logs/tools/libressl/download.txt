@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://mirror.ox.ac.uk/pub/OpenBSD/LibreSSL/libressl-3.2.1.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 12 3709k   12  448k    0     0   630k      0  0:00:05 --:--:--  0:00:05  629k100 3709k  100 3709k    0     0  3851k      0 --:--:-- --:--:-- --:--:-- 3847k
-time: tools/libressl/download#0.09#0.05#1.11

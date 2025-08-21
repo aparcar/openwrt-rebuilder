@@ -1,6 +1,0 @@
-grep: /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/linux-x86_64/linux-4.14.195/.config: No such file or directory
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://netfilter.org/projects/iptables/files/iptables-1.8.3.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  699k    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  699k  100  699k    0     0   560k      0  0:00:01  0:00:01 --:--:--  560k
-time: package/network/utils/iptables/download#0.21#0.04#1.49

@@ -1,4 +1,0 @@
-mkdir: cannot create directory '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl': File exists
-Makefile:78: recipe for target '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl/u-boot-2018.03.tar.xz' failed
-make[2]: *** [/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl/u-boot-2018.03.tar.xz] Error 1
-time: package/boot/uboot-envtools/download#0.13#0.02#0.27

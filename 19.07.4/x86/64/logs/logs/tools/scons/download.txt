@@ -1,7 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.sourceforge.net/scons/scons-3.0.5.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   368  100   368    0     0    324      0  0:00:01  0:00:01 --:--:--   324100   368  100   368    0     0    324      0  0:00:01  0:00:01 --:--:--   324
-  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0100   343  100   343    0     0    102      0  0:00:03  0:00:03 --:--:--   286
-  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0100  639k  100  639k    0     0   169k      0  0:00:03  0:00:03 --:--:-- 1921k
-time: tools/scons/download#0.06#0.05#3.86

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/mtd-rw-git-20160214.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  8904  100  8904    0     0  20328      0 --:--:-- --:--:-- --:--:-- 20328
-time: package/feeds/packages/mtd-rw/download#0.25#0.05#0.79

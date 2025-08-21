@@ -1,1 +1,0 @@
-time: package/feeds/luci/luci/download#0.22#0.05#0.35

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/ath10k-ct-2020-06-30-edfbf916.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 48  429k   48  207k    0     0   258k      0  0:00:01 --:--:--  0:00:01  257k100  429k  100  429k    0     0   515k      0 --:--:-- --:--:-- --:--:--  514k
-time: package/kernel/ath10k-ct/regular/download#0.19#0.04#1.09

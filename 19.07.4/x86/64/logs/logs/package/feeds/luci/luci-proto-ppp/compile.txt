@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/luci-proto-ppp/ipkg-all/luci-proto-ppp into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/x86_64/luci/luci-proto-ppp_git-20.247.75781-0d0ab01-1_all.ipk
-time: package/feeds/luci/luci-proto-ppp/compile#0.43#0.13#0.98

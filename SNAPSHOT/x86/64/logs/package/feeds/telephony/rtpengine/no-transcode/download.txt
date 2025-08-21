@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://codeload.github.com/sipwise/rtpengine/tar.gz/mr8.5.2.1?/rtpengine-mr8.5.2.1.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  578k    0  578k    0     0  2184k      0 --:--:-- --:--:-- --:--:-- 2184k
-time: package/feeds/telephony/rtpengine/no-transcode/download#0.15#0.07#0.51

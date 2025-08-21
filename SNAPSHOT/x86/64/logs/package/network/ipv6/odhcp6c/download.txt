@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/odhcp6c-2020-03-28-f575351c.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 36628  100 36628    0     0  72387      0 --:--:-- --:--:-- --:--:-- 72387
-time: package/network/ipv6/odhcp6c/download#0.18#0.05#0.83

@@ -1,9 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://cdn.kernel.org/pub/linux/kernel/firmware/linux-firmware-20200918.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 12  118M   12 14.5M    0     0  42.6M      0  0:00:02 --:--:--  0:00:02 42.5M 80  118M   80 95.7M    0     0  69.3M      0  0:00:01  0:00:01 --:--:-- 69.3M100  118M  100  118M    0     0  73.2M      0  0:00:01  0:00:01 --:--:-- 73.2M
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://source.codeaurora.org/quic/qsdk/oss/firmware/ath10k-firmware/plain/ath10k/QCA99X0/hw2.0/board-2.bin?id=ddcec9efd245da9365c474f513a855a55f3ac7fe
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 48516  100 48516    0     0  74870      0 --:--:-- --:--:-- --:--:-- 74870
-time: package/firmware/linux-firmware/download#1.13#0.69#2.60

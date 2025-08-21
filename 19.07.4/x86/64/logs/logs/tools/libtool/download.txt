@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/libtool/libtool-2.4.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  832k  100  832k    0     0  2506k      0 --:--:-- --:--:-- --:--:-- 2506k
-time: tools/libtool/download#0.09#0.01#0.43

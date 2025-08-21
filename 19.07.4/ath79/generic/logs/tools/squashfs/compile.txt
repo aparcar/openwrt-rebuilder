@@ -1,1 +1,0 @@
-time: tools/squashfs/compile#0.04#0.02#0.11

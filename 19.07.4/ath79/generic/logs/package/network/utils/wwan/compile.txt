@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/wwan-2014-07-17/ipkg-mips_24kc/wwan into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/base/wwan_2014-07-17-1_mips_24kc.ipk
-time: package/network/utils/wwan/compile#4.22#1.42#10.57

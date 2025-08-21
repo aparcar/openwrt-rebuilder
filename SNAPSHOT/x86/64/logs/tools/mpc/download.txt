@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/mpc/mpc-1.2.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  821k  100  821k    0     0  2068k      0 --:--:-- --:--:-- --:--:-- 2068k
-time: tools/mpc/download#0.08#0.02#0.49

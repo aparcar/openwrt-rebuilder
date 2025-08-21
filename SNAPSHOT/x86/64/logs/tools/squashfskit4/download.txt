@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://github.com/squashfskit/squashfskit/releases/download/v4.14/squashfskit-v4.14.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   648  100   648    0     0   5268      0 --:--:-- --:--:-- --:--:--  5268
-100  138k  100  138k    0     0   740k      0 --:--:-- --:--:-- --:--:--  740k
-time: tools/squashfskit4/download#0.08#0.02#0.27

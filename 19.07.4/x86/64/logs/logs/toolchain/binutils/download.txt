@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/binutils/binutils-2.31.1.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  8 19.5M    8 1775k    0     0  4825k      0  0:00:04 --:--:--  0:00:04 4825k100 19.5M  100 19.5M    0     0  24.5M      0 --:--:-- --:--:-- --:--:-- 24.5M
-time: toolchain/binutils/download#0.19#0.10#0.88

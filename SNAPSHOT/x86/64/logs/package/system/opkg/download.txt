@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/opkg-2020-08-31-cf44c2fe.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 54  117k   54 65278    0     0    99k      0  0:00:01 --:--:--  0:00:01   99k100  117k  100  117k    0     0   168k      0 --:--:-- --:--:-- --:--:--  168k
-time: package/system/opkg/download#0.19#0.05#0.96

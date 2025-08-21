@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/dahdi-linux-2.11.1-20180111.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 1242k  100 1242k    0     0   987k      0  0:00:01  0:00:01 --:--:--  987k
-time: package/feeds/telephony/dahdi-linux/download#0.19#0.05#1.49

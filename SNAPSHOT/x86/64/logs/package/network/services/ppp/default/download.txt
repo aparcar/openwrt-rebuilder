@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/ppp-2.4.8.git-2020-10-03.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 86  446k   86  383k    0     0   422k      0  0:00:01 --:--:--  0:00:01  421k100  446k  100  446k    0     0   455k      0 --:--:-- --:--:-- --:--:--  454k
-time: package/network/services/ppp/default/download#0.19#0.05#1.20

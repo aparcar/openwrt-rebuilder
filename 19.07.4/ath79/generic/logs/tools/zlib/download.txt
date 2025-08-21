@@ -1,7 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.sourceforge.net/libpng/zlib-1.2.11.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100   370  100   370    0     0    272      0  0:00:01  0:00:01 --:--:--   272
-  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0100   337  100   337    0     0     99      0  0:00:03  0:00:03 --:--:--   332
-100  456k  100  456k    0     0   126k      0  0:00:03  0:00:03 --:--:--  126k
-time: tools/zlib/download#0.09#0.01#3.73

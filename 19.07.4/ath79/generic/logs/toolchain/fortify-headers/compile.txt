@@ -1,5 +1,0 @@
-make[3]: Entering directory '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/toolchain-mips_24kc_gcc-7.5.0_musl/fortify-headers-1.1'
-mkdir -p /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/staging_dir/toolchain-mips_24kc_gcc-7.5.0_musl/include/fortify
-cp -R include/* /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/staging_dir/toolchain-mips_24kc_gcc-7.5.0_musl/include/fortify
-make[3]: Leaving directory '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/toolchain-mips_24kc_gcc-7.5.0_musl/fortify-headers-1.1'
-time: toolchain/fortify-headers/compile#0.04#0.01#0.17

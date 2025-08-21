@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.asterisk.org/pub/telephony/dahdi-linux/releases/dahdi-linux-3.1.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 1607k  100 1607k    0     0  3929k      0 --:--:-- --:--:-- --:--:-- 3929k
-time: package/feeds/telephony/dahdi-linux/download#0.18#0.04#0.64

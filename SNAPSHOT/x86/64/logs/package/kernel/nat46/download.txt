@@ -1,36 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/nat46-2020-08-17-362640b4.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 19824  100 19824    0     0  34476      0 --:--:-- --:--:-- --:--:-- 34416
-Hash of the downloaded file does not match (file: 5cc35d11ad6937734f830be5e260eb17a7b0561e37f538e5fc99026d0f2ea517, requested: d0bc80038cadeb7e857118e8d6bae242670ab27377af49f74bad494e0e5da598) - deleting download.
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror2.openwrt.org/sources/nat46-2020-08-17-362640b4.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl: (22) The requested URL returned error: 404 Not Found
-Download failed.
-No more mirrors to try - giving up.
-nat46-2020-08-17-362640b4.tar.xz: Download from https://github.com/ayourtch/nat46.git failed
-nat46-2020-08-17-362640b4.tar.xz: Wrong hash (probably caused by .gitattributes), expecting d0bc80038cadeb7e857118e8d6bae242670ab27377af49f74bad494e0e5da598, got 5cc35d11ad6937734f830be5e260eb17a7b0561e37f538e5fc99026d0f2ea517
-Checking out files from the git repository...
-Cloning into 'nat46-2020-08-17-362640b4'...
-Note: switching to '362640b41ae52b732d9e9729e61ac555492442a3'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at 362640b nat46-module: fix compilation with kernel 5.6
-Packing checkout...
-time: package/kernel/nat46/download#0.43#0.13#1.97

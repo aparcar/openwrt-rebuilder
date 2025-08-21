@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://github.com/libexpat/libexpat/releases/download/R_2_2_9/expat-2.2.9.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   643  100   643    0     0   4560      0 --:--:-- --:--:-- --:--:--  4560
-100  508k  100  508k    0     0  2269k      0 --:--:-- --:--:-- --:--:-- 2269k
-time: tools/expat/download#0.08#0.02#0.30

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/make-ext4fs-2020-01-05-5c201be7.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 50028  100 50028    0     0  83658      0 --:--:-- --:--:-- --:--:-- 83519
-time: tools/make-ext4fs/download#0.15#0.06#0.82

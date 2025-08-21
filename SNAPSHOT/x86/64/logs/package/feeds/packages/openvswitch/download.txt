@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://www.openvswitch.org/releases/openvswitch-2.14.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 7187k  100 7187k    0     0  14.0M      0 --:--:-- --:--:-- --:--:-- 14.0M
-time: package/feeds/packages/openvswitch/download#0.24#0.10#0.78

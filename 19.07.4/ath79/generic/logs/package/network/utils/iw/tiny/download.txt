@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://cdn.kernel.org/pub/software/network/iw/iw-5.0.1.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  129k  100  129k    0     0  1962k      0 --:--:-- --:--:-- --:--:-- 1962k
-time: package/network/utils/iw/tiny/download#0.16#0.06#0.28

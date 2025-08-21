@@ -1,7 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.sourceforge.net/infozip/zip30.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100   394  100   394    0     0    227      0  0:00:01  0:00:01 --:--:--   227
-  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0100   373  100   373    0     0     99      0  0:00:03  0:00:03 --:--:--   371
-  1 1092k    1 16142    0     0   3960      0  0:04:42  0:00:04  0:04:38  3960100 1092k  100 1092k    0     0   244k      0  0:00:04  0:00:04 --:--:-- 2747k
-time: tools/zip/download#0.08#0.02#4.55

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/rtl8812au-ct-2020-01-12-e0d586aa.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  2 1156k    2 32508    0     0  52772      0  0:00:22 --:--:--  0:00:22 52772100 1156k  100 1156k    0     0  1132k      0  0:00:01  0:00:01 --:--:-- 1133k
-time: package/kernel/rtl8812au-ct/download#0.17#0.07#1.43

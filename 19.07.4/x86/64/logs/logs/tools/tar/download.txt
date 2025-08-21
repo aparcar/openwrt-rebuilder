@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/tar/tar-1.32.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 2054k  100 2054k    0     0  5627k      0 --:--:-- --:--:-- --:--:-- 5627k
-time: tools/tar/download#0.08#0.02#0.45

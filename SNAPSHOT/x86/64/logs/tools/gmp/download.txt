@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/gmp/gmp-6.2.0.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 1965k  100 1965k    0     0  3149k      0 --:--:-- --:--:-- --:--:-- 3149k
-time: tools/gmp/download#0.07#0.03#0.71

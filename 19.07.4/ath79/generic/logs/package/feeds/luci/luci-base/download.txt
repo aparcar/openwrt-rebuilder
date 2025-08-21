@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://github.com/jirutka/luasrcdiet/archive/v1.0.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   126  100   126    0     0   1115      0 --:--:-- --:--:-- --:--:--  1125
-100  297k    0  297k    0     0   794k      0 --:--:-- --:--:-- --:--:--  794k
-time: package/feeds/luci/luci-base/download#2.20#0.56#5.71

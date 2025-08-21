@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/openwrt-keyring-2019-07-25-8080ef34.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 53400  100 53400    0     0  89000      0 --:--:-- --:--:-- --:--:-- 88851
-time: package/system/openwrt-keyring/download#0.24#0.03#0.91

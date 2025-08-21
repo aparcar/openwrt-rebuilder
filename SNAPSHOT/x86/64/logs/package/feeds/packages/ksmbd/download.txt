@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://codeload.github.com/cifsd-team/cifsd/tar.gz/3.2.4?/ksmbd-3.2.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   618    0   618    0     0   4092      0 --:--:-- --:--:-- --:--:--  4065100  266k    0  266k    0     0  1432k      0 --:--:-- --:--:-- --:--:-- 1425k
-time: package/feeds/packages/ksmbd/download#0.17#0.04#0.55

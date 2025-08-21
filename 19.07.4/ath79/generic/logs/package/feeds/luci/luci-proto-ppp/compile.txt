@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/luci-proto-ppp/ipkg-all/luci-proto-ppp into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/luci/luci-proto-ppp_git-20.247.75781-0d0ab01-1_all.ipk
-time: package/feeds/luci/luci-proto-ppp/compile#0.44#0.13#1.18

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://codeload.github.com/ewsi/macremapper/tar.gz/v1.1.0?/macremapper-1.1.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   612    0   612    0     0   4707      0 --:--:-- --:--:-- --:--:--  4671100  329k    0  329k    0     0  1860k      0 --:--:-- --:--:-- --:--:-- 1849k
-time: package/feeds/packages/macremapper/download#0.17#0.06#0.41

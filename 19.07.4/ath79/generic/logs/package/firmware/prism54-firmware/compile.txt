@@ -1,4 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/prism54-firmware/ipkg-mips_24kc/prism54-firmware into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/base/prism54-firmware_1_mips_24kc.ipk
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/prism54-firmware/ipkg-mips_24kc/p54-usb-firmware into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/base/p54-usb-firmware_1_mips_24kc.ipk
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/prism54-firmware/ipkg-mips_24kc/p54-pci-firmware into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/base/p54-pci-firmware_1_mips_24kc.ipk
-time: package/firmware/prism54-firmware/compile#0.48#0.11#2.09

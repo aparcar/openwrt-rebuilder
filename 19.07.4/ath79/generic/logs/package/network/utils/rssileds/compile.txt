@@ -1,3 +1,0 @@
-rstrip.sh: /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/rssileds-0.2/ipkg-mips_24kc/rssileds/usr/sbin/rssileds: executable
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/rssileds-0.2/ipkg-mips_24kc/rssileds into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/base/rssileds_0.2-2_mips_24kc.ipk
-time: package/network/utils/rssileds/compile#0.40#0.06#1.70

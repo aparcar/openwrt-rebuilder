@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/automake/automake-1.15.1.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 53 1474k   53  783k    0     0  2353k      0 --:--:-- --:--:-- --:--:-- 2346k100 1474k  100 1474k    0     0  4260k      0 --:--:-- --:--:-- --:--:-- 4260k
-time: tools/automake/download#0.07#0.04#0.45

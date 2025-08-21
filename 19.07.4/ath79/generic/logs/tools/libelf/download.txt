@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://distfiles.gentoo.org/distfiles/libelf-0.8.13.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  145k  100  145k    0     0   843k      0 --:--:-- --:--:-- --:--:--  843k
-time: tools/libelf/download#0.06#0.03#0.27

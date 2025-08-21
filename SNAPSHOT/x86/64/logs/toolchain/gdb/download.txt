@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/gdb/gdb-8.3.1.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 64 19.5M   64 12.5M    0     0  12.1M      0  0:00:01  0:00:01 --:--:-- 12.0M100 19.5M  100 19.5M    0     0  13.4M      0  0:00:01  0:00:01 --:--:-- 13.4M
-time: toolchain/gdb/download#0.19#0.13#1.52

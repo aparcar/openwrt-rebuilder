@@ -1,2 +1,0 @@
-find: '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/luasocket-3.0-rc1-20130909': No such file or directory
-time: package/feeds/packages/luasocket/compile#0.11#0.03#0.26

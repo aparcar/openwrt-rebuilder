@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://codeload.github.com/ntop/PF_RING/tar.gz/7.2.0?/pf-ring-7.2.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  449k    0  449k    0     0  1721k      0 --:--:-- --:--:-- --:--:-- 1721k100 7121k    0 7121k    0     0  5594k      0 --:--:--  0:00:01 --:--:-- 5589k100 11.5M    0 11.5M    0     0  5213k      0 --:--:--  0:00:02 --:--:-- 5213k100 16.5M    0 16.5M    0     0  5188k      0 --:--:--  0:00:03 --:--:-- 5186k100 18.0M    0 18.0M    0     0  5200k      0 --:--:--  0:00:03 --:--:-- 5198k
-time: package/feeds/packages/pfring/download#0.40#0.23#3.80

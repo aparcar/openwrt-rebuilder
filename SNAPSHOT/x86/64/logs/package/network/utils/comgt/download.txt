@@ -1,7 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.sourceforge.net/comgt/comgt.0.32.tgz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100   358  100   358    0     0    185      0  0:00:01  0:00:01 --:--:--   185100   358  100   358    0     0    185      0  0:00:01  0:00:01 --:--:--   185
-100   337  100   337    0     0    147      0  0:00:02  0:00:02 --:--:--   147
-  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0100 39021  100 39021    0     0  15429      0  0:00:02  0:00:02 --:--:--  257k
-time: package/network/utils/comgt/download#0.18#0.05#2.74

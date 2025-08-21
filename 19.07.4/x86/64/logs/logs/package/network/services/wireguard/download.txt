@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://git.zx2c4.com/wireguard-linux-compat/snapshot/wireguard-linux-compat-1.0.20200611.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  191k    0  191k    0     0   106k      0 --:--:--  0:00:01 --:--:--  106k100  256k    0  256k    0     0   135k      0 --:--:--  0:00:01 --:--:--  135k
-time: package/network/services/wireguard/download#0.17#0.03#2.12

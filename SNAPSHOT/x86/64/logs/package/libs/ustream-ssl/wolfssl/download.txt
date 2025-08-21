@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/ustream-ssl-2020-03-13-5e1bc342.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 11892  100 11892    0     0  29004      0 --:--:-- --:--:-- --:--:-- 28934
-time: package/libs/ustream-ssl/wolfssl/download#0.16#0.05#0.66

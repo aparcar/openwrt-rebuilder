@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/uqmi-2019-06-27-1965c713.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 35 90508   35 32511    0     0  54185      0  0:00:01 --:--:--  0:00:01 54094100 90508  100 90508    0     0   145k      0 --:--:-- --:--:-- --:--:--  145k
-time: package/network/utils/uqmi/download#0.35#0.12#1.35

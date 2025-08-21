@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/gengetopt/gengetopt-2.23.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  571k  100  571k    0     0  1884k      0 --:--:-- --:--:-- --:--:-- 1884k
-time: tools/gengetopt/download#0.06#0.02#0.38

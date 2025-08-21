@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/jsonfilter-2018-02-04-c7e938d6.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 46832  100 46832    0     0  78183      0 --:--:-- --:--:-- --:--:-- 78314
-time: package/utils/jsonfilter/download#0.30#0.04#1.08

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/autoconf-archive/autoconf-archive-2019.01.06.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 67  636k   67  431k    0     0  1209k      0 --:--:-- --:--:-- --:--:-- 1206k100  636k  100  636k    0     0  1776k      0 --:--:-- --:--:-- --:--:-- 1771k
-time: tools/autoconf-archive/download#0.08#0.02#0.52

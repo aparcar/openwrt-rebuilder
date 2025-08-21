@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/hostapd-2020-06-08-5a8b3662.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  7 3104k    7  239k    0     0   303k      0  0:00:10 --:--:--  0:00:10  303k100 3104k  100 3104k    0     0  2481k      0  0:00:01  0:00:01 --:--:-- 2481k
-time: package/network/services/hostapd/full-internal/download#0.19#0.07#1.46

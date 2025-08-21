@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://codeload.github.com/namjaejeon/linux-exfat-oot/tar.gz/5.8.7?/exfat-5.8.7.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 55694  100 55694    0     0  1294k      0 --:--:-- --:--:-- --:--:-- 1294k
-time: package/kernel/exfat/download#0.18#0.06#0.48

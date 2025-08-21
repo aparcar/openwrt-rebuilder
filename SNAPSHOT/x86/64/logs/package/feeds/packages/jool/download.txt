@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://github.com/NICMx/Jool/releases/download/v4.1.4/jool-4.1.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   639  100   639    0     0   4597      0 --:--:-- --:--:-- --:--:--  4597
-100  612k  100  612k    0     0  2021k      0 --:--:-- --:--:-- --:--:-- 2021k
-time: package/feeds/packages/jool/download#0.19#0.03#0.64

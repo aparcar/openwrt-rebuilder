@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.netcologne.de/savannah/quilt/quilt-0.65.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  401k  100  401k    0     0   460k      0 --:--:-- --:--:-- --:--:--  460k
-time: tools/quilt/download#0.06#0.03#0.98

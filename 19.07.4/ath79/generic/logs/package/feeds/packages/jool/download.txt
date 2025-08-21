@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://codeload.github.com/NICMx/Jool/tar.gz/v3.5.7?/jool-3.5.7.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  309k    0  309k    0     0  1562k      0 --:--:-- --:--:-- --:--:-- 1562k
-time: package/feeds/packages/jool/download#0.18#0.04#0.51

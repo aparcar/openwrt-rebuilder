@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/m4/m4-1.4.18.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 1179k  100 1179k    0     0  3438k      0 --:--:-- --:--:-- --:--:-- 3438k
-time: tools/m4/download#0.08#0.03#0.44

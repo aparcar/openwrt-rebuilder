@@ -1,1 +1,0 @@
-time: tools/firmware-utils/compile#0.05#0.01#0.12

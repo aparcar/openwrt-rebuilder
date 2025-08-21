@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/wwan-2014-07-17/ipkg-x86_64/wwan into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/x86_64/base/wwan_2014-07-17-1_x86_64.ipk
-time: package/network/utils/wwan/compile#3.87#1.21#12.60

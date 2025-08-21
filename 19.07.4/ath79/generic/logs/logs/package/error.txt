@@ -1,1 +1,0 @@
-   ERROR: package/boot/fconfig failed to build.

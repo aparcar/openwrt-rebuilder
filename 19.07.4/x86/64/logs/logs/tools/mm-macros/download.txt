@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnome/sources/mm-common/0.9/mm-common-0.9.12.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  5  297k    5 16131    0     0  94888      0  0:00:03 --:--:--  0:00:03 94333100  297k  100  297k    0     0  1114k      0 --:--:-- --:--:-- --:--:-- 1109k
-time: tools/mm-macros/download#0.07#0.02#0.35

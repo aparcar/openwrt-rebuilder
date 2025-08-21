@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/fstools-2020-10-16-f25ab8a8.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 71940  100 71940    0     0   117k      0 --:--:-- --:--:-- --:--:--  117k
-time: package/system/fstools/download#0.17#0.03#0.79

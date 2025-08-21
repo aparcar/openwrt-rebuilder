@@ -1,2 +1,0 @@
-find: '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/unzip-6.0/unzip60': No such file or directory
-time: package/feeds/packages/unzip/compile#0.14#0.02#0.51

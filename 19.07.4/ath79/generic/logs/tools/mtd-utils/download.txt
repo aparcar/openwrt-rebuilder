@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure ftp://ftp.infradead.org/pub/mtd-utils/mtd-utils-2.1.1.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0  608k    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100  608k  100  608k    0     0   330k      0  0:00:01  0:00:01 --:--:--  330k
-time: tools/mtd-utils/download#0.08#0.03#2.03

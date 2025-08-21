@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.18.2.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   639  100   639    0     0   5705      0 --:--:-- --:--:-- --:--:--  5705
-100 8760k  100 8760k    0     0  18.7M      0 --:--:-- --:--:-- --:--:-- 18.7M
-time: tools/cmake/download#0.14#0.07#0.59

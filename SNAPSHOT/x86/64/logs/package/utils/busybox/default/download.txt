@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://www.busybox.net/downloads/busybox-1.31.1.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 12 2373k   12  288k    0     0   380k      0  0:00:06 --:--:--  0:00:06  379k100 2373k  100 2373k    0     0  2382k      0 --:--:-- --:--:-- --:--:-- 2380k
-time: package/utils/busybox/default/download#0.19#0.03#1.22

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/uclient-2020-06-17-51e16ebf.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 97 16664   97 16128    0     0  31936      0 --:--:-- --:--:-- --:--:-- 31873100 16664  100 16664    0     0  32932      0 --:--:-- --:--:-- --:--:-- 32867
-time: package/libs/uclient/download#0.40#0.13#1.39

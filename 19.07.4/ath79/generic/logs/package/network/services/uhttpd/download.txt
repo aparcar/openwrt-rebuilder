@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/uhttpd-2020-03-13-975dce23.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 28308  100 28308    0     0  53310      0 --:--:-- --:--:-- --:--:-- 53310
-time: package/network/services/uhttpd/download#0.44#0.14#1.15

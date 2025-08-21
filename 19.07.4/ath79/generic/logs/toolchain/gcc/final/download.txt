@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/gcc/gcc-7.5.0/gcc-7.5.0.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 83 59.8M   83 49.9M    0     0  47.1M      0  0:00:01  0:00:01 --:--:-- 47.1M100 59.8M  100 59.8M    0     0  50.7M      0  0:00:01  0:00:01 --:--:-- 50.7M
-time: toolchain/gcc/final/download#0.55#0.24#1.27

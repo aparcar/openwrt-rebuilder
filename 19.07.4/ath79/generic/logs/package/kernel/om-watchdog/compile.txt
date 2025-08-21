@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/om-watchdog-1/ipkg-mips_24kc/om-watchdog into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/base/om-watchdog_1-2_mips_24kc.ipk
-time: package/kernel/om-watchdog/compile#0.24#0.07#0.64

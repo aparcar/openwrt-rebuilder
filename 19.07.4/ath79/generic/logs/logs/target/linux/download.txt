@@ -1,6 +1,0 @@
-mkdir: cannot create directory '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl': File exists
-Makefile:19: recipe for target '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl/linux-4.14.195.tar.xz' failed
-make[3]: *** [/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl/linux-4.14.195.tar.xz] Error 1
-Makefile:13: recipe for target 'download' failed
-make[2]: *** [download] Error 2
-time: target/linux/download#0.04#0.01#0.06

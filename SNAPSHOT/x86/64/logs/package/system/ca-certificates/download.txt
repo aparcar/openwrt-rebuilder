@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://ftp.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_20200601.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  5  239k    5 13824    0     0  45473      0  0:00:05 --:--:--  0:00:05 45324100  239k  100  239k    0     0   340k      0 --:--:-- --:--:-- --:--:--  340k
-time: package/system/ca-certificates/download#0.17#0.05#0.95

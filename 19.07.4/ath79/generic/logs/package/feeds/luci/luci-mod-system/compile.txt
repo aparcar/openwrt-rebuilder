@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/luci-mod-system/ipkg-all/luci-mod-system into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/luci/luci-mod-system_git-20.247.75781-0d0ab01-1_all.ipk
-time: package/feeds/luci/luci-mod-system/compile#0.61#0.11#1.64

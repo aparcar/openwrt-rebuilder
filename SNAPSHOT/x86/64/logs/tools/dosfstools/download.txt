@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://github.com/dosfstools/dosfstools/releases/download/v4.1/dosfstools-4.1.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   645  100   645    0     0   4742      0 --:--:-- --:--:-- --:--:--  4742
-100  168k  100  168k    0     0   840k      0 --:--:-- --:--:-- --:--:--  840k
-time: tools/dosfstools/download#0.07#0.02#0.28

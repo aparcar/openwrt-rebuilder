@@ -1,25 +1,0 @@
-broadcom.mk:398: warning: overriding recipe for target '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl/broadcom-wl-5.100.138.tar.bz2'
-broadcom.mk:98: warning: ignoring old recipe for target '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/dl/broadcom-wl-5.100.138.tar.bz2'
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://www.lwfinger.com/b43-firmware/broadcom-wl-5.100.138.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  1 12.8M    1  225k    0     0   364k      0  0:00:36 --:--:--  0:00:36  363k100 12.8M  100 12.8M    0     0  12.2M      0  0:00:01  0:00:01 --:--:-- 12.2M
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://src.fedoraproject.org/repo/pkgs/ipw2100-firmware/ipw2100-fw-1.3.tgz/46aa75bcda1a00efa841f9707bbbd113/ipw2100-fw-1.3.tgz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  242k  100  242k    0     0  2757k      0 --:--:-- --:--:-- --:--:-- 2789k
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://src.fedoraproject.org/repo/pkgs/ipw2200-firmware/ipw2200-fw-3.1.tgz/eaba788643c7cc7483dd67ace70f6e99/ipw2200-fw-3.1.tgz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  263k  100  263k    0     0  4323k      0 --:--:-- --:--:-- --:--:-- 4323k
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.sourceforge.net/zd1211/zd1211-firmware-1.4.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   404  100   404    0     0   1286      0 --:--:-- --:--:-- --:--:--  1282
-  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100   387  100   387    0     0    167      0  0:00:02  0:00:02 --:--:--   390100   387  100   387    0     0    167      0  0:00:02  0:00:02 --:--:--   390
-100 39061  100 39061    0     0  15630      0  0:00:02  0:00:02 --:--:-- 15630
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v4.19.137/backports-4.19.137-1.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 6288k  100 6288k    0     0  10.6M      0 --:--:-- --:--:-- --:--:-- 10.6M
-time: package/kernel/mac80211/download#0.59#0.18#5.13

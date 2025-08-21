@@ -1,11 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://ftp.de.debian.org/debian/pool/main/m/mklibs/mklibs_0.1.35.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl: (22) The requested URL returned error: 404 Not Found
-Download failed.
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/mklibs_0.1.35.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 24121  100 24121    0     0  45511      0 --:--:-- --:--:-- --:--:-- 45597
-time: tools/mklibs/download#0.10#0.02#0.97

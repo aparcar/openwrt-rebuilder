@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://cdn.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.5/e2fsprogs-1.44.5.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 23 5249k   23 1247k    0     0  9593k      0 --:--:-- --:--:-- --:--:-- 9519k100 5249k  100 5249k    0     0  19.7M      0 --:--:-- --:--:-- --:--:-- 19.6M
-time: package/utils/e2fsprogs/download#0.22#0.08#0.57

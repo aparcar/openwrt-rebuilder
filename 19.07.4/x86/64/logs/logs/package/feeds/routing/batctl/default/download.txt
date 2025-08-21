@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.open-mesh.org/batman/releases/batman-adv-2019.2/batctl-2019.2.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 85  105k   85 91661    0     0   170k      0 --:--:-- --:--:-- --:--:--  169k100  105k  100  105k    0     0   168k      0 --:--:-- --:--:-- --:--:--  168k
-time: package/feeds/routing/batctl/default/download#0.15#0.04#0.81

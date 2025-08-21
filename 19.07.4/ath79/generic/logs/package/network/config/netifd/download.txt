@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/netifd-2019-08-05-5e02f944.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 76060  100 76060    0     0   123k      0 --:--:-- --:--:-- --:--:--  123k
-time: package/network/config/netifd/download#0.39#0.10#1.23

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://s3.amazonaws.com/json-c_releases/releases/json-c-0.12.1-nodoc.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  383k  100  383k    0     0  4457k      0 --:--:-- --:--:-- --:--:-- 4457k
-time: package/libs/libjson-c/download#0.21#0.04#0.45

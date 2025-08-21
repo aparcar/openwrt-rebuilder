@@ -1,35 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://raw.githubusercontent.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl: (22) The requested URL returned error: 404 Not Found
-Download failed.
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://raw.githubusercontent.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl: (22) The requested URL returned error: 404 Not Found
-Download failed.
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://raw.githubusercontent.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl: (22) The requested URL returned error: 404 Not Found
-Download failed.
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://raw.githubusercontent.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl: (22) The requested URL returned error: 404 Not Found
-Download failed.
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://raw.githubusercontent.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-curl: (22) The requested URL returned error: 404 Not Found
-Download failed.
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/zstd-1.4.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0 1916k    0 16124    0     0  32442      0  0:01:00 --:--:--  0:01:00 32377100 1916k  100 1916k    0     0  1773k      0  0:00:01  0:00:01 --:--:-- 1773k
-time: tools/zstd/download#0.20#0.05#1.54

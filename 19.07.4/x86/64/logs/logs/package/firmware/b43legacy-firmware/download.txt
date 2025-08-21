@@ -1,7 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://downloads.openwrt.org/sources/wl_apsta-3.130.20.0.o
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   185  100   185    0     0    911      0 --:--:-- --:--:-- --:--:--   906
-100   185  100   185    0     0    305      0 --:--:-- --:--:-- --:--:--   305
-  2  637k    2 16126    0     0  13961      0  0:00:46  0:00:01  0:00:45 13961100  637k  100  637k    0     0   407k      0  0:00:01  0:00:01 --:--:-- 1520k
-time: package/firmware/b43legacy-firmware/download#0.15#0.05#1.80

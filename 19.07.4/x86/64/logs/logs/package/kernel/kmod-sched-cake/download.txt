@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/sched-cake-2019-03-12-057c7388.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 28960  100 28960    0     0  55799      0 --:--:-- --:--:-- --:--:-- 55799
-time: package/kernel/kmod-sched-cake/download#0.40#0.12#1.47

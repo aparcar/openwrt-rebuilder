@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.14.195.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 10 96.6M   10 10.4M    0     0  30.1M      0  0:00:03 --:--:--  0:00:03 30.0M 94 96.6M   94 90.9M    0     0  68.0M      0  0:00:01  0:00:01 --:--:-- 67.9M100 96.6M  100 96.6M    0     0  68.2M      0  0:00:01  0:00:01 --:--:-- 68.2M
-time: toolchain/kernel-headers/download#0.85#0.52#1.52

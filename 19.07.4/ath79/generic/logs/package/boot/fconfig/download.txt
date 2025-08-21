@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.openwrt.org/sources/fconfig-20080329.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   185  100   185    0     0    461      0 --:--:-- --:--:-- --:--:--   461
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 10179  100 10179    0     0  11975      0 --:--:-- --:--:-- --:--:-- 9940k
-time: package/boot/fconfig/download#0.18#0.03#1.18

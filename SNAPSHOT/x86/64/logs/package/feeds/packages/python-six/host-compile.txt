@@ -1,26 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://files.pythonhosted.org/packages/source/s/six/six-1.15.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100 33917  100 33917    0     0   341k      0 --:--:-- --:--:-- --:--:--  341k
-running install
-running build
-running build_py
-creating build
-creating build/lib
-copying six.py -> build/lib
-running install_lib
-copying build/lib/six.py -> /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/staging_dir/hostpkg/lib/python3.9/site-packages
-byte-compiling /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/staging_dir/hostpkg/lib/python3.9/site-packages/six.py to six.cpython-39.pyc
-running install_egg_info
-running egg_info
-writing six.egg-info/PKG-INFO
-writing dependency_links to six.egg-info/dependency_links.txt
-writing top-level names to six.egg-info/top_level.txt
-reading manifest file 'six.egg-info/SOURCES.txt'
-reading manifest template 'MANIFEST.in'
-no previously-included directories found matching 'documentation/_build'
-writing manifest file 'six.egg-info/SOURCES.txt'
-Copying six.egg-info to /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/staging_dir/hostpkg/lib/python3.9/site-packages/six-1.15.0-py3.9.egg-info
-running install_scripts
-time: package/feeds/packages/python-six/host-compile#1.16#0.10#1.66

@@ -1,2 +1,0 @@
-find: '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/gzip-1.10': No such file or directory
-time: package/feeds/packages/gzip/compile#0.13#0.00#0.55

@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/openwrt-keyring-2019-07-25-8080ef34/ipkg-mips_24kc/openwrt-keyring into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/base/openwrt-keyring_2019-07-25-8080ef34-1_mips_24kc.ipk
-time: package/system/openwrt-keyring/compile#0.57#0.18#1.37

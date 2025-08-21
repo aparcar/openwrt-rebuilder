@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   641  100   641    0     0  16435      0 --:--:-- --:--:-- --:--:-- 16435
-100 1385k  100 1385k    0     0  8826k      0 --:--:-- --:--:-- --:--:-- 8826k
-time: tools/flex/download#0.08#0.04#0.26

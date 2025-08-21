@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/libiwinfo-2020-06-03-2faa20e5.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  104k  100  104k    0     0   149k      0 --:--:-- --:--:-- --:--:--  149k
-time: package/network/utils/iwinfo/download#0.17#0.05#0.91

@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/luci-app-opkg/ipkg-all/luci-app-opkg into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/luci/luci-app-opkg_git-20.247.75781-0d0ab01-1_all.ipk
-time: package/feeds/luci/luci-app-opkg/compile#1.59#0.57#5.03

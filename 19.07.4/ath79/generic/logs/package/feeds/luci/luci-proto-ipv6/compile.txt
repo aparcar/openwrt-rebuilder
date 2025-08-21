@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/luci-proto-ipv6/ipkg-all/luci-proto-ipv6 into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/mips_24kc/luci/luci-proto-ipv6_git-20.247.75781-0d0ab01-1_all.ipk
-time: package/feeds/luci/luci-proto-ipv6/compile#0.45#0.15#1.16

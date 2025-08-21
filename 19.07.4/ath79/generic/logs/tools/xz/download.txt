@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.sourceforge.net/lzmautils/xz-5.2.4.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0100   327  100   327    0     0     57      0  0:00:05  0:00:05 --:--:--    74100   327  100   327    0     0     57      0  0:00:05  0:00:05 --:--:--    97
-100 1257k  100 1257k    0     0   207k      0  0:00:06  0:00:06 --:--:--  207k
-time: tools/xz/download#0.11#0.02#6.14

@@ -1,2 +1,0 @@
-find: '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/perl/Net-CIDR-Lite-0.21': No such file or directory
-time: package/feeds/packages/perl-net-cidr-lite/compile#0.15#0.04#0.36

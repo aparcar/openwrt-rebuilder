@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/findutils/findutils-4.6.0.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 3691k  100 3691k    0     0  8428k      0 --:--:-- --:--:-- --:--:-- 8428k
-time: tools/findutils/download#0.11#0.04#0.54

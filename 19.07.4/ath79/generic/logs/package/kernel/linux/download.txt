@@ -1,2 +1,0 @@
-can't open file '/home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-mips_24kc_musl/linux-ath79_generic/linux-4.14.195/.config' at /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/scripts/kconfig.pl line 32.
-time: package/kernel/linux/download#3.02#0.35#3.78

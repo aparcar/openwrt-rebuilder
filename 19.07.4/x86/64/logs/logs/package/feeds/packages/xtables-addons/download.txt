@@ -1,7 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.sourceforge.net/xtables-addons/xtables-addons-2.14.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   408  100   408    0     0   1421      0 --:--:-- --:--:-- --:--:--  1416
-  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100   387  100   387    0     0    169      0  0:00:02  0:00:02 --:--:--   387100   387  100   387    0     0    169      0  0:00:02  0:00:02 --:--:--   387
-100  314k  100  314k    0     0   130k      0  0:00:02  0:00:02 --:--:--  130k
-time: package/feeds/packages/xtables-addons/download#0.19#0.05#2.64

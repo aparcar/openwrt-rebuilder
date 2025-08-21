@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.cyberbits.eu/u-boot/u-boot-2020.04.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 44 14.3M   44 6607k    0     0  4935k      0  0:00:02  0:00:01  0:00:01 4931k100 14.3M  100 14.3M    0     0  9388k      0  0:00:01  0:00:01 --:--:-- 9383k
-time: tools/mkimage/download#0.18#0.11#1.65

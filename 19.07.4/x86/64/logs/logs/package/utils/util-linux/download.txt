@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://cdn.kernel.org/pub/linux/utils/util-linux/v2.34/util-linux-2.34.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 13 4858k   13  659k    0     0  5682k      0 --:--:-- --:--:-- --:--:-- 5633k100 4858k  100 4858k    0     0  16.5M      0 --:--:-- --:--:-- --:--:-- 16.4M
-time: package/utils/util-linux/download#0.22#0.07#0.50

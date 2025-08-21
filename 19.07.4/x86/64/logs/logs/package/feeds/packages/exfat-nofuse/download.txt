@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/exfat-nofuse-2018-04-17-01c30ad5.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 58 55980   58 32512    0     0  59220      0 --:--:-- --:--:-- --:--:-- 59112100 55980  100 55980    0     0  87196      0 --:--:-- --:--:-- --:--:-- 87060
-time: package/feeds/packages/exfat-nofuse/download#0.38#0.11#1.49

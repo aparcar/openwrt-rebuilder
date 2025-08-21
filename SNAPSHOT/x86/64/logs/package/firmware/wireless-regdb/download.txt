@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://cdn.kernel.org/pub/software/network/wireless-regdb/wireless-regdb-2020.04.29.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 24552  100 24552    0     0   352k      0 --:--:-- --:--:-- --:--:--  352k
-time: package/firmware/wireless-regdb/download#0.18#0.03#0.30

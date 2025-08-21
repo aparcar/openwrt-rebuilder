@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://alpha.gnu.org/gnu/bc/bc-1.06.95.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 15  283k   15 45151    0     0   459k      0 --:--:-- --:--:-- --:--:--  454k100  283k  100  283k    0     0  2145k      0 --:--:-- --:--:-- --:--:-- 2129k
-time: tools/bc/download#0.06#0.01#0.23

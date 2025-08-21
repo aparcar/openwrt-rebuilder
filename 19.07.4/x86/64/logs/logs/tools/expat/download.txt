@@ -1,7 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.sourceforge.net/expat/expat-2.2.9.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   370  100   370    0     0   1229      0 --:--:-- --:--:-- --:--:--  1229
-  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100   349  100   349    0     0    151      0  0:00:02  0:00:02 --:--:--   350100   349  100   349    0     0    151      0  0:00:02  0:00:02 --:--:--   350
-  9  508k    9 48906    0     0  18113      0  0:00:28  0:00:02  0:00:26 18113100  508k  100  508k    0     0   175k      0  0:00:02  0:00:02 --:--:-- 2411k
-time: tools/expat/download#0.08#0.02#3.01

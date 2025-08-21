@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://www.atoptool.nl/download/netatop-3.1.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 22812  100 22812    0     0  36267      0 --:--:-- --:--:-- --:--:-- 36209
-time: package/feeds/packages/netatop/download#0.17#0.04#0.84

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://distfiles.dereferenced.org/pkgconf/pkgconf-1.6.3.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  284k  100  284k    0     0   527k      0 --:--:-- --:--:-- --:--:--  526k
-time: tools/pkgconf/download#0.07#0.01#0.62

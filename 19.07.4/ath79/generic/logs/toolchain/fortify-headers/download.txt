@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://dl.2f30.org/releases/fortify-headers-1.1.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  5510  100  5510    0     0  15391      0 --:--:-- --:--:-- --:--:-- 15391
-time: toolchain/fortify-headers/download#0.03#0.02#0.42

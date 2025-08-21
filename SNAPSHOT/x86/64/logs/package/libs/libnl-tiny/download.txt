@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/libnl-tiny-2019-10-29-0219008c.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 42588  100 42588    0     0  71098      0 --:--:-- --:--:-- --:--:-- 71098
-time: package/libs/libnl-tiny/download#0.21#0.05#0.97

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://thekelleys.org.uk/dnsmasq/dnsmasq-2.82.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 13  497k   13 66868    0     0    97k      0  0:00:05 --:--:--  0:00:05   97k 88  497k   88  440k    0     0   265k      0  0:00:01  0:00:01 --:--:--  265k100  497k  100  497k    0     0   284k      0  0:00:01  0:00:01 --:--:--  284k
-time: package/network/services/dnsmasq/nodhcpv6/download#0.16#0.04#1.96

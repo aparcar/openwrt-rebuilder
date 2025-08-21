@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/uci-2019-09-01-415f9e48.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 43568  100 43568    0     0  73719      0 --:--:-- --:--:-- --:--:-- 73594100 43568  100 43568    0     0  73719      0 --:--:-- --:--:-- --:--:-- 73594
-time: package/system/uci/download#0.39#0.13#1.29

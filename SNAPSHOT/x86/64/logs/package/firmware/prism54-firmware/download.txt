@@ -1,17 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://daemonizer.de/prism54/prism54-fw//fw-fullmac/1.0.4.3.arm
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 93996  100 93996    0     0   122k      0 --:--:-- --:--:-- --:--:--  122k
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://daemonizer.de/prism54/prism54-fw//fw-usb/2.13.24.0.lm87.arm
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 29736  100 29736    0     0  73422      0 --:--:-- --:--:-- --:--:-- 73241
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://daemonizer.de/prism54/prism54-fw//fw-softmac/2.13.12.0.arm
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 29036  100 29036    0     0  72228      0 --:--:-- --:--:-- --:--:-- 72228
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://daemonizer.de/prism54/prism54-fw//stlc4560/2.13.0.0.a.13.14.arm
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 30888  100 30888    0     0  75705      0 --:--:-- --:--:-- --:--:-- 75520
-time: package/firmware/prism54-firmware/download#0.48#0.09#2.53

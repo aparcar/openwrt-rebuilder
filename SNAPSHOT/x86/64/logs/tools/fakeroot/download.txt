@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://deb.debian.org/debian/pool/main/f/fakeroot/fakeroot_1.24.orig.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  510k  100  510k    0     0  3189k      0 --:--:-- --:--:-- --:--:-- 3189k
-time: tools/fakeroot/download#0.06#0.02#0.26

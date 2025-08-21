@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/bison/bison-3.7.1.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 74 2544k   74 1887k    0     0  1304k      0  0:00:01  0:00:01 --:--:-- 1304k100 2544k  100 2544k    0     0  1603k      0  0:00:01  0:00:01 --:--:-- 1603k
-time: tools/bison/download#0.08#0.06#1.73

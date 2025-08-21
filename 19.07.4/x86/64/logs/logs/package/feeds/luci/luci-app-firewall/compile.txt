@@ -1,2 +1,0 @@
-Packaged contents of /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/build_dir/target-x86_64_musl/luci-app-firewall/ipkg-all/luci-app-firewall into /home/runner/work/openwrt-rebuilder/openwrt-rebuilder/rebuild/bin/packages/x86_64/luci/luci-app-firewall_git-20.247.75781-0d0ab01-1_all.ipk
-time: package/feeds/luci/luci-app-firewall/compile#1.60#0.53#6.73

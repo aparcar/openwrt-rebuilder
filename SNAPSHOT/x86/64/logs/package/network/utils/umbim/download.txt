@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/umbim-2019-09-11-184b707d.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 86 56712   86 48896    0     0  38652      0  0:00:01  0:00:01 --:--:-- 38622100 56712  100 56712    0     0  44831      0  0:00:01  0:00:01 --:--:-- 44796
-time: package/network/utils/umbim/download#0.19#0.04#1.50

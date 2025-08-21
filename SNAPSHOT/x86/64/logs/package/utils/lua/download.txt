@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure http://www.lua.org/ftp/lua-5.1.5.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  3  216k    3  7997    0     0  11343      0  0:00:19 --:--:--  0:00:19 11327100  216k  100  216k    0     0   197k      0  0:00:01  0:00:01 --:--:--  197k
-time: package/utils/lua/download#0.25#0.03#1.52

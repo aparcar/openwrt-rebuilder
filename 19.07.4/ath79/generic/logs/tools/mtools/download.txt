@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://mirror.csclub.uwaterloo.ca/gnu/mtools/mtools-4.0.23.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  408k  100  408k    0     0  1385k      0 --:--:-- --:--:-- --:--:-- 1385k
-time: tools/mtools/download#0.07#0.02#0.40

@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://sources.openwrt.org/odhcpd-2020-05-03-49e4949c.tar.xz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 64 50600   64 32512    0     0  52438      0 --:--:-- --:--:-- --:--:-- 52354100 50600  100 50600    0     0  81481      0 --:--:-- --:--:-- --:--:-- 81350
-time: package/network/services/odhcpd/ipv6only/download#0.37#0.14#1.17

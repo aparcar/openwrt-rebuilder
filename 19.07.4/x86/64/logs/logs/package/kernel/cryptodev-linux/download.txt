@@ -1,5 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://codeload.github.com/cryptodev-linux/cryptodev-linux/tar.gz/cryptodev-linux-1.10?/cryptodev-linux-1.10.tar.gz
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 56498  100 56498    0     0  1313k      0 --:--:-- --:--:-- --:--:-- 1313k
-time: package/kernel/cryptodev-linux/download#0.17#0.04#0.33

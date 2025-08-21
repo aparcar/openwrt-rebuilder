@@ -1,6 +1,0 @@
-+ curl -f --connect-timeout 20 --retry 5 --location --insecure https://downloads.openwrt.org/sources/lzma-4.65.tar.bz2
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   185  100   185    0     0    457      0 --:--:-- --:--:-- --:--:--   456
- 45  246k   45  111k    0     0    99k      0  0:00:02  0:00:01  0:00:01   99k100  246k  100  246k    0     0   201k      0  0:00:01  0:00:01 --:--:-- 1333k
-time: tools/lzma/download#0.07#0.03#1.34
