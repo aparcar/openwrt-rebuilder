@@ -1,1 +1,1172 @@
-{}
+{
+  "24.10.2": {
+    "mediatek/mt7622": {
+      "packages": {
+        "reproducible": [],
+        "pending": [],
+        "unreproducible": [],
+        "notfound": []
+      },
+      "images": {
+        "reproducible": [
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-snand-preloader.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-snand-preloader.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-emmc-preloader.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-emmc-preloader.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-snand-bl31-uboot.fip",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-snand-bl31-uboot.fip"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-emmc-bl31-uboot.fip",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-emmc-bl31-uboot.fip"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-bl31-uboot.fip",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-bl31-uboot.fip"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-preloader.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-preloader.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-preloader.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-preloader.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-bl31-uboot.fip",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-bl31-uboot.fip"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-bl31-uboot.fip",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-bl31-uboot.fip"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-preloader.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-preloader.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-preloader.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-preloader.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-bl31-uboot.fip",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-bl31-uboot.fip"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-ubi-loader.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "reproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": null,
+            "files": {
+              "reproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-ubi-loader.itb"
+              ]
+            }
+          }
+        ],
+        "pending": [],
+        "unreproducible": [
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-squashfs-sysupgrade.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-squashfs-sysupgrade.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-squashfs-sysupgrade.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-initramfs-recovery.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-initramfs-recovery.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-initramfs-recovery.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-sdcard.img.gz",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-sdcard.img.gz.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-bananapi_bpi-r64-sdcard.img.gz"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-factory-uboot.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-factory-uboot.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-factory-uboot.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-factory.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-factory.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-factory.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-2533dhp2-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-factory-uboot.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-factory-uboot.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-factory-uboot.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-factory.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-factory.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-factory.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-buffalo_wsr-3200ax4s-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-tftp.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-tftp.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-tftp.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-recovery.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-recovery.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-recovery.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-m32-a1-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-recovery.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-recovery.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-recovery.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-tftp.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-tftp.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-dlink_eagle-pro-ai-r32-a1-squashfs-tftp.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-2533gent-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-2533gent-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-elecom_wrc-2533gent-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-2533gent-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-2533gent-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-elecom_wrc-2533gent-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-squashfs-factory.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-squashfs-factory.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-elecom_wrc-x3200gst3-squashfs-factory.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-linksys_e8450-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-linksys_e8450-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-squashfs-sysupgrade.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-squashfs-sysupgrade.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-squashfs-sysupgrade.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-initramfs-recovery.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-initramfs-recovery.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-linksys_e8450-ubi-initramfs-recovery.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-squashfs-factory.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-squashfs-factory.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-mediatek_mt7622-rfb1-ubi-squashfs-factory.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-netgear_wax206-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-netgear_wax206-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-netgear_wax206-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-netgear_wax206-initramfs-recovery.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-netgear_wax206-initramfs-recovery.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-netgear_wax206-initramfs-recovery.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-netgear_wax206-squashfs-factory.img",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-netgear_wax206-squashfs-factory.img.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-netgear_wax206-squashfs-factory.img"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-reyee_ax3200-e5-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-reyee_ax3200-e5-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-reyee_ax3200-e5-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-reyee_ax3200-e5-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-reyee_ax3200-e5-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-reyee_ax3200-e5-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ruijie_rg-ew3200gx-pro-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ruijie_rg-ew3200gx-pro-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ruijie_rg-ew3200gx-pro-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ruijie_rg-ew3200gx-pro-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ruijie_rg-ew3200gx-pro-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ruijie_rg-ew3200gx-pro-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-smartrg_sdg-841-t6-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-smartrg_sdg-841-t6-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-smartrg_sdg-841-t6-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-smartrg_sdg-841-t6-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-smartrg_sdg-841-t6-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-smartrg_sdg-841-t6-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-totolink_a8000ru-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-totolink_a8000ru-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-totolink_a8000ru-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-totolink_a8000ru-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-totolink_a8000ru-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-totolink_a8000ru-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-initramfs-recovery.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-initramfs-recovery.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-initramfs-recovery.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-squashfs-sysupgrade.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-squashfs-sysupgrade.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v1-ubootmod-squashfs-sysupgrade.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-squashfs-sysupgrade.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-squashfs-sysupgrade.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-squashfs-sysupgrade.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-initramfs-recovery.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-initramfs-recovery.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v2-ubootmod-initramfs-recovery.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-squashfs-sysupgrade.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-squashfs-sysupgrade.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-squashfs-sysupgrade.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-initramfs-kernel.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-initramfs-kernel.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-initramfs-kernel.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-initramfs-recovery.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-initramfs-recovery.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-initramfs-recovery.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-squashfs-sysupgrade.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-squashfs-sysupgrade.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-ubnt_unifi-6-lr-v3-ubootmod-squashfs-sysupgrade.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-initramfs-recovery.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-initramfs-recovery.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-initramfs-recovery.itb"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-factory.bin",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-factory.bin.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-factory.bin"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-squashfs-sysupgrade.itb",
+            "version": "d9340319c6",
+            "arch": "mediatek/mt7622",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-squashfs-sysupgrade.itb.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/mt7622/openwrt-24.10.2-mediatek-mt7622-xiaomi_redmi-router-ax6s-squashfs-sysupgrade.itb"
+              ]
+            }
+          }
+        ],
+        "notfound": []
+      }
+    }
+  }
+}
