@@ -4,5 +4,5 @@ __pycache__/
 dist/
 openwrt_rebuilder.egg-info/
 output/
-rebuild/
+build/
 results/
