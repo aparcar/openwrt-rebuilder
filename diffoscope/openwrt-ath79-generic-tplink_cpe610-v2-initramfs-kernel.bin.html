@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="IE=edge">
+  <meta name="referrer" content="no-referrer" />
+  <meta name="generator" content="diffoscope" />
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAADdgAAA3YBfdWCzAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAM8SURBVFiF7dZdaJZlGAfw3/O+e9XNjy3XllZzWImBxIpifqTgsmUHBSIeBNFBdRh0UHQ0xGdb66CFBIERZEFRQRRUw0HkQkLMYQSBdpCFWdgSP6jpNn2393k68Nn2bj3vXtb6UOh/cl/39b/u67mem/913zf/4z9GUDw5xNI8n5WIzW9m/QF2YluJmI8203mALzEvLWAerRs4Pz6vSIkZSlsYk0/GkaB0zEgyDgWMlijyWsJuS2fkQwu8pqpMTA0ypeiShG71Bp0rU8Q+A47MWEDgvHZbZl/Av4SpIgxVYB3IqwZDmoUuYkzosDaNchpAoFqkSmgjGPWzLieF1k3JHVsjvCJQHBYaSy9g1E3m+QImQiK9SbNGqJDzuiDZ0lggQJCsyelDq8BB47sbCWTsnvhG3kqcLL833eqF4hk1EOoTOjZjnnaRdq2l6KtMAyl4/g23bKJrun+Mt9uOq7nvqOVbebWYy9Adc1fM/R/3CO780dONbIeFPHsPw+ULeM5ZHTbXHfUtXpxOZzgT5z02UGsZThRzF/ilht9G+fr4zfbfccIxXIa7uVTup69i7LJXaEEqF3on1d9ludBLpVLOVoT1lky9QYtwQ6p3WAVqSyUslWwSbRrkPJrMtgn0iBVk7BPJ4sGE24EPQKW3jLgdzWKLBTbg0yTuZeGkDsp2gcUGDesHGQ/gK5G8nLMigWiCe3jCrnTRiJ9EYjm1ImsUEq5l8hScPXbpsVtlKhfan+pv0yD0ZqmU5XegGBmnDIo/pylj8oYLOP3Eab/v5Zmi6EtZ3vv1FU/2r7LioYSL2dNybbdiMdptFU57++20Vqh+iq/Tap1WpaWY611wmyWyUzxZDbIWTvEV1Ildn5agfBumoUMTtoisFvhebAAHZWxX0ChwTuScvHdVeVykToysMyJ7ittwbmj31J+6IrRDp5XTfBt1WJ+WYnZdMB0F3xlUgD5uDVj2Sa+a4SrzH+FeyHHmw17V112waBOZgP4WczkLZsILar1fpIliMU4XZoK/poE0XHl+N8v6QcGAUbVymnDIZVnzrTXqGzmnhKLxZX/niyiDjIJgwg4Se1GR/Y8idGPysh6fr0i1i/AHMWHgrwUJgNAAAAAASUVORK5CYII=" />
+  <title>/srv/diffoscope/bin/diffoscope /home/aparcar/actions-runner/_work/openwrt-rebuilder/openwrt-rebuilder/build/SNAPSHOT/bin/targets/ath79/generic/openwrt-ath79-generic-tplink_cpe610-v2-initramfs-kernel.bin.orig /home/aparcar/actions-runner/_work/openwrt-rebuilder/openwrt-rebuilder/build/SNAPSHOT/bin/targets/ath79/generic/openwrt-ath79-generic-tplink_cpe610-v2-initramfs-kernel.bin --html /home/aparcar/actions-runner/_work/openwrt-rebuilder/openwrt-rebuilder/results/SNAPSHOT/ath79/generic/openwrt-ath79-generic-tplink_cpe610-v2-initramfs-kernel.bin.html</title>
+<style>
+body.diffoscope {
+  background: white;
+  color: black;
+}
+.diffoscope .footer {
+  font-size: small;
+}
+.diffoscope .difference {
+  border: outset #888 1px;
+  background: #E8E8E8;
+  background: rgba(0,0,0,.1);
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+.diffoscope .difference table {
+  table-layout: fixed;
+  width: 100%;
+  border: 0;
+}
+.diffoscope .difference th,
+.diffoscope .difference td {
+  border: 0;
+}
+.diffoscope table.diff {
+  border: 0;
+  border-collapse:collapse;
+  font-size:0.75em;
+  font-family: 'Lucida Console', monospace;
+  word-break: break-word;
+}
+.diffoscope table.diff tr:hover td {
+  background: #FFFF00;
+}
+.diffoscope .line {
+  color:#8080a0
+}
+.diffoscope th {
+  background: black;
+  color: white
+}
+.diffoscope .diffunmodified td {
+  background: #D0D0E0
+}
+.diffoscope .diffhunk td {
+  background: #A0A0A0
+}
+.diffoscope .diffadded td {
+  background: #CCFFCC
+}
+.diffoscope .diffdeleted td {
+  background: #FFCCCC
+}
+.diffoscope .diffchanged td {
+  background: #FFFFA0
+}
+.diffoscope ins, del {
+  background: #E0C880;
+  text-decoration: none
+}
+.diffoscope .dp {
+  color: #B08080
+}
+.diffoscope .comment {
+  font-style: italic;
+}
+.diffoscope .comment.multiline {
+  font-style: normal;
+  font-family: monospace;
+  white-space: pre;
+}
+.diffoscope .source {
+  font-weight: bold;
+}
+.diffoscope .error {
+  border: solid black 1px;
+  background: red;
+  color: white;
+  padding: 0.2em;
+}
+.diffoscope .anchor {
+  margin-left: 0.5em;
+  font-size: 80%;
+  color: #333;
+  text-decoration: none;
+  display: none;
+}
+.diffoscope .diffheader:hover .anchor {
+  display: inline;
+}
+.diffoscope .diffcontrol, .diffoscope .diffcontrol-nochildren {
+  float: left;
+  margin-right: 0.3em;
+  cursor: pointer;
+  display: none; /* currently, only available in html-dir output where jquery is enabled */
+}
+.diffoscope .colines {
+  width: 3em;
+}
+.diffoscope .coldiff {
+  width: 99%;
+}
+.diffoscope .diffsize {
+  float: right;
+}
+.diffoscope table.diff tr.ondemand td, .diffoscope div.ondemand-details {
+  background: #f99;
+  text-align: center;
+  padding: 0.5em 0;
+}
+.diffoscope table.diff tr.ondemand:hover td, .diffoscope div.ondemand-details:hover {
+  background: #faa;
+  cursor: pointer;
+}
+</style>
+</head>
+<body class="diffoscope">
+<div class="difference">
+  <div class="diffheader">
+  <div class="diffcontrol diffcontrol-double">⊟</div>
+  <div><span class="diffsize">17.9 KB</span></div>
+  <div><span class="source">/home/aparcar/actions-runner/_work/openwrt-rebuilder/openwrt-rebuilder/build/SNAPSHOT/bin/targets/ath79/generic/openwrt-ath79-generic-tplink_cpe610-v2-initramfs-kernel.bin.orig</span> vs.</div>
+  <div id="top"><span class="source">/home/aparcar/actions-runner/_work/openwrt-rebuilder/openwrt-rebuilder/build/SNAPSHOT/bin/targets/ath79/generic/openwrt-ath79-generic-tplink_cpe610-v2-initramfs-kernel.bin</span>
+    <a class="anchor" href="#top">¶</a>
+  </div>
+  </div>
+  <div class="difference">
+    <div class="diffheader">
+    <div class="diffcontrol">⊟</div>
+    <div><span class="diffsize">17.6 KB</span></div>
+    <div id="strings---all---bytes-----"><span class="source">strings --all --bytes=8 {}</span>
+      <a class="anchor" href="#strings---all---bytes-----">¶</a>
+    </div>
+    </div>
+<table class="diff">
+<colgroup><col class="colines"/><col class="coldiff"/>
+<col class="colines"/><col class="coldiff"/></colgroup>
+<tr style="display:none;"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr class="diffhunk"><td colspan="2">Offset 11, 14 lines modified</td><td colspan="2">Offset 11, 15 lines modified</td></tr>
+<tr class="diffunmodified"><td class="diffline">11 </td><td class="diffpresent">data<span class="dp">·</span>error!</td><td class="diffline">11 </td><td class="diffpresent">data<span class="dp">·</span>error!</td></tr>
+<tr class="diffunmodified"><td class="diffline">12 </td><td class="diffpresent">Starting<span class="dp">·</span>kernel<span class="dp">·</span>at<span class="dp">·</span>%08x...</td><td class="diffline">12 </td><td class="diffpresent">Starting<span class="dp">·</span>kernel<span class="dp">·</span>at<span class="dp">·</span>%08x...</td></tr>
+<tr class="diffunmodified"><td class="diffline">13 </td><td class="diffpresent">found<span class="dp">·</span>at<span class="dp">·</span>0x%08x</td><td class="diffline">13 </td><td class="diffpresent">found<span class="dp">·</span>at<span class="dp">·</span>0x%08x</td></tr>
+<tr class="diffunmodified"><td class="diffline">14 </td><td class="diffpresent">_binary_loader_bin_size</td><td class="diffline">14 </td><td class="diffpresent">_binary_loader_bin_size</td></tr>
+<tr class="diffunmodified"><td class="diffline">15 </td><td class="diffpresent">_binary_loader_bin_start</td><td class="diffline">15 </td><td class="diffpresent">_binary_loader_bin_start</td></tr>
+<tr class="diffunmodified"><td class="diffline">16 </td><td class="diffpresent">_binary_loader_bin_end</td><td class="diffline">16 </td><td class="diffpresent">_binary_loader_bin_end</td></tr>
+<tr class="diffunmodified"><td class="diffline">17 </td><td class="diffpresent">.shstrtab</td><td class="diffline">17 </td><td class="diffpresent">.shstrtab</td></tr>
+<tr class="diffadded"><td colspan="2"> </td><td class="diffline">18 </td><td class="diffpresent">OKLIIHb/h</td></tr>
+<tr class="diffunmodified"><td class="diffline">18 </td><td class="diffpresent">MIPS<span class="dp">·</span>OpenWrt<span class="dp">·</span>Linux-6.12.40</td><td class="diffline">19 </td><td class="diffpresent">MIPS<span class="dp">·</span>OpenWrt<span class="dp">·</span>Linux-6.12.40</td></tr>
+<tr class="diffunmodified"><td class="diffline">19 </td><td class="diffpresent">_]f3o?)q</td><td class="diffline">20 </td><td class="diffpresent">_]f3o?)q</td></tr>
+<tr class="diffunmodified"><td class="diffline">20 </td><td class="diffpresent">A9ukoDg&amp;</td><td class="diffline">21 </td><td class="diffpresent">A9ukoDg&amp;</td></tr>
+<tr class="diffunmodified"><td class="diffline">21 </td><td class="diffpresent">qt\_1d@G</td><td class="diffline">22 </td><td class="diffpresent">qt\_1d@G</td></tr>
+<tr class="diffunmodified"><td class="diffline">22 </td><td class="diffpresent">4R^\0*^v</td><td class="diffline">23 </td><td class="diffpresent">4R^\0*^v</td></tr>
+<tr class="diffunmodified"><td class="diffline">23 </td><td class="diffpresent">*@@:n9`%</td><td class="diffline">24 </td><td class="diffpresent">*@@:n9`%</td></tr>
+<tr class="diffunmodified"><td class="diffline">24 </td><td class="diffpresent">&gt;Y.o#D<span class="dp">·</span>7</td><td class="diffline">25 </td><td class="diffpresent">&gt;Y.o#D<span class="dp">·</span>7</td></tr>
+<tr class="diffhunk"><td colspan="2">Offset 700, 812 lines modified</td><td colspan="2">Offset 701, 857 lines modified</td></tr>
+<tr class="diffunmodified"><td class="diffline">700 </td><td class="diffpresent">u0xYcZ.B</td><td class="diffline">701 </td><td class="diffpresent">u0xYcZ.B</td></tr>
+<tr class="diffunmodified"><td class="diffline">701 </td><td class="diffpresent">si9v,9SZ$</td><td class="diffline">702 </td><td class="diffpresent">si9v,9SZ$</td></tr>
+<tr class="diffunmodified"><td class="diffline">702 </td><td class="diffpresent">urPq3(Kz</td><td class="diffline">703 </td><td class="diffpresent">urPq3(Kz</td></tr>
+<tr class="diffunmodified"><td class="diffline">703 </td><td class="diffpresent">+sP&quot;y~gS-f?</td><td class="diffline">704 </td><td class="diffpresent">+sP&quot;y~gS-f?</td></tr>
+<tr class="diffunmodified"><td class="diffline">704 </td><td class="diffpresent">tU*k<span class="dp">»</span>   `@$</td><td class="diffline">705 </td><td class="diffpresent">tU*k<span class="dp">»</span>   `@$</td></tr>
+<tr class="diffunmodified"><td class="diffline">705 </td><td class="diffpresent">WCf[PQ;J</td><td class="diffline">706 </td><td class="diffpresent">WCf[PQ;J</td></tr>
+<td colspan="2">Diff chunk too large, falling back to line-by-line diff (850 lines added, 805 lines removed)</td>
+<tr class="diffunmodified"><td class="diffline">706 </td><td class="diffpresent">+z7-[VKvm</td><td class="diffline">707 </td><td class="diffpresent">+z7-[VKvm</td></tr>
+<tr class="diffchanged"><td class="diffline">707 </td><td class="diffpresent"><del>)(</del>)<del>D9o&gt;0</del></td><td class="diffline">708 </td><td class="diffpresent"><ins>Ua</ins>)<ins>!XV_4</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">708 </td><td class="diffpresent"><del>j</del><del>!`o6#M&lt;&#x27;</del></td><td class="diffline">709 </td><td class="diffpresent"><ins>w4LW~,6I</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">709 </td><td class="diffpresent"><del>1cVu`\&lt;I</del></td><td class="diffline">710 </td><td class="diffpresent"><ins>H&amp;{=.9<span class="dp">»</span> d</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">710 </td><td class="diffpresent"><del>1~7%g}c0</del></td><td class="diffline">711 </td><td class="diffpresent"><ins>gi`,vv,d</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">711 </td><td class="diffpresent"><del>kYh!8N|\</del></td><td class="diffline">712 </td><td class="diffpresent"><ins>Nf?T&quot;scd</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">712 </td><td class="diffpresent"><del>Te1nO068</del></td><td class="diffline">713 </td><td class="diffpresent"><ins>;HuKY~Ej</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">713 </td><td class="diffpresent"><del>5</del><del>&quot;*D&gt;G&quot;U{</del></td><td class="diffline">714 </td><td class="diffpresent"><ins>mseHCh%&amp;</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">714 </td><td class="diffpresent"><del>v)$&quot;%xnk</del></td><td class="diffline">715 </td><td class="diffpresent"><ins>D.</ins><ins>d<span class="dp">·</span>|;qsow</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">715 </td><td class="diffpresent"><del>~!</del><del>r&lt;=)ng[,</del>1<del>N</del></td><td class="diffline">716 </td><td class="diffpresent"><ins>&lt;x$Le6s:</ins>1<ins>!</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">716 </td><td class="diffpresent"><del>k</del><del>SX[k|B=N</del></td><td class="diffline">717 </td><td class="diffpresent"><ins>h44jmV<span class="dp">·</span>`</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">717 </td><td class="diffpresent"><del>On?{N@MA</del></td><td class="diffline">718 </td><td class="diffpresent"><ins>wTZP&amp;W)|</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">718 </td><td class="diffpresent"><del>{O2go</del>&lt;<del>C/z</del></td><td class="diffline">719 </td><td class="diffpresent"><ins>&#x27;</ins><ins>V.FF)</ins>&lt;<ins>]A&gt;</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">719 </td><td class="diffpresent"><del>/;3gs9)S</del></td><td class="diffline">720 </td><td class="diffpresent"><ins>|ox3N/53</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">720 </td><td class="diffpresent"><del>wFGtx2cO</del></td><td class="diffline">721 </td><td class="diffpresent"><ins>9NaHDHMf</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">721 </td><td class="diffpresent"><del>d0%xF)?P`</del></td><td class="diffline">722 </td><td class="diffpresent"><ins>x~s)&quot;eK~o</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">722 </td><td class="diffpresent"><del>27r#K%9<span class="dp">·</span></del></td><td class="diffline">723 </td><td class="diffpresent"><ins>gS)</ins><ins>\f;IQE8n</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">723 </td><td class="diffpresent"><del>B}&#x27;L]TW&quot;</del></td><td class="diffline">724 </td><td class="diffpresent"><ins>|</ins><ins>|MgVg)P&#x27;</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">724 </td><td class="diffpresent"><del>#*KvDx6Q</del></td><td class="diffline">725 </td><td class="diffpresent"><ins>|</ins><ins>.xUL%!j&gt;</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">725 </td><td class="diffpresent"><del><span class="dp">»</span>       L</del><del>K<span class="dp">»</span>     .RHZ)dl</del></td><td class="diffline">726 </td><td class="diffpresent"><ins>#o@}m:e_A</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">726 </td><td class="diffpresent"><del>]g</del><del>pwaf7vV&quot;</del></td><td class="diffline">727 </td><td class="diffpresent"><ins>&amp;ni,J%M5</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">727 </td><td class="diffpresent"><del>+oU`LV26!</del></td><td class="diffline">728 </td><td class="diffpresent"><ins>,velu5[Dr</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">728 </td><td class="diffpresent"><del>CK1U98.^</del></td><td class="diffline">729 </td><td class="diffpresent"><ins>+Ae(Ge0{</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">729 </td><td class="diffpresent"><del>$</del><del>gZ{N~{{0^</del></td><td class="diffline">730 </td><td class="diffpresent"><ins>U<span class="dp">»</span>      6U*3-&lt;D</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">730 </td><td class="diffpresent"><del>pfMGb&lt;PW</del></td><td class="diffline">731 </td><td class="diffpresent"><ins>o(+#_VUg</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">731 </td><td class="diffpresent"><del>U</del><del>omRVyMZG</del></td><td class="diffline">732 </td><td class="diffpresent"><ins>gB&amp;&lt;Lv7l</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">732 </td><td class="diffpresent"><del>@</del><del>[EPX_}_O</del></td><td class="diffline">733 </td><td class="diffpresent"><ins>p)w8D+wd</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">733 </td><td class="diffpresent"><del>g@?o|l}</del>5</td><td class="diffline">734 </td><td class="diffpresent"><ins>Hy,zsUh</ins>5</td></tr>
+<tr class="diffchanged"><td class="diffline">734 </td><td class="diffpresent"><del>vDsynZ_#</del></td><td class="diffline">735 </td><td class="diffpresent"><ins>N</ins><ins>VXDHvd02</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">735 </td><td class="diffpresent"><del>VIkTXt(j</del></td><td class="diffline">736 </td><td class="diffpresent"><ins>;OSxY7kW</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">736 </td><td class="diffpresent"><del>}+6`j`kt</del></td><td class="diffline">737 </td><td class="diffpresent"><ins>a</ins><ins>&lt;MJVUJ$k</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">737 </td><td class="diffpresent"><del>|D1]kr|]</del></td><td class="diffline">738 </td><td class="diffpresent"><ins>,ig3sP)Z</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">738 </td><td class="diffpresent"><del>E</del><del>8v9D7`,w</del></td><td class="diffline">739 </td><td class="diffpresent"><ins>fmzGkIRD</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">739 </td><td class="diffpresent"><del>jf</del><del>&gt;;mh#g*C</del></td><td class="diffline">740 </td><td class="diffpresent"><ins>CE&#x27;_G^rT</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">740 </td><td class="diffpresent"><del>UwMnNyjx</del></td><td class="diffline">741 </td><td class="diffpresent"><ins>=blc)eHj</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">741 </td><td class="diffpresent"><del>E9huHHsC</del></td><td class="diffline">742 </td><td class="diffpresent"><ins>)</ins><ins>q*9}BqQ-</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">742 </td><td class="diffpresent"><del>+VyFm`Hw</del></td><td class="diffline">743 </td><td class="diffpresent"><ins>7(1%{&#x27;84</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">743 </td><td class="diffpresent"><del>ub81.SkF</del></td><td class="diffline">744 </td><td class="diffpresent"><ins>.&quot;&lt;~,bFj</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">744 </td><td class="diffpresent"><del>kaa~5Jt^</del></td><td class="diffline">745 </td><td class="diffpresent"><ins>flua3<span class="dp">·</span>gN</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">745 </td><td class="diffpresent"><del>w_5</del>D<del>4b]1</del></td><td class="diffline">746 </td><td class="diffpresent"><ins>|!V</ins><ins>m4=</ins>D<ins>&lt;_8&gt;</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">746 </td><td class="diffpresent"><del>9Z+M,&#x27;[E</del></td><td class="diffline">747 </td><td class="diffpresent"><ins>=*/Dj&amp;`j</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">747 </td><td class="diffpresent"><del>&lt;</del><del>2;b1<span class="dp">»</span>  -3Q</del></td><td class="diffline">748 </td><td class="diffpresent"><ins>Nq6={G=E</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">748 </td><td class="diffpresent"><del>CQ4ez^&gt;$</del></td><td class="diffline">749 </td><td class="diffpresent"><ins>c</ins><ins>4jA,o`6Q</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">749 </td><td class="diffpresent"><del>f&gt;UH9h`$</del></td><td class="diffline">750 </td><td class="diffpresent"><ins>\</ins><ins>m0tI7Bg9</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">750 </td><td class="diffpresent"><del>[\-m:eI~</del></td><td class="diffline">751 </td><td class="diffpresent"><ins>o</ins><ins>%$/w&#x27;GLC</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">751 </td><td class="diffpresent"><del>LOEdt:5P</del></td><td class="diffline">752 </td><td class="diffpresent"><ins>1)(XM~S6</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">752 </td><td class="diffpresent"><del>lW<span class="dp">·</span>A:}uX</del></td><td class="diffline">753 </td><td class="diffpresent"><ins>MI(BN]^<span class="dp">·</span></ins></td></tr>
+<tr class="diffchanged"><td class="diffline">753 </td><td class="diffpresent"><del>R&quot;%ST7pN<span class="dp">»</span>       </del></td><td class="diffline">754 </td><td class="diffpresent"><ins>Fw5&#x27;uh0ia</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">754 </td><td class="diffpresent"><del>S92_-~Mp</del></td><td class="diffline">755 </td><td class="diffpresent"><ins>utQ</ins><ins>RQ:a0&lt;D{</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">755 </td><td class="diffpresent"><del>Eb_%eMeq</del></td><td class="diffline">756 </td><td class="diffpresent"><ins>e))fO2s:</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">756 </td><td class="diffpresent"><del>qsOVQ9n~</del></td><td class="diffline">757 </td><td class="diffpresent"><ins>i</ins><ins>;2p1hPWQ</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">757 </td><td class="diffpresent"><del>\PH=b,@</del>o<del>H&gt;</del></td><td class="diffline">758 </td><td class="diffpresent"><ins>vi`?w-3</ins>o</td></tr>
+<tr class="diffchanged"><td class="diffline">758 </td><td class="diffpresent"><del>koWmGM}g</del></td><td class="diffline">759 </td><td class="diffpresent"><ins>gQ^/-5RN</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">759 </td><td class="diffpresent"><del>xOSl8cQ5</del></td><td class="diffline">760 </td><td class="diffpresent"><ins>,g~&lt;N&amp;NV</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">760 </td><td class="diffpresent"><del>-2K</del><del>-Az!</del>R<del>&lt;&amp;n</del></td><td class="diffline">761 </td><td class="diffpresent"><ins>?&amp;4/</ins>R<ins>ep5</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">761 </td><td class="diffpresent"><del>-9r0y@oN</del></td><td class="diffline">762 </td><td class="diffpresent"><ins>zE;\o&gt;_W</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">762 </td><td class="diffpresent"><del>)z,Zo5D.</del></td><td class="diffline">763 </td><td class="diffpresent"><ins>[lt)J=7X</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">763 </td><td class="diffpresent"><del>3N?$da.T</del></td><td class="diffline">764 </td><td class="diffpresent"><ins>4Uu+OZB;</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">764 </td><td class="diffpresent"><del>M{f%q&amp;#@</del></td><td class="diffline">765 </td><td class="diffpresent"><ins>rq(</ins><ins>x3DPMA$h</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">765 </td><td class="diffpresent"><del>}}/}=a&quot;%Q</del></td><td class="diffline">766 </td><td class="diffpresent"><ins>Ir</ins><ins>j0R9jgj@5</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">766 </td><td class="diffpresent"><del>j0rpRYlR</del></td><td class="diffline">767 </td><td class="diffpresent"><ins>lCyaC8KL</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">767 </td><td class="diffpresent"><del>4</del><del>7&gt;9Y6wlu</del></td><td class="diffline">768 </td><td class="diffpresent"><ins>T,Cv&lt;a`4</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">768 </td><td class="diffpresent"><del>h<span class="dp">·</span><span class="dp">»</span>      C</del>W<del>a1</del><del>I@o</del></td><td class="diffline">769 </td><td class="diffpresent"><ins>j&gt;mS</ins>W<ins>ddU</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">769 </td><td class="diffpresent"><del>J*VL1&#x27;j6</del></td><td class="diffline">770 </td><td class="diffpresent"><ins>d~&amp;h*8Cx</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">770 </td><td class="diffpresent"><del>!i&amp;<span class="dp">»</span>    P&amp;GSq</del></td><td class="diffline">771 </td><td class="diffpresent"><ins>PT#&#x27;&quot;n+1E</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">771 </td><td class="diffpresent"><del>ELvFQ,J_</del></td><td class="diffline">772 </td><td class="diffpresent"><ins>Z</ins><ins>:<span class="dp">·</span>&lt;\zkt&#x27;</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">772 </td><td class="diffpresent"><del>Y43/,</del>P;<del>z</del></td><td class="diffline">773 </td><td class="diffpresent"><ins>F_*Db</ins>P<ins>*</ins>;<ins>6</ins><ins>Q</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">773 </td><td class="diffpresent"><del>BN[LhG!N</del></td><td class="diffline">774 </td><td class="diffpresent"><ins>9</ins><ins>~F\X1iM^</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">774 </td><td class="diffpresent"><del>xYzU9nAZ</del></td><td class="diffline">775 </td><td class="diffpresent"><ins>Ep=N\(vl</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">775 </td><td class="diffpresent">:<del>Qlo3WQs</del></td><td class="diffline">776 </td><td class="diffpresent"><ins>P</ins>:<ins>;</ins><ins>_}Wx3+l</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">776 </td><td class="diffpresent"><del>!F\kGjQ~</del></td><td class="diffline">777 </td><td class="diffpresent"><ins>9]gcpzRS</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">777 </td><td class="diffpresent"><del>Zz-T^H.Z</del></td><td class="diffline">778 </td><td class="diffpresent"><ins>{FGQN%8P</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">778 </td><td class="diffpresent"><del>1Q&#x27;da$Hm</del></td><td class="diffline">779 </td><td class="diffpresent"><ins>G7</ins><ins>_0WNcq&quot;u</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">779 </td><td class="diffpresent"><del>n2fZPJ=Z</del></td><td class="diffline">780 </td><td class="diffpresent"><ins>&#x27;</ins><ins>cwgnx#VS</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">780 </td><td class="diffpresent"><del>RM</del>G<del>n4</del><del><span class="dp">»</span>  nybc</del></td><td class="diffline">781 </td><td class="diffpresent"><ins>+k</ins>G<ins>_;K}0</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">781 </td><td class="diffpresent"><del>LCs7</del><del>&amp;&quot;4T;L.x</del></td><td class="diffline">782 </td><td class="diffpresent"><ins>5x_aituu</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">782 </td><td class="diffpresent"><del>NO[s.nz}</del></td><td class="diffline">783 </td><td class="diffpresent"><ins>]@+aJHET</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">783 </td><td class="diffpresent"><del>qZ?630</del>&amp;<del>j</del></td><td class="diffline">784 </td><td class="diffpresent"><ins>s</ins><ins>&#x27;AuiAr</ins>&amp;<ins>.</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">784 </td><td class="diffpresent"><del>*@B<span class="dp">»</span>    wzq-hy</del></td><td class="diffline">785 </td><td class="diffpresent"><ins>@S5U@\D4P0</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">785 </td><td class="diffpresent"><del>zUi&amp;^BUyD</del></td><td class="diffline">786 </td><td class="diffpresent"><ins>fLXX\*S@Q</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">786 </td><td class="diffpresent"><del><span class="dp">»</span>       </del><del>.Q</del>]<del>Fp</del><del>oN/QX</del></td><td class="diffline">787 </td><td class="diffpresent"><ins>J!</ins>]<ins>BW&amp;eU</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">787 </td><td class="diffpresent"><del>^V{%Nh-*</del></td><td class="diffline">788 </td><td class="diffpresent"><ins>t</ins><ins>jv5Wk%x6</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">788 </td><td class="diffpresent"><del>X&#x27;]P{,G%&lt;</del></td><td class="diffline">789 </td><td class="diffpresent"><ins>f</ins><ins>cs!/&#x27;=$t(</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">789 </td><td class="diffpresent"><del>5</del><del>&#x27;/</del>=<del>fW=wU</del></td><td class="diffline">790 </td><td class="diffpresent"><ins>C&gt;</ins>=<ins>-;<span class="dp">·</span>2Q</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">790 </td><td class="diffpresent"><del>bQy?H1&gt;*</del></td><td class="diffline">791 </td><td class="diffpresent"><ins>zk&lt;px&gt;)]</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">791 </td><td class="diffpresent"><del>1<span class="dp">»</span>      0*G</del>H<del>-</del><del>tl</del></td><td class="diffline">792 </td><td class="diffpresent"><ins>VDo@~</ins>H<ins>RB</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">792 </td><td class="diffpresent"><del>F</del><del>;[G|&lt;Tk[</del></td><td class="diffline">793 </td><td class="diffpresent"><ins>y+2]~1Kb</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">793 </td><td class="diffpresent"><del>#08kR1%(</del></td><td class="diffline">794 </td><td class="diffpresent"><ins>{j=x,Eg5</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">794 </td><td class="diffpresent"><del>{6</del><del>f8awqn#A</del></td><td class="diffline">795 </td><td class="diffpresent"><ins>OuzO&#x27;D!m</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">795 </td><td class="diffpresent"><del>8<span class="dp">»</span>      9Lw5<span class="dp">·</span>B</del></td><td class="diffline">796 </td><td class="diffpresent"><ins>a2I2@asH</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">796 </td><td class="diffpresent"><del>JY;</del><del>zZ;mQ;F?</del></td><td class="diffline">797 </td><td class="diffpresent"><ins>8V%1<span class="dp">·</span>C.X</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">797 </td><td class="diffpresent"><del>.</del><del>O2&gt;@b<span class="dp">»</span> |S</del></td><td class="diffline">798 </td><td class="diffpresent"><ins>8,{ajg;D</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">798 </td><td class="diffpresent"><del>&gt;*_bq&quot;(:</del></td><td class="diffline">799 </td><td class="diffpresent"><ins>5Ix|*6-C</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">799 </td><td class="diffpresent"><del>&quot;dN[PlAL</del></td><td class="diffline">800 </td><td class="diffpresent"><ins>%nl-k^%D</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">800 </td><td class="diffpresent"><del>E</del><del>]g=bErPM;8</del></td><td class="diffline">801 </td><td class="diffpresent"><ins>Uk^Qx6X!AS</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">801 </td><td class="diffpresent"><del>Z}co^&quot;&lt;R$?</del></td><td class="diffline">802 </td><td class="diffpresent"><ins>:s0[b6CLAV</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">802 </td><td class="diffpresent"><del>bXalxlr:</del></td><td class="diffline">803 </td><td class="diffpresent"><ins>Sp4IVcG_</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">803 </td><td class="diffpresent"><del>vRe`BPE?6</del></td><td class="diffline">804 </td><td class="diffpresent"><ins>}4</ins><ins>Y<span class="dp">·</span>1/,$)c~</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">804 </td><td class="diffpresent"><del>@Or</del>W<del>dA@@</del></td><td class="diffline">805 </td><td class="diffpresent"><ins>D4E</ins>W<ins>!buZ</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">805 </td><td class="diffpresent"><del>%</del><del>NQI}QlDJ9</del></td><td class="diffline">806 </td><td class="diffpresent"><ins>:g7%;}S&quot;H</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">806 </td><td class="diffpresent"><del>KQjxxK/b</del></td><td class="diffline">807 </td><td class="diffpresent"><ins>b&#x27;`EdSUl</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">807 </td><td class="diffpresent"><del>&gt;uhK:&quot;xL</del></td><td class="diffline">808 </td><td class="diffpresent"><ins>V</ins><ins>5Xfi;&#x27;&quot;=</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">808 </td><td class="diffpresent"><del>$r7A?+.4</del></td><td class="diffline">809 </td><td class="diffpresent"><ins>]|&lt;1K1&gt;8</ins></td></tr>
+<tr class="diffchanged"><td class="diffline">809 </td><td class="diffpresent"><del>-il=g1TS</del></td><td class="diffline">810 </td><td class="diffpresent"><ins>`</ins><ins>5c#!;,;9</ins></td></tr>
+<tr class="error"><td colspan="4">
+Max diff block lines reached; -1/17941 bytes (-0.01%) of diff not shown.
+</td></tr></table>  </div>
+</div>
+<div class="footer">
+Generated by
+<a href="https://diffoscope.org" rel="noopener noreferrer" target="_blank">
+diffoscope</a> 303
+</div>
+</body>
+</html>
+
