@@ -1,0 +1,219 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SNAPSHOT - OpenWrt Reproducible Build Results</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { background: #2c3e50; color: white; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+            .breadcrumb { margin-bottom: 20px; }
+            .breadcrumb a { color: #3498db; text-decoration: none; }
+            .breadcrumb a:hover { text-decoration: underline; }
+            .targets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin: 20px 0; }
+            .target-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; transition: all 0.2s; }
+            .target-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.15); transform: translateY(-2px); }
+            .target-name { font-weight: bold; font-size: 1.2em; margin-bottom: 15px; }
+            .target-name a { color: #2c3e50; text-decoration: none; }
+            .target-name a:hover { color: #3498db; }
+            .progress-bar { background: #e0e0e0; border-radius: 10px; height: 12px; margin: 10px 0; }
+            .progress-fill { height: 100%; border-radius: 10px; background: linear-gradient(to right, #28a745, #20c997); }
+            .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 15px 0; }
+            .stat { text-align: center; padding: 8px; border-radius: 5px; }
+            .stat-value { font-weight: bold; font-size: 1.1em; }
+            .stat-label { font-size: 0.85em; margin-top: 2px; }
+            .stat-reproducible { background: #d4edda; color: #155724; }
+            .stat-unreproducible { background: #f8d7da; color: #721c24; }
+            .stat-notfound { background: #fff3cd; color: #856404; }
+            .stat-pending { background: #d1ecf1; color: #0c5460; }
+            .version-summary { background: #e8f4fd; border: 1px solid #bee5eb; border-radius: 8px; padding: 25px; margin: 25px 0; }
+        </style>
+    </head>
+    <body>
+        <div class="breadcrumb">
+            <a href="index.html">← All Releases</a>
+        </div>
+
+        <div class="header">
+            <h1>OpenWrt SNAPSHOT</h1>
+            <p>Reproducible Build Results</p>
+        </div>
+    <div class="targets-grid">
+        <div class="target-card">
+            <div class="target-name">
+                <a href="SNAPSHOT/ramips_mt7621.html">ramips/mt7621</a>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0.0%"></div>
+            </div>
+            <div style="text-align: center; margin: 12px 0; font-weight: bold; font-size: 1.1em;">
+                0.0% Reproducible
+            </div>
+            <div class="stats-row">
+                <div class="stat stat-reproducible">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Reproducible</div>
+                </div>
+                <div class="stat stat-unreproducible">
+                    <div class="stat-value">721</div>
+                    <div class="stat-label">Unreproducible</div>
+                </div>
+                <div class="stat stat-notfound">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Not Found</div>
+                </div>
+                <div class="stat stat-pending">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="target-card">
+            <div class="target-name">
+                <a href="SNAPSHOT/mediatek_filogic.html">mediatek/filogic</a>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 28.0%"></div>
+            </div>
+            <div style="text-align: center; margin: 12px 0; font-weight: bold; font-size: 1.1em;">
+                28.0% Reproducible
+            </div>
+            <div class="stats-row">
+                <div class="stat stat-reproducible">
+                    <div class="stat-value">105</div>
+                    <div class="stat-label">Reproducible</div>
+                </div>
+                <div class="stat stat-unreproducible">
+                    <div class="stat-value">270</div>
+                    <div class="stat-label">Unreproducible</div>
+                </div>
+                <div class="stat stat-notfound">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Not Found</div>
+                </div>
+                <div class="stat stat-pending">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="target-card">
+            <div class="target-name">
+                <a href="SNAPSHOT/x86_64.html">x86/64</a>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0.0%"></div>
+            </div>
+            <div style="text-align: center; margin: 12px 0; font-weight: bold; font-size: 1.1em;">
+                0.0% Reproducible
+            </div>
+            <div class="stats-row">
+                <div class="stat stat-reproducible">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Reproducible</div>
+                </div>
+                <div class="stat stat-unreproducible">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Unreproducible</div>
+                </div>
+                <div class="stat stat-notfound">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Not Found</div>
+                </div>
+                <div class="stat stat-pending">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="target-card">
+            <div class="target-name">
+                <a href="SNAPSHOT/mediatek_mt7622.html">mediatek/mt7622</a>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 20.3%"></div>
+            </div>
+            <div style="text-align: center; margin: 12px 0; font-weight: bold; font-size: 1.1em;">
+                20.3% Reproducible
+            </div>
+            <div class="stats-row">
+                <div class="stat stat-reproducible">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Reproducible</div>
+                </div>
+                <div class="stat stat-unreproducible">
+                    <div class="stat-value">59</div>
+                    <div class="stat-label">Unreproducible</div>
+                </div>
+                <div class="stat stat-notfound">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Not Found</div>
+                </div>
+                <div class="stat stat-pending">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="target-card">
+            <div class="target-name">
+                <a href="SNAPSHOT/ipq40xx_generic.html">ipq40xx/generic</a>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0.0%"></div>
+            </div>
+            <div style="text-align: center; margin: 12px 0; font-weight: bold; font-size: 1.1em;">
+                0.0% Reproducible
+            </div>
+            <div class="stats-row">
+                <div class="stat stat-reproducible">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Reproducible</div>
+                </div>
+                <div class="stat stat-unreproducible">
+                    <div class="stat-value">184</div>
+                    <div class="stat-label">Unreproducible</div>
+                </div>
+                <div class="stat stat-notfound">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Not Found</div>
+                </div>
+                <div class="stat stat-pending">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+            </div>
+        </div>
+        </div>
+    <div class="version-summary">
+        <h2>SNAPSHOT Overall Summary</h2>
+        <div style="text-align: center; font-size: 1.4em; font-weight: bold; margin: 15px 0;">
+            8.8% Reproducible (120 of 1360 items)
+        </div>
+        <div class="stats-row" style="max-width: 600px; margin: 0 auto;">
+            <div class="stat stat-reproducible">
+                <div class="stat-value">120</div>
+                <div class="stat-label">Reproducible</div>
+            </div>
+            <div class="stat stat-unreproducible">
+                <div class="stat-value">1240</div>
+                <div class="stat-label">Unreproducible</div>
+            </div>
+            <div class="stat stat-notfound">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Not Found</div>
+            </div>
+            <div class="stat stat-pending">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+    
