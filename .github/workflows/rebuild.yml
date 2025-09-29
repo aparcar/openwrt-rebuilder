@@ -30,14 +30,14 @@ jobs:
       matrix:
         version:
           - SNAPSHOT
-          - 24.10.2
-          - 24.10.3
+          # - 24.10.2
+          # - 24.10.3
         target:
-          - "ath79/generic"
-          - "ipq40xx/generic"
-          - "mediatek/filogic"
-          - "mediatek/mt7622"
-          - "ramips/mt7621"
+          # - "ath79/generic"
+          # - "ipq40xx/generic"
+          # - "mediatek/filogic"
+          # - "mediatek/mt7622"
+          # - "ramips/mt7621"
           - "x86/64"
     steps:
       - uses: actions/checkout@v5
