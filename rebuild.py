@@ -180,7 +180,7 @@ def setup_config_buildinfo():
     # don't build imagebuilder or sdk to save some time, enable ccache
     (rebuild_path / ".config").write_text(
         config_content
-        + "\nCONFIG_COLLECT_KERNEL_DEBUG=n\nCONFIG_IB=n\nCONFIG_SDK=n\nCONFIG_CCACHE=y\n"
+        + "\nCONFIG_COLLECT_KERNEL_DEBUG=n\nCONFIG_IB=n\nCONFIG_SDK=n\n"
     )
     make("defconfig")
 
