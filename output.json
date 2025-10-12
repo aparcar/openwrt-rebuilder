@@ -421,7 +421,7 @@
           },
           {
             "name": "base-files",
-            "version": "1669~112f594042",
+            "version": "1669~0e8231c887",
             "arch": "aarch64_cortex-a53",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -431,7 +431,7 @@
             "diffoscope": null,
             "files": {
               "reproducible": [
-                "targets/mediatek/filogic/packages/base-files-1669~112f594042.apk"
+                "targets/mediatek/filogic/packages/base-files-1669~0e8231c887.apk"
               ]
             }
           },
@@ -20133,6 +20133,70 @@
                 "targets/mediatek/filogic/packages/kmod-v4l2loopback-6.12.51.0.15.1-r1.apk"
               ]
             }
+          },
+          {
+            "name": "qosify",
+            "version": "2024.09.20~1501e093-r1",
+            "arch": "aarch64_cortex-a53",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "qosify-2024.09.20~1501e093-r1.apk.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/filogic/packages/qosify-2024.09.20~1501e093-r1.apk"
+              ]
+            }
+          },
+          {
+            "name": "xdp-filter",
+            "version": "1.4.3-r1",
+            "arch": "aarch64_cortex-a53",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "xdp-filter-1.4.3-r1.apk.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/filogic/packages/xdp-filter-1.4.3-r1.apk"
+              ]
+            }
+          },
+          {
+            "name": "xdp-loader",
+            "version": "1.4.3-r1",
+            "arch": "aarch64_cortex-a53",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "xdp-loader-1.4.3-r1.apk.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/filogic/packages/xdp-loader-1.4.3-r1.apk"
+              ]
+            }
+          },
+          {
+            "name": "xdpdump",
+            "version": "1.4.3-r1",
+            "arch": "aarch64_cortex-a53",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "xdpdump-1.4.3-r1.apk.html",
+            "files": {
+              "unreproducible": [
+                "targets/mediatek/filogic/packages/xdpdump-1.4.3-r1.apk"
+              ]
+            }
           }
         ],
         "notfound": []
@@ -20141,7 +20205,7 @@
         "reproducible": [
           {
             "name": "openwrt-mediatek-filogic-abt_asr3000-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20157,7 +20221,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-abt_asr3000-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20173,7 +20237,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-arcadyan_mozart-emmc-gpt.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20189,7 +20253,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-arcadyan_mozart-emmc-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20205,7 +20269,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-arcadyan_mozart-emmc-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20221,7 +20285,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_zenwifi-bt8-ubootmod-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20237,7 +20301,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_zenwifi-bt8-ubootmod-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20253,7 +20317,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-nor-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20269,7 +20333,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-nor-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20285,7 +20349,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-snand-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20301,7 +20365,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-snand-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20317,7 +20381,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-emmc-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20333,7 +20397,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-emmc-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20349,7 +20413,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-mini-snand-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20365,7 +20429,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-mini-emmc-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20381,7 +20445,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-mini-snand-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20397,7 +20461,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-mini-emmc-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20413,7 +20477,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-mini-emmc-gpt.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20429,7 +20493,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-emmc-gpt.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20445,7 +20509,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-emmc-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20461,7 +20525,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-snand-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20477,7 +20541,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-emmc-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20493,7 +20557,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-snand-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20509,7 +20573,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-poe-snand-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20525,7 +20589,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-poe-snand-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20541,7 +20605,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-poe-emmc-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20557,7 +20621,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-poe-emmc-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20573,7 +20637,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-poe-emmc-gpt.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20589,7 +20653,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_a10-ubootmod-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20605,7 +20669,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_a10-ubootmod-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20621,7 +20685,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-nand-ddr3-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20637,7 +20701,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-nand-ddr4-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20653,7 +20717,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-nand-ddr4-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20669,7 +20733,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-emmc-ddr4-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20685,7 +20749,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-emmc-ddr3-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20701,7 +20765,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-emmc-ddr3-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20717,7 +20781,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-emmc-gpt.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20733,7 +20797,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-nand-ddr3-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20749,7 +20813,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-emmc-ddr4-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20765,7 +20829,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_tr3000-v1-ubootmod-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20781,7 +20845,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_tr3000-v1-ubootmod-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20797,7 +20861,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-gatonetworks_gdsp-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20813,7 +20877,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-gatonetworks_gdsp-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20829,7 +20893,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt2500-emmc-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20845,7 +20909,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt2500-emmc-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20861,7 +20925,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt6000-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20877,7 +20941,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt6000-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20893,7 +20957,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-x3000-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20909,7 +20973,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-x3000-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20925,7 +20989,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-xe3000-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20941,7 +21005,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-xe3000-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20957,7 +21021,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-h3c_magic-nx30-pro-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20973,7 +21037,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-h3c_magic-nx30-pro-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -20989,7 +21053,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jcg_q30-pro-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21005,7 +21069,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jcg_q30-pro-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21021,7 +21085,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jdcloud_re-cp-03-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21037,7 +21101,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jdcloud_re-cp-03-gpt.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21053,7 +21117,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jdcloud_re-cp-03-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21069,7 +21133,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-snfi-nand-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21085,7 +21149,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-nor-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21101,7 +21165,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-spim-nand-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21117,7 +21181,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-emmc-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21133,7 +21197,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-emmc-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21149,7 +21213,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-nor-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21165,7 +21229,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-snfi-nand-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21181,7 +21245,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-spim-nand-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21197,7 +21261,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-emmc-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21213,7 +21277,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-emmc-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21229,7 +21293,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-nor-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21245,7 +21309,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-nor-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21261,7 +21325,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-emmc-gpt.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21277,7 +21341,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-snand-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21293,7 +21357,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-snand-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21309,7 +21373,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mercusys_mr90x-v1-ubi-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21325,7 +21389,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mercusys_mr90x-v1-ubi-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21341,7 +21405,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netcore_n60-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21357,7 +21421,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netcore_n60-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21373,7 +21437,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netcore_n60-pro-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21389,7 +21453,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netcore_n60-pro-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21405,7 +21469,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netis_nx31-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21421,7 +21485,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netis_nx31-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21437,7 +21501,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-nokia_ea0326gmp-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21453,7 +21517,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-nokia_ea0326gmp-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21469,7 +21533,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-snand-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21485,7 +21549,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-nor-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21501,7 +21565,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-snand-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21517,7 +21581,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-nor-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21533,7 +21597,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-qihoo_360t7-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21549,7 +21613,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-qihoo_360t7-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21565,7 +21629,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-routerich_ax3000-ubootmod-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21581,7 +21645,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-routerich_ax3000-ubootmod-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21597,7 +21661,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-snr_snr-cpe-ax2-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21613,7 +21677,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-snr_snr-cpe-ax2-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21629,7 +21693,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr4288-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21645,7 +21709,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr4288-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21661,7 +21725,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr6086-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21677,7 +21741,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr6086-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21693,7 +21757,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr6088-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21709,7 +21773,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr6088-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21725,7 +21789,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xtr8488-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21741,7 +21805,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xtr8488-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21757,7 +21821,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-ubootmod-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21773,7 +21837,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-ubootmod-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21789,7 +21853,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-wr30u-ubootmod-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21805,7 +21869,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-wr30u-ubootmod-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21821,7 +21885,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootmod-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21837,7 +21901,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootmod-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21853,7 +21917,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5601-t0-ubootmod-preloader.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21869,7 +21933,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5601-t0-ubootmod-bl31-uboot.fip",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -21888,7 +21952,7 @@
         "unreproducible": [
           {
             "name": "openwrt-mediatek-filogic-abt_asr3000-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -21904,7 +21968,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-abt_asr3000-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -21920,7 +21984,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acelink_ew-7886cax-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -21936,7 +22000,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acelink_ew-7886cax-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -21952,7 +22016,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acelink_ew-7886cax-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -21968,7 +22032,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acer_predator-w6-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -21984,7 +22048,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acer_predator-w6-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22000,7 +22064,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acer_predator-w6d-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22016,7 +22080,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acer_predator-w6d-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22032,7 +22096,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acer_predator-w6x-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22048,7 +22112,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acer_predator-w6x-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22064,7 +22128,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acer_vero-w6m-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22080,7 +22144,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-acer_vero-w6m-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22096,7 +22160,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-arcadyan_mozart-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22112,7 +22176,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-arcadyan_mozart-initramfs.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22128,7 +22192,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asiarf_ap7986-003-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22144,7 +22208,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asiarf_ap7986-003-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22160,7 +22224,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asiarf_ap7986-003-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22176,7 +22240,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_rt-ax52-initramfs.trx",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22192,7 +22256,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_rt-ax52-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22208,7 +22272,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_rt-ax52-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22224,7 +22288,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_rt-ax59u-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22240,7 +22304,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_rt-ax59u-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22256,7 +22320,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_tuf-ax4200-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22272,7 +22336,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_tuf-ax4200-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22288,7 +22352,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_tuf-ax6000-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22304,7 +22368,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_tuf-ax6000-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22320,7 +22384,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_zenwifi-bt8-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22336,7 +22400,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_zenwifi-bt8-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22352,7 +22416,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_zenwifi-bt8-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22368,7 +22432,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_zenwifi-bt8-ubootmod-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22384,7 +22448,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-asus_zenwifi-bt8-ubootmod-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22400,7 +22464,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22416,7 +22480,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-sdcard.img.gz",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22432,7 +22496,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22448,7 +22512,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-mini-snand-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22464,7 +22528,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-mini-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22480,7 +22544,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r3-mini-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22496,7 +22560,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22512,7 +22576,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22528,7 +22592,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-sdcard.img.gz",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22544,7 +22608,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-poe-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22560,7 +22624,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-poe-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22576,7 +22640,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-bananapi_bpi-r4-poe-sdcard.img.gz",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22592,7 +22656,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-buffalo_wsr-6000ax8-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22608,7 +22672,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-buffalo_wsr-6000ax8-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22624,7 +22688,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cetron_ct3003-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22640,7 +22704,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cetron_ct3003-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22656,7 +22720,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cetron_ct3003-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22672,7 +22736,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_a10-stock-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22688,7 +22752,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_a10-stock-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22704,7 +22768,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_a10-stock-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22720,7 +22784,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_a10-ubootmod-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22736,7 +22800,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_a10-ubootmod-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22752,7 +22816,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22768,7 +22832,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cmcc_rax3000m-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22784,7 +22848,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-comfast_cf-e393ax-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22800,7 +22864,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-comfast_cf-e393ax-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22816,7 +22880,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-comfast_cf-e393ax-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22832,7 +22896,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-confiabits_mt7981-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22848,7 +22912,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-confiabits_mt7981-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22864,7 +22928,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-creatlentem_clt-r30b1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22880,7 +22944,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-creatlentem_clt-r30b1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22896,7 +22960,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-creatlentem_clt-r30b1-112m-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22912,7 +22976,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-creatlentem_clt-r30b1-112m-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22928,7 +22992,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_ap3000-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22944,7 +23008,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_ap3000-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22960,7 +23024,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_ap3000outdoor-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22976,7 +23040,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_ap3000outdoor-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -22992,7 +23056,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_m3000-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23008,7 +23072,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_m3000-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23024,7 +23088,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_re3000-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23040,7 +23104,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_re3000-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23056,7 +23120,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_tr3000-256mb-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23072,7 +23136,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_tr3000-256mb-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23088,7 +23152,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_tr3000-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23104,7 +23168,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_tr3000-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23120,7 +23184,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_tr3000-v1-ubootmod-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23136,7 +23200,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_tr3000-v1-ubootmod-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23152,7 +23216,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23168,7 +23232,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23184,7 +23248,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000e-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23200,7 +23264,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000e-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23216,7 +23280,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000h-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23232,7 +23296,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000h-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23248,7 +23312,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000p-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23264,7 +23328,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000p-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23280,7 +23344,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000s-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23296,7 +23360,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-cudy_wr3000s-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23312,7 +23376,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-dlink_aquila-pro-ai-m30-a1-squashfs-recovery.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23328,7 +23392,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-dlink_aquila-pro-ai-m30-a1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23344,7 +23408,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-dlink_aquila-pro-ai-m30-a1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23360,7 +23424,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-dlink_aquila-pro-ai-m60-a1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23376,7 +23440,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-dlink_aquila-pro-ai-m60-a1-squashfs-recovery.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23392,7 +23456,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-dlink_aquila-pro-ai-m60-a1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23408,7 +23472,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-edgecore_eap111-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23424,7 +23488,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-edgecore_eap111-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23440,7 +23504,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-edgecore_eap111-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23456,7 +23520,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-elecom_wrc-x3000gs3-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23472,7 +23536,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-elecom_wrc-x3000gs3-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23488,7 +23552,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-elecom_wrc-x3000gs3-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23504,7 +23568,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-gatonetworks_gdsp-sdcard.img.gz",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23520,7 +23584,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-gatonetworks_gdsp-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23536,7 +23600,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-gatonetworks_gdsp-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23552,7 +23616,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt2500-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23568,7 +23632,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt2500-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23584,7 +23648,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt2500-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23600,7 +23664,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt2500-airoha-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23616,7 +23680,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt2500-airoha-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23632,7 +23696,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt3000-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23648,7 +23712,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt3000-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23664,7 +23728,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt6000-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23680,7 +23744,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt6000-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23696,7 +23760,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-mt6000-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23712,7 +23776,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-x3000-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23728,7 +23792,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-x3000-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23744,7 +23808,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-x3000-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23760,7 +23824,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-xe3000-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23776,7 +23840,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-xe3000-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23792,7 +23856,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-glinet_gl-xe3000-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23808,7 +23872,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-h3c_magic-nx30-pro-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23824,7 +23888,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-h3c_magic-nx30-pro-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23840,7 +23904,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-huasifei_wh3000-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23856,7 +23920,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-huasifei_wh3000-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23872,7 +23936,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-huasifei_wh3000-pro-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23888,7 +23952,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-huasifei_wh3000-pro-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23904,7 +23968,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000m-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23920,7 +23984,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000m-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23936,7 +24000,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000m-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23952,7 +24016,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000q-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23968,7 +24032,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000q-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -23984,7 +24048,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000q-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24000,7 +24064,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000sm-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24016,7 +24080,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000sm-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24032,7 +24096,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax3000sm-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24048,7 +24112,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax7800m-6e-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24064,7 +24128,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax7800m-6e-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24080,7 +24144,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-iptime_ax7800m-6e-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24096,7 +24160,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jcg_q30-pro-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24112,7 +24176,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jcg_q30-pro-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24128,7 +24192,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jdcloud_re-cp-03-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24144,7 +24208,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-jdcloud_re-cp-03-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24160,7 +24224,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3711-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24176,7 +24240,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3711-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24192,7 +24256,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3711-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24208,7 +24272,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3811-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24224,7 +24288,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3811-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24240,7 +24304,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3811-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24256,7 +24320,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3911-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24272,7 +24336,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3911-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24288,7 +24352,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-keenetic_kn-3911-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24304,7 +24368,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24320,7 +24384,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-sdcard.img.gz",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24336,7 +24400,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7981-rfb-initramfs.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24352,7 +24416,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7986a-rfb-nand-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24368,7 +24432,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7986a-rfb-nand-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24384,7 +24448,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7986a-rfb-nand-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24400,7 +24464,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7986b-rfb-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24416,7 +24480,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7986b-rfb-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24432,7 +24496,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7986b-rfb-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24448,7 +24512,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24464,7 +24528,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-sdcard.img.gz",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24480,7 +24544,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mediatek_mt7988a-rfb-initramfs.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24496,7 +24560,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mercusys_mr80x-v3-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24512,7 +24576,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mercusys_mr80x-v3-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24528,7 +24592,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mercusys_mr90x-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24544,7 +24608,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mercusys_mr90x-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24560,7 +24624,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mercusys_mr90x-v1-ubi-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24576,7 +24640,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-mercusys_mr90x-v1-ubi-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24592,7 +24656,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netcore_n60-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24608,7 +24672,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netcore_n60-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24624,7 +24688,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netcore_n60-pro-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24640,7 +24704,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netcore_n60-pro-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24656,7 +24720,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netgear_wax220-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24672,7 +24736,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netgear_wax220-squashfs-factory.img",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24688,7 +24752,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netgear_wax220-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24704,7 +24768,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netis_nx31-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24720,7 +24784,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-netis_nx31-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24736,7 +24800,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-nokia_ea0326gmp-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24752,7 +24816,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-nokia_ea0326gmp-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24768,7 +24832,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-nradio_c8-668gl-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24784,7 +24848,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-nradio_c8-668gl-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24800,7 +24864,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openembed_som7981-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24816,7 +24880,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openembed_som7981-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24832,7 +24896,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openembed_som7981-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24848,7 +24912,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openfi_6c-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24864,7 +24928,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openfi_6c-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24880,7 +24944,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-snand-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24896,7 +24960,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-nor-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24912,7 +24976,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24928,7 +24992,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-factory.ubi",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24944,7 +25008,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-openwrt_one-initramfs.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24960,7 +25024,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-qihoo_360t7-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24976,7 +25040,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-qihoo_360t7-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -24992,7 +25056,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-routerich_ax3000-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25008,7 +25072,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-routerich_ax3000-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25024,7 +25088,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-routerich_ax3000-ubootmod-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25040,7 +25104,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-routerich_ax3000-ubootmod-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25056,7 +25120,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-routerich_ax3000-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25072,7 +25136,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-routerich_ax3000-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25088,7 +25152,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-ruijie_rg-x60-pro-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25104,7 +25168,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-ruijie_rg-x60-pro-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25120,7 +25184,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8612-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25136,7 +25200,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8612-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25152,7 +25216,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8614-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25168,7 +25232,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8614-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25184,7 +25248,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8622-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25200,7 +25264,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8622-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25216,7 +25280,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8632-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25232,7 +25296,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8632-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25248,7 +25312,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8733-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25264,7 +25328,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8733-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25280,7 +25344,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8733a-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25296,7 +25360,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8733a-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25312,7 +25376,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8734-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25328,7 +25392,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-smartrg_sdg-8734-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25344,7 +25408,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-snr_snr-cpe-ax2-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25360,7 +25424,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-snr_snr-cpe-ax2-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25376,7 +25440,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-teltonika_rutc50-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25392,7 +25456,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-teltonika_rutc50-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25408,7 +25472,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-teltonika_rutc50-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25424,7 +25488,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tenbay_wr3000k-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25440,7 +25504,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tenbay_wr3000k-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25456,7 +25520,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tenbay_wr3000k-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25472,7 +25536,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-totolink_x6000r-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25488,7 +25552,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-totolink_x6000r-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25504,7 +25568,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_archer-ax80-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25520,7 +25584,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_archer-ax80-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25536,7 +25600,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_fr365-v1-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25552,7 +25616,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_fr365-v1-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25568,7 +25632,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_fr365-v1-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25584,7 +25648,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_re6000xd-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25600,7 +25664,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_re6000xd-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25616,7 +25680,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr4288-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25632,7 +25696,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr4288-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25648,7 +25712,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr6086-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25664,7 +25728,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr6086-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25680,7 +25744,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr6088-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25696,7 +25760,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xdr6088-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25712,7 +25776,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xtr8488-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25728,7 +25792,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-tplink_tl-xtr8488-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25744,7 +25808,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-ubnt_unifi-6-plus-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25760,7 +25824,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-ubnt_unifi-6-plus-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25776,7 +25840,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-unielec_u7981-01-emmc-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25792,7 +25856,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-unielec_u7981-01-emmc-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25808,7 +25872,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-unielec_u7981-01-nand-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25824,7 +25888,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-unielec_u7981-01-nand-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25840,7 +25904,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn551x3-initramfs.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25856,7 +25920,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn551x3-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25872,7 +25936,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn573hx3-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25888,7 +25952,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn573hx3-squashfs-WN573HX3-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25904,7 +25968,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn586x3-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25920,7 +25984,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn586x3-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25936,7 +26000,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn586x3b-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25952,7 +26016,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn586x3b-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25968,7 +26032,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-wavlink_wl-wn586x3b-initramfs.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -25984,7 +26048,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-initramfs-factory.ubi",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26000,7 +26064,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26016,7 +26080,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26032,7 +26096,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-ubootmod-initramfs-factory.ubi",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26048,7 +26112,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-ubootmod-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26064,7 +26128,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-ax3000t-ubootmod-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26080,7 +26144,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-wr30u-stock-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26096,7 +26160,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-wr30u-stock-initramfs-factory.ubi",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26112,7 +26176,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-wr30u-stock-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26128,7 +26192,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-wr30u-ubootmod-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26144,7 +26208,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-wr30u-ubootmod-initramfs-factory.ubi",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26160,7 +26224,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_mi-router-wr30u-ubootmod-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26176,7 +26240,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-stock-initramfs-factory.ubi",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26192,7 +26256,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-stock-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26208,7 +26272,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-stock-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26224,7 +26288,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootmod-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26240,7 +26304,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootmod-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26256,7 +26320,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-xiaomi_redmi-router-ax6000-ubootmod-initramfs-factory.ubi",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26272,7 +26336,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-yuncore_ax835-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26288,7 +26352,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-yuncore_ax835-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26304,7 +26368,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8102ax-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26320,7 +26384,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8102ax-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26336,7 +26400,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8102ax-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26352,7 +26416,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8102ax-v2-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26368,7 +26432,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8102ax-v2-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26384,7 +26448,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8102ax-v2-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26400,7 +26464,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8103ax-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26416,7 +26480,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8103ax-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26432,7 +26496,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zbtlink_zbt-z8103ax-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26448,7 +26512,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5601-t0-stock-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26464,7 +26528,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5601-t0-stock-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26480,7 +26544,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5601-t0-stock-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26496,7 +26560,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5601-t0-ubootmod-initramfs-factory.ubi",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26512,7 +26576,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5601-t0-ubootmod-initramfs-recovery.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26528,7 +26592,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5601-t0-ubootmod-squashfs-sysupgrade.itb",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26544,7 +26608,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5700-telenor-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26560,7 +26624,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_ex5700-telenor-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26576,7 +26640,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_nwa50ax-pro-squashfs-factory.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26592,7 +26656,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_nwa50ax-pro-squashfs-sysupgrade.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -26608,7 +26672,7 @@
           },
           {
             "name": "openwrt-mediatek-filogic-zyxel_nwa50ax-pro-initramfs-kernel.bin",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "mediatek/filogic",
             "distribution": "openwrt",
             "status": "unreproducible",
