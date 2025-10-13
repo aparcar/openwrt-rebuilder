@@ -27111,7 +27111,7 @@
           },
           {
             "name": "base-files",
-            "version": "1669~112f594042",
+            "version": "1669~0e8231c887",
             "arch": "x86_64",
             "distribution": "openwrt",
             "status": "reproducible",
@@ -27121,7 +27121,7 @@
             "diffoscope": null,
             "files": {
               "reproducible": [
-                "targets/x86/64/packages/base-files-1669~112f594042.apk"
+                "targets/x86/64/packages/base-files-1669~0e8231c887.apk"
               ]
             }
           },
@@ -47975,70 +47975,6 @@
                 "targets/x86/64/packages/kmod-v4l2loopback-6.12.51.0.15.1-r1.apk"
               ]
             }
-          },
-          {
-            "name": "qosify",
-            "version": "2024.09.20~1501e093-r1",
-            "arch": "x86_64",
-            "distribution": "openwrt",
-            "status": "unreproducible",
-            "metadata": {},
-            "log": null,
-            "epoch": 0,
-            "diffoscope": "qosify-2024.09.20~1501e093-r1.apk.html",
-            "files": {
-              "unreproducible": [
-                "targets/x86/64/packages/qosify-2024.09.20~1501e093-r1.apk"
-              ]
-            }
-          },
-          {
-            "name": "xdp-filter",
-            "version": "1.4.3-r1",
-            "arch": "x86_64",
-            "distribution": "openwrt",
-            "status": "unreproducible",
-            "metadata": {},
-            "log": null,
-            "epoch": 0,
-            "diffoscope": "xdp-filter-1.4.3-r1.apk.html",
-            "files": {
-              "unreproducible": [
-                "targets/x86/64/packages/xdp-filter-1.4.3-r1.apk"
-              ]
-            }
-          },
-          {
-            "name": "xdp-loader",
-            "version": "1.4.3-r1",
-            "arch": "x86_64",
-            "distribution": "openwrt",
-            "status": "unreproducible",
-            "metadata": {},
-            "log": null,
-            "epoch": 0,
-            "diffoscope": "xdp-loader-1.4.3-r1.apk.html",
-            "files": {
-              "unreproducible": [
-                "targets/x86/64/packages/xdp-loader-1.4.3-r1.apk"
-              ]
-            }
-          },
-          {
-            "name": "xdpdump",
-            "version": "1.4.3-r1",
-            "arch": "x86_64",
-            "distribution": "openwrt",
-            "status": "unreproducible",
-            "metadata": {},
-            "log": null,
-            "epoch": 0,
-            "diffoscope": "xdpdump-1.4.3-r1.apk.html",
-            "files": {
-              "unreproducible": [
-                "targets/x86/64/packages/xdpdump-1.4.3-r1.apk"
-              ]
-            }
           }
         ],
         "notfound": []
@@ -48048,72 +47984,8 @@
         "pending": [],
         "unreproducible": [
           {
-            "name": "openwrt-x86-64-generic-squashfs-combined.img.gz",
-            "version": "112f594042",
-            "arch": "x86/64",
-            "distribution": "openwrt",
-            "status": "unreproducible",
-            "metadata": {},
-            "log": null,
-            "epoch": 0,
-            "diffoscope": "openwrt-x86-64-generic-squashfs-combined.img.gz.html",
-            "files": {
-              "unreproducible": [
-                "targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz"
-              ]
-            }
-          },
-          {
-            "name": "openwrt-x86-64-generic-ext4-combined-efi.img.gz",
-            "version": "112f594042",
-            "arch": "x86/64",
-            "distribution": "openwrt",
-            "status": "unreproducible",
-            "metadata": {},
-            "log": null,
-            "epoch": 0,
-            "diffoscope": "openwrt-x86-64-generic-ext4-combined-efi.img.gz.html",
-            "files": {
-              "unreproducible": [
-                "targets/x86/64/openwrt-x86-64-generic-ext4-combined-efi.img.gz"
-              ]
-            }
-          },
-          {
-            "name": "openwrt-x86-64-generic-ext4-rootfs.img.gz",
-            "version": "112f594042",
-            "arch": "x86/64",
-            "distribution": "openwrt",
-            "status": "unreproducible",
-            "metadata": {},
-            "log": null,
-            "epoch": 0,
-            "diffoscope": "openwrt-x86-64-generic-ext4-rootfs.img.gz.html",
-            "files": {
-              "unreproducible": [
-                "targets/x86/64/openwrt-x86-64-generic-ext4-rootfs.img.gz"
-              ]
-            }
-          },
-          {
-            "name": "openwrt-x86-64-generic-ext4-combined.img.gz",
-            "version": "112f594042",
-            "arch": "x86/64",
-            "distribution": "openwrt",
-            "status": "unreproducible",
-            "metadata": {},
-            "log": null,
-            "epoch": 0,
-            "diffoscope": "openwrt-x86-64-generic-ext4-combined.img.gz.html",
-            "files": {
-              "unreproducible": [
-                "targets/x86/64/openwrt-x86-64-generic-ext4-combined.img.gz"
-              ]
-            }
-          },
-          {
             "name": "openwrt-x86-64-generic-squashfs-combined-efi.img.gz",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "x86/64",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -48129,7 +48001,7 @@
           },
           {
             "name": "openwrt-x86-64-generic-squashfs-rootfs.img.gz",
-            "version": "112f594042",
+            "version": "0e8231c887",
             "arch": "x86/64",
             "distribution": "openwrt",
             "status": "unreproducible",
@@ -48140,6 +48012,70 @@
             "files": {
               "unreproducible": [
                 "targets/x86/64/openwrt-x86-64-generic-squashfs-rootfs.img.gz"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-x86-64-generic-squashfs-combined.img.gz",
+            "version": "0e8231c887",
+            "arch": "x86/64",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-x86-64-generic-squashfs-combined.img.gz.html",
+            "files": {
+              "unreproducible": [
+                "targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-x86-64-generic-ext4-combined-efi.img.gz",
+            "version": "0e8231c887",
+            "arch": "x86/64",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-x86-64-generic-ext4-combined-efi.img.gz.html",
+            "files": {
+              "unreproducible": [
+                "targets/x86/64/openwrt-x86-64-generic-ext4-combined-efi.img.gz"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-x86-64-generic-ext4-rootfs.img.gz",
+            "version": "0e8231c887",
+            "arch": "x86/64",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-x86-64-generic-ext4-rootfs.img.gz.html",
+            "files": {
+              "unreproducible": [
+                "targets/x86/64/openwrt-x86-64-generic-ext4-rootfs.img.gz"
+              ]
+            }
+          },
+          {
+            "name": "openwrt-x86-64-generic-ext4-combined.img.gz",
+            "version": "0e8231c887",
+            "arch": "x86/64",
+            "distribution": "openwrt",
+            "status": "unreproducible",
+            "metadata": {},
+            "log": null,
+            "epoch": 0,
+            "diffoscope": "openwrt-x86-64-generic-ext4-combined.img.gz.html",
+            "files": {
+              "unreproducible": [
+                "targets/x86/64/openwrt-x86-64-generic-ext4-combined.img.gz"
               ]
             }
           }
