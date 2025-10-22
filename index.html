@@ -33,28 +33,53 @@
         <h1>OpenWrt Reproducible Build Results</h1>
         <p>Compare reproducibility across releases and targets</p>
         <div class="build-info">
-            <strong>Build Time:</strong> 2025-10-21 21:44:09 UTC |
-            <strong>Commit:</strong> e4df5897 |
+            <strong>Build Time:</strong> 2025-10-22 09:27:17 UTC |
+            <strong>Commit:</strong> b75b9207 |
             <strong>Branch:</strong> nocache |
-            <strong>Run:</strong> 18697581134
+            <strong>Run:</strong> 18709107955
         </div>
     </div>
 
     <div class="releases-grid">
 
+        <div class="release-card">
+            <div class="release-name">
+                <a href="SNAPSHOT.html">OpenWrt SNAPSHOT</a>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 55.8%"></div>
+            </div>
+            <div style="text-align: center; font-size: 1.3em; font-weight: bold; margin: 15px 0;">
+                55.8% Reproducible
+            </div>
+            <div class="release-stats">
+                <div class="stat-box stat-reproducible">
+                    <div class="stat-value">2588</div>
+                    <div class="stat-label">Reproducible</div>
+                </div>
+                <div class="stat-box stat-unreproducible">
+                    <div class="stat-value">2054</div>
+                    <div class="stat-label">Unreproducible</div>
+                </div>
+            </div>
+            <div class="target-count">
+                3 targets tested
+            </div>
+        </div>
+    
     </div>
 
     <div class="overall-summary">
         <h2>Overall Summary Across All Releases</h2>
         <div style="font-size: 1.5em; font-weight: bold; margin: 20px 0;">
-            0.0% Reproducible
+            55.8% Reproducible
         </div>
         <div style="font-size: 1.1em; margin: 10px 0;">
-            0 of 0 items are reproducible
+            2588 of 4642 items are reproducible
         </div>
         <div style="margin-top: 20px;">
-            <span style="color: #28a745; margin: 0 15px;"><strong>0</strong> Reproducible</span>
-            <span style="color: #dc3545; margin: 0 15px;"><strong>0</strong> Unreproducible</span>
+            <span style="color: #28a745; margin: 0 15px;"><strong>2588</strong> Reproducible</span>
+            <span style="color: #dc3545; margin: 0 15px;"><strong>2054</strong> Unreproducible</span>
             <span style="color: #ffc107; margin: 0 15px;"><strong>0</strong> Not Found</span>
             <span style="color: #17a2b8; margin: 0 15px;"><strong>0</strong> Pending</span>
         </div>
