@@ -113,14 +113,15 @@ jobs:
           S3_PREFIX="${{ vars.S3_PREFIX || 'openwrt-rebuilder' }}"
           
           if [ -n "$S3_BUCKET" ]; then
-            # Upload test results (output.json and diffoscope results)
+            # Upload test results (output.json and diffoscope results), excluding logs subdirectory
             if [ -d "original/results" ]; then
               aws s3 sync original/results/ \
                 "s3://${S3_BUCKET}/${S3_PREFIX}/${TIMESTAMP}/${{ matrix.version }}/${{ env.target_sani }}/results/" \
+                --exclude "logs/*" \
                 --no-progress
             fi
             
-            # Upload build logs
+            # Upload build logs separately
             if [ -d "original/results/logs" ]; then
               aws s3 sync original/results/logs/ \
                 "s3://${S3_BUCKET}/${S3_PREFIX}/${TIMESTAMP}/${{ matrix.version }}/${{ env.target_sani }}/logs/" \

@@ -61,8 +61,10 @@ To enable S3 uploads, configure the following secrets and variables in your GitH
 - `AWS_ACCESS_KEY_ID`: AWS access key ID with S3 write permissions
 - `AWS_SECRET_ACCESS_KEY`: AWS secret access key
 
+**Required Variables (for S3 upload):**
+- `S3_BUCKET`: Name of the S3 bucket
+
 **Optional Variables:**
-- `S3_BUCKET`: Name of the S3 bucket (required for S3 upload to work)
 - `S3_PREFIX`: Prefix path in the S3 bucket (default: `openwrt-rebuilder`)
 - `AWS_REGION`: AWS region for the S3 bucket (default: `us-east-1`)
 
