@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+  schedule:
+    - cron: '0 2 * * *'  # Run daily at 2 AM UTC
+
   workflow_dispatch:
     inputs:
       version:
@@ -93,3 +96,38 @@ jobs:
         with:
           name: results-${{ matrix.version }}-${{ env.target_sani }}
           path: original/results/
+
+      - name: Configure AWS credentials
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
+
+      - name: Upload results to S3
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          S3_BUCKET="${{ vars.S3_BUCKET }}"
+          S3_PREFIX="${{ vars.S3_PREFIX || 'openwrt-rebuilder' }}"
+          
+          if [ -n "$S3_BUCKET" ]; then
+            # Upload test results (output.json and diffoscope results)
+            if [ -d "original/results" ]; then
+              aws s3 sync original/results/ \
+                "s3://${S3_BUCKET}/${S3_PREFIX}/${TIMESTAMP}/${{ matrix.version }}/${{ env.target_sani }}/results/" \
+                --no-progress
+            fi
+            
+            # Upload build logs
+            if [ -d "original/results/logs" ]; then
+              aws s3 sync original/results/logs/ \
+                "s3://${S3_BUCKET}/${S3_PREFIX}/${TIMESTAMP}/${{ matrix.version }}/${{ env.target_sani }}/logs/" \
+                --no-progress
+            fi
+            
+            echo "Uploaded results to s3://${S3_BUCKET}/${S3_PREFIX}/${TIMESTAMP}/${{ matrix.version }}/${{ env.target_sani }}/"
+          else
+            echo "S3_BUCKET not configured, skipping S3 upload"
+          fi

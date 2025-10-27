@@ -48,3 +48,28 @@ container `aparcar/rebuild-diffoscope` or install Diffoscope directly.
 The output of the script is a single
 [rbvf.json](https://github.com/aparcar/reproducible-builds-verification-format)
 file.
+
+## CI/CD Configuration
+
+The GitHub Actions workflow runs daily at 2 AM UTC and can also be triggered manually. It supports uploading test results and build logs to an S3 bucket.
+
+### S3 Upload Configuration
+
+To enable S3 uploads, configure the following secrets and variables in your GitHub repository:
+
+**Required Secrets:**
+- `AWS_ACCESS_KEY_ID`: AWS access key ID with S3 write permissions
+- `AWS_SECRET_ACCESS_KEY`: AWS secret access key
+
+**Optional Variables:**
+- `S3_BUCKET`: Name of the S3 bucket (required for S3 upload to work)
+- `S3_PREFIX`: Prefix path in the S3 bucket (default: `openwrt-rebuilder`)
+- `AWS_REGION`: AWS region for the S3 bucket (default: `us-east-1`)
+
+The workflow uploads results to:
+```
+s3://<S3_BUCKET>/<S3_PREFIX>/<TIMESTAMP>/<VERSION>/<TARGET>/results/
+s3://<S3_BUCKET>/<S3_PREFIX>/<TIMESTAMP>/<VERSION>/<TARGET>/logs/
+```
+
+S3 uploads only occur during scheduled runs or manual workflow dispatches, not on regular pushes to main.
