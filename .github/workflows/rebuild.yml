@@ -30,7 +30,7 @@ jobs:
       - name: Verify that podman works
         run: podman run --rm alpine echo "Podman is working"
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Cache OpenWrt git repository
         uses: actions/cache@v4
@@ -91,7 +91,7 @@ jobs:
         with:
           python-version: "3.13"
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
