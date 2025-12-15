@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Cache OpenWrt git repository
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ./build/${{ github.event.inputs.version || matrix.version }}/.git
           key: openwrt-git-${{ matrix.version }}-${{ github.sha }}
@@ -42,7 +42,7 @@ jobs:
             openwrt-git-
 
       - name: Cache downloads
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ./build/${{ github.event.inputs.version || matrix.version }}/dl
           key: openwrt-dl-${{ matrix.version }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
@@ -51,7 +51,7 @@ jobs:
             openwrt-dl-
 
       - name: Cache feeds
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ./build/${{ github.event.inputs.version || matrix.version }}/feeds
