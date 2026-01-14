@@ -39,7 +39,7 @@ from pathlib import Path
 from src.rebuilder.config import Config
 from src.rebuilder.core.build import OpenWrtBuilder
 from src.rebuilder.core.compare import Comparator
-from src.rebuilder.core.download import discover_kernel_version, download_text
+from src.rebuilder.core.download import download_text
 from src.rebuilder.core.git import GitRepository
 from src.rebuilder.diffoscope import DiffoscopeRunner
 from src.rebuilder.models import Suite
@@ -200,12 +200,7 @@ class Rebuilder:
             return
 
         logger.info("Running diffoscope analysis...")
-        # Get local kernel version (may have "unknown" VERMAGIC)
-        local_kernel_version = self.builder.kernel_version if self.builder else ""
-        # Discover full kernel version from origin using the local version prefix
-        kernel_version = discover_kernel_version(
-            self.config.origin_url, self.config.target_dir, local_kernel_version
-        )
+        kernel_version = self.builder.kernel_version if self.builder else ""
         runner = DiffoscopeRunner(self.config, kernel_version=kernel_version)
 
         # Collect all unreproducible results
