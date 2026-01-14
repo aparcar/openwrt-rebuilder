@@ -18,9 +18,13 @@ def fixtures_dir() -> Path:
 @pytest.fixture
 def sample_sha256sums() -> str:
     """Sample sha256sums file content."""
-    return """abc123def456789012345678901234567890123456789012345678901234 *packages/base/foo-1.0.0.ipk
-def456abc789012345678901234567890123456789012345678901234567 *packages/base/bar-2.1.0.ipk
-789012345678901234567890123456789012345678901234567890123456 *targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz
+    # SHA256 hashes are 64 hex chars
+    hash1 = "abc123def456789012345678901234567890123456789012345678901234"
+    hash2 = "def456abc789012345678901234567890123456789012345678901234567"
+    hash3 = "789012345678901234567890123456789012345678901234567890123456"
+    return f"""{hash1} *packages/base/foo-1.0.0.ipk
+{hash2} *packages/base/bar-2.1.0.ipk
+{hash3} *targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz
 """
 
 

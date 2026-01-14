@@ -18,11 +18,13 @@ class TestSha256sumsParser:
         result = parse_sha256sums(sample_sha256sums)
         assert len(result) == 3
         assert "foo-1.0.0.ipk" in result
-        assert result["foo-1.0.0.ipk"] == "abc123def456789012345678901234567890123456789012345678901234"
+        expected_hash = "abc123def456789012345678901234567890123456789012345678901234"
+        assert result["foo-1.0.0.ipk"] == expected_hash
 
     def test_parse_extracts_filename(self):
         """Test that only filename is extracted, not full path."""
-        content = "abc123def456789012345678901234567890123456789012345678901234 *some/deep/path/file.ipk\n"
+        test_hash = "abc123def456789012345678901234567890123456789012345678901234"
+        content = f"{test_hash} *some/deep/path/file.ipk\n"
         result = parse_sha256sums(content)
         assert "file.ipk" in result
         assert "some/deep/path/file.ipk" not in result

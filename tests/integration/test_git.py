@@ -165,7 +165,9 @@ class TestGitPatches:
         assert "First patch" in readme_content
         assert "Second patch" in readme_content
 
-    def test_apply_patches_nonexistent_directory(self, config_with_local_repo: Config, tmp_path: Path):
+    def test_apply_patches_nonexistent_directory(
+        self, config_with_local_repo: Config, tmp_path: Path
+    ):
         """Test applying patches from nonexistent directory."""
         repo = GitRepository(config_with_local_repo)
         repo.clone()

@@ -5,7 +5,7 @@ from pathlib import Path
 
 from rebuilder.config import Config
 from rebuilder.models import Result, Status, Suite
-from rebuilder.parsers import parse_packages, parse_profiles, parse_sha256sums
+from rebuilder.parsers import parse_packages, parse_profiles
 
 logger = logging.getLogger(__name__)
 

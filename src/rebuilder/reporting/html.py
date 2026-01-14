@@ -1,6 +1,5 @@
 """HTML report generation using Jinja2 templates."""
 
-import json
 import logging
 import shutil
 from dataclasses import dataclass
