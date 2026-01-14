@@ -48,7 +48,7 @@ class DiffoscopeRunner:
         # Handle kernel module paths
         if "kmod" in url:
             # TODO: Need kernel version to construct proper URL
-            url = url.replace("packages", f"kmods/KERNEL_VERSION")
+            url = url.replace("packages", "kmods/KERNEL_VERSION")
 
         return url
 

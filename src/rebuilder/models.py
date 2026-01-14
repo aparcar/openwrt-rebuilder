@@ -104,7 +104,7 @@ class Suite:
         for category in ("packages", "images"):
             if category not in data:
                 continue
-            for status_name, items in data[category].items():
+            for _status_name, items in data[category].items():
                 for item in items:
                     result = Result(
                         name=item["name"],
