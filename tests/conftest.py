@@ -19,9 +19,9 @@ def fixtures_dir() -> Path:
 def sample_sha256sums() -> str:
     """Sample sha256sums file content."""
     # SHA256 hashes are 64 hex chars
-    hash1 = "abc123def456789012345678901234567890123456789012345678901234"
-    hash2 = "def456abc789012345678901234567890123456789012345678901234567"
-    hash3 = "789012345678901234567890123456789012345678901234567890123456"
+    hash1 = "abc123def456789012345678901234567890123456789012345678901234abcd"
+    hash2 = "def456abc789012345678901234567890123456789012345678901234567ef01"
+    hash3 = "7890123456789012345678901234567890123456789012345678901234567890"
     return f"""{hash1} *packages/base/foo-1.0.0.ipk
 {hash2} *packages/base/bar-2.1.0.ipk
 {hash3} *targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz
@@ -38,11 +38,11 @@ def sample_profiles_json() -> str:
                     "images": [
                         {
                             "name": "openwrt-x86-64-generic-squashfs-combined.img.gz",
-                            "sha256": "abc123def456789012345678901234567890123456789012345678901234",
+                            "sha256": "abc123def456789012345678901234567890123456789012345678901234abcd",
                         },
                         {
                             "name": "openwrt-x86-64-generic-ext4-combined.img.gz",
-                            "sha256": "def456abc789012345678901234567890123456789012345678901234567",
+                            "sha256": "def456abc789012345678901234567890123456789012345678901234567ef01",
                         },
                     ]
                 }

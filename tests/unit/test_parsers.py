@@ -18,12 +18,12 @@ class TestSha256sumsParser:
         result = parse_sha256sums(sample_sha256sums)
         assert len(result) == 3
         assert "foo-1.0.0.ipk" in result
-        expected_hash = "abc123def456789012345678901234567890123456789012345678901234"
+        expected_hash = "abc123def456789012345678901234567890123456789012345678901234abcd"
         assert result["foo-1.0.0.ipk"] == expected_hash
 
     def test_parse_extracts_filename(self):
         """Test that only filename is extracted, not full path."""
-        test_hash = "abc123def456789012345678901234567890123456789012345678901234"
+        test_hash = "abc123def456789012345678901234567890123456789012345678901234abcd"
         content = f"{test_hash} *some/deep/path/file.ipk\n"
         result = parse_sha256sums(content)
         assert "file.ipk" in result
@@ -36,9 +36,9 @@ class TestSha256sumsParser:
 
     def test_parse_ignores_invalid_lines(self):
         """Test that invalid lines are ignored."""
-        content = """abc123def456789012345678901234567890123456789012345678901234 *valid.ipk
+        content = """abc123def456789012345678901234567890123456789012345678901234abcd *valid.ipk
 not a valid line
-def456abc789012345678901234567890123456789012345678901234567 *another.ipk
+def456abc789012345678901234567890123456789012345678901234567ef01 *another.ipk
 """
         result = parse_sha256sums(content)
         assert len(result) == 2
