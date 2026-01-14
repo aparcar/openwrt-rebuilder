@@ -103,30 +103,49 @@ def discover_kernel_version(origin_url: str, target_dir: str) -> str:
     Returns:
         The kernel version string (e.g., "6.12.63-1-abc123def"), or empty string if not found.
     """
-    # Try to fetch kmods sha256sums
-    kmods_url = f"{origin_url}/{target_dir}/kmods/sha256sums"
-    try:
-        content = download_text(kmods_url)
-        # Parse kernel version from path like: *kmods/6.12.63-1-abc123/kmod-foo.apk
-        match = re.search(r"\*?kmods/([^/]+)/", content)
-        if match:
-            kernel_version = match.group(1)
-            logger.info(f"Discovered kernel version from origin: {kernel_version}")
-            return kernel_version
-    except DownloadError:
-        logger.debug(f"Could not fetch {kmods_url}")
-
-    # Fallback: try to find from target sha256sums
+    # Try to fetch target sha256sums and find the kmods path
     target_url = f"{origin_url}/{target_dir}/sha256sums"
     try:
         content = download_text(target_url)
-        match = re.search(r"kmods/([^/]+)/", content)
-        if match:
-            kernel_version = match.group(1)
-            logger.info(f"Discovered kernel version from target sha256sums: {kernel_version}")
+        # Find all kmods paths and get the one with the highest kernel version
+        matches = re.findall(r"kmods/([^/]+)/", content)
+        if matches:
+            # Get unique versions and sort by version number (descending)
+            unique_versions = sorted(set(matches), reverse=True)
+            kernel_version = unique_versions[0]
+            logger.info(f"Discovered kernel version from origin: {kernel_version}")
             return kernel_version
     except DownloadError:
         logger.debug(f"Could not fetch {target_url}")
 
     logger.warning("Could not discover kernel version from origin")
     return ""
+
+
+def build_kmod_path_map(origin_url: str, target_dir: str) -> dict[str, str]:
+    """Build a mapping of kmod filenames to their full paths.
+
+    Args:
+        origin_url: Base URL for OpenWrt downloads.
+        target_dir: Target directory path (e.g., "snapshots/targets/x86/64").
+
+    Returns:
+        Dictionary mapping kmod filename to full path (e.g., {"kmod-foo.apk": "kmods/6.12.63-1-abc/kmod-foo.apk"}).
+    """
+    kmod_map: dict[str, str] = {}
+    target_url = f"{origin_url}/{target_dir}/sha256sums"
+
+    try:
+        content = download_text(target_url)
+        # Parse paths like: *kmods/6.12.63-1-abc123/kmod-foo.apk
+        for line in content.splitlines():
+            match = re.search(r"\*(kmods/[^/]+/([^/]+\.apk))", line)
+            if match:
+                full_path = match.group(1)
+                filename = match.group(2)
+                kmod_map[filename] = full_path
+        logger.info(f"Built kmod path map with {len(kmod_map)} entries")
+    except DownloadError:
+        logger.warning(f"Could not fetch {target_url} for kmod path map")
+
+    return kmod_map
