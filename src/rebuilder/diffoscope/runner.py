@@ -159,7 +159,6 @@ class DiffoscopeRunner:
                     self.container_runtime,
                     "run",
                     "--rm",
-                    "-t",
                     "-w",
                     str(self.config.results_dir),
                     "-v",
@@ -175,7 +174,7 @@ class DiffoscopeRunner:
                     str(results_file),
                 ]
             )
-            run_command(cmd, shell=True, ignore_errors=True, timeout=self.timeout)
+            run_command(cmd, shell=True, ignore_errors=True, timeout=self.timeout, capture=True)
         except TimeoutError:
             logger.warning(f"Diffoscope timed out for {result.name}")
         except Exception as e:

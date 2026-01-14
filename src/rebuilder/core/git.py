@@ -59,11 +59,11 @@ class GitRepository:
             logger.info(f"Cloning {self.config.openwrt_git} to {self.path}")
             self.path.parent.mkdir(parents=True, exist_ok=True)
             runner = CommandRunner(cwd=self.path.parent)
-            runner.run(["git", "clone", self.config.openwrt_git, str(self.path)])
+            runner.run(["git", "clone", self.config.openwrt_git, str(self.path)], capture=True)
         else:
             logger.info("Updating existing repository")
-            self._git("fetch", "--all")
-            self._git("reset", "--hard", f"origin/{self.config.branch}")
+            self._git("fetch", "--all", capture=True)
+            self._git("reset", "--hard", f"origin/{self.config.branch}", capture=True)
 
     def checkout(self, commit: str) -> None:
         """Checkout a specific commit.
@@ -72,16 +72,16 @@ class GitRepository:
             commit: Commit hash or reference to checkout.
         """
         logger.info(f"Checking out {self.config.branch}")
-        self._git("checkout", self.config.branch)
-        self._git("reset", "--hard", commit)
+        self._git("checkout", self.config.branch, capture=True)
+        self._git("reset", "--hard", commit, capture=True)
 
         # For release versions, create a version tag branch
         if self.config.version != "SNAPSHOT":
             tag = f"v{self.config.version}"
             # Delete existing branch if it exists
-            self._git("branch", "-f", "-D", tag, ignore_errors=True)
+            self._git("branch", "-f", "-D", tag, capture=True, ignore_errors=True)
             # Create and checkout the tag branch
-            self._git("checkout", tag, "-f", "-b", tag)
+            self._git("checkout", tag, "-f", "-b", tag, capture=True)
 
     def get_version_string(self) -> str:
         """Get the version string from getver.sh.
@@ -131,7 +131,7 @@ class GitRepository:
         """
         logger.info(f"Applying patch: {patch_path.name}")
         try:
-            self._git("apply", str(patch_path))
+            self._git("apply", str(patch_path), capture=True)
             return True
         except CommandError as e:
             logger.error(f"Failed to apply {patch_path.name}: {e}")

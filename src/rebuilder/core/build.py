@@ -54,12 +54,13 @@ class OpenWrtBuilder:
             raise ValueError("Kernel version not set - call setup_kernel_magic first")
         return self._kernel_version
 
-    def make(self, *targets: str, jobs: int | None = None) -> None:
+    def make(self, *targets: str, jobs: int | None = None, verbose: bool = False) -> None:
         """Run make with the specified targets.
 
         Args:
             *targets: Make targets to build.
             jobs: Number of parallel jobs (default: from config).
+            verbose: If True, show make output. Otherwise suppress it.
         """
         j = jobs if jobs is not None else self.config.jobs
         cmd = [
@@ -70,7 +71,8 @@ class OpenWrtBuilder:
             f"-j{j}",
             *targets,
         ]
-        self.runner.run(cmd)
+        # Capture output to suppress it (logs are written to BUILD_LOG_DIR)
+        self.runner.run(cmd, capture=not verbose)
 
     def setup_feeds_buildinfo(self) -> str:
         """Download and configure package feeds.
@@ -172,8 +174,8 @@ CONFIG_MAKE_TOOLCHAIN=n
     def update_feeds(self) -> None:
         """Update and install package feeds."""
         logger.info("Updating feeds")
-        self.runner.run(["./scripts/feeds", "update"])
-        self.runner.run(["./scripts/feeds", "install", "-a"])
+        self.runner.run(["./scripts/feeds", "update"], capture=True)
+        self.runner.run(["./scripts/feeds", "install", "-a"], capture=True)
 
     def download_sources(self) -> None:
         """Download all source packages."""
