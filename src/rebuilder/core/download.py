@@ -90,28 +90,46 @@ def download_json(url: str, timeout: int = 30) -> dict[str, Any]:
     return result
 
 
-def discover_kernel_version(origin_url: str, target_dir: str) -> str:
+def discover_kernel_version(
+    origin_url: str, target_dir: str, local_kernel_version: str = ""
+) -> str:
     """Discover the kernel version string from the origin server.
 
     The kernel version is extracted from the kmods sha256sums file which
     contains paths like: kmods/6.12.63-1-abc123def/kmod-foo.apk
 
+    If local_kernel_version is provided (e.g., "6.12.63-1-unknown"), it will
+    find the matching version on the origin that starts with the same
+    LINUX_VERSION-LINUX_RELEASE prefix.
+
     Args:
         origin_url: Base URL for OpenWrt downloads.
         target_dir: Target directory path (e.g., "snapshots/targets/x86/64").
+        local_kernel_version: Local kernel version to match against (may have "unknown" VERMAGIC).
 
     Returns:
         The kernel version string (e.g., "6.12.63-1-abc123def"), or empty string if not found.
     """
-    # Try to fetch target sha256sums and find the kmods path
     target_url = f"{origin_url}/{target_dir}/sha256sums"
     try:
         content = download_text(target_url)
-        # Find all kmods paths and get the one with the highest kernel version
+        # Find all kmods paths
         matches = re.findall(r"kmods/([^/]+)/", content)
         if matches:
-            # Get unique versions and sort by version number (descending)
-            unique_versions = sorted(set(matches), reverse=True)
+            unique_versions = list(set(matches))
+
+            # If we have a local kernel version, find the one that matches
+            if local_kernel_version:
+                # Extract LINUX_VERSION-LINUX_RELEASE prefix (e.g., "6.12.63-1")
+                parts = local_kernel_version.split("-")
+                if len(parts) >= 2:
+                    prefix = f"{parts[0]}-{parts[1]}-"
+                    for version in unique_versions:
+                        if version.startswith(prefix):
+                            logger.info(f"Discovered kernel version from origin: {version}")
+                            return version
+
+            # Fallback: return the first one found
             kernel_version = unique_versions[0]
             logger.info(f"Discovered kernel version from origin: {kernel_version}")
             return kernel_version
