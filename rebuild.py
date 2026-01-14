@@ -200,7 +200,8 @@ class Rebuilder:
             return
 
         logger.info("Running diffoscope analysis...")
-        runner = DiffoscopeRunner(self.config)
+        kernel_version = self.builder.kernel_version if self.builder else ""
+        runner = DiffoscopeRunner(self.config, kernel_version=kernel_version)
 
         # Collect all unreproducible results
         unreproducible = self.suite.packages.unreproducible + self.suite.images.unreproducible

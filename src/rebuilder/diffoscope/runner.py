@@ -22,6 +22,7 @@ class DiffoscopeRunner:
     def __init__(
         self,
         config: Config,
+        kernel_version: str = "",
         container_runtime: str = "podman",
         image: str = DIFFOSCOPE_IMAGE,
         timeout: int = 180,
@@ -30,11 +31,13 @@ class DiffoscopeRunner:
 
         Args:
             config: Rebuild configuration.
+            kernel_version: Kernel version string for kmod URLs.
             container_runtime: Container runtime to use (podman or docker).
             image: Diffoscope container image.
             timeout: Timeout for diffoscope execution in seconds.
         """
         self.config = config
+        self.kernel_version = kernel_version
         self.container_runtime = container_runtime
         self.image = image
         self.timeout = timeout
@@ -45,9 +48,8 @@ class DiffoscopeRunner:
         url = f"{self.config.origin_url}/{self.config.release_dir}/{file_path}"
 
         # Handle kernel module paths
-        if "kmod" in url:
-            # TODO: Need kernel version to construct proper URL
-            url = url.replace("packages", "kmods/KERNEL_VERSION")
+        if "kmod" in url and self.kernel_version:
+            url = url.replace("packages", f"kmods/{self.kernel_version}")
 
         return url
 
