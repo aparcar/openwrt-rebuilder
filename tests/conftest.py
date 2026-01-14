@@ -31,35 +31,35 @@ def sample_sha256sums() -> str:
 @pytest.fixture
 def sample_profiles_json() -> str:
     """Sample profiles.json content."""
-    return json.dumps({
-        "profiles": {
-            "generic": {
-                "images": [
-                    {
-                        "name": "openwrt-x86-64-generic-squashfs-combined.img.gz",
-                        "sha256": "abc123def456789012345678901234567890123456789012345678901234"
-                    },
-                    {
-                        "name": "openwrt-x86-64-generic-ext4-combined.img.gz",
-                        "sha256": "def456abc789012345678901234567890123456789012345678901234567"
-                    }
-                ]
+    return json.dumps(
+        {
+            "profiles": {
+                "generic": {
+                    "images": [
+                        {
+                            "name": "openwrt-x86-64-generic-squashfs-combined.img.gz",
+                            "sha256": "abc123def456789012345678901234567890123456789012345678901234",
+                        },
+                        {
+                            "name": "openwrt-x86-64-generic-ext4-combined.img.gz",
+                            "sha256": "def456abc789012345678901234567890123456789012345678901234567",
+                        },
+                    ]
+                }
             }
         }
-    })
+    )
 
 
 @pytest.fixture
 def sample_packages_json() -> str:
     """Sample package index.json content."""
-    return json.dumps({
-        "architecture": "x86_64",
-        "packages": {
-            "base-files": "1.0.0",
-            "busybox": "1.36.1",
-            "dnsmasq": "2.90"
+    return json.dumps(
+        {
+            "architecture": "x86_64",
+            "packages": {"base-files": "1.0.0", "busybox": "1.36.1", "dnsmasq": "2.90"},
         }
-    })
+    )
 
 
 @pytest.fixture
@@ -104,44 +104,56 @@ def populated_suite() -> Suite:
 
     # Add some reproducible packages
     for i in range(3):
-        suite.add_result("packages", Result(
-            name=f"pkg-{i}",
+        suite.add_result(
+            "packages",
+            Result(
+                name=f"pkg-{i}",
+                version="1.0",
+                arch="x86_64",
+                distribution="openwrt",
+                status=Status.REPRODUCIBLE,
+                files={"reproducible": [f"packages/pkg-{i}-1.0.ipk"]},
+            ),
+        )
+
+    # Add an unreproducible package
+    suite.add_result(
+        "packages",
+        Result(
+            name="unrep-pkg",
+            version="2.0",
+            arch="x86_64",
+            distribution="openwrt",
+            status=Status.UNREPRODUCIBLE,
+            diffoscope="unrep-pkg-2.0.ipk.html",
+            files={"unreproducible": ["packages/unrep-pkg-2.0.ipk"]},
+        ),
+    )
+
+    # Add a not found package
+    suite.add_result(
+        "packages",
+        Result(
+            name="missing-pkg",
             version="1.0",
             arch="x86_64",
             distribution="openwrt",
-            status=Status.REPRODUCIBLE,
-            files={"reproducible": [f"packages/pkg-{i}-1.0.ipk"]},
-        ))
-
-    # Add an unreproducible package
-    suite.add_result("packages", Result(
-        name="unrep-pkg",
-        version="2.0",
-        arch="x86_64",
-        distribution="openwrt",
-        status=Status.UNREPRODUCIBLE,
-        diffoscope="unrep-pkg-2.0.ipk.html",
-        files={"unreproducible": ["packages/unrep-pkg-2.0.ipk"]},
-    ))
-
-    # Add a not found package
-    suite.add_result("packages", Result(
-        name="missing-pkg",
-        version="1.0",
-        arch="x86_64",
-        distribution="openwrt",
-        status=Status.NOTFOUND,
-        files={"notfound": ["packages/missing-pkg-1.0.ipk"]},
-    ))
+            status=Status.NOTFOUND,
+            files={"notfound": ["packages/missing-pkg-1.0.ipk"]},
+        ),
+    )
 
     # Add reproducible images
-    suite.add_result("images", Result(
-        name="openwrt-x86-64-generic.img",
-        version="SNAPSHOT",
-        arch="x86/64",
-        distribution="openwrt",
-        status=Status.REPRODUCIBLE,
-        files={"reproducible": ["targets/x86/64/openwrt-x86-64-generic.img"]},
-    ))
+    suite.add_result(
+        "images",
+        Result(
+            name="openwrt-x86-64-generic.img",
+            version="SNAPSHOT",
+            arch="x86/64",
+            distribution="openwrt",
+            status=Status.REPRODUCIBLE,
+            files={"reproducible": ["targets/x86/64/openwrt-x86-64-generic.img"]},
+        ),
+    )
 
     return suite

@@ -89,30 +89,47 @@ class TestResults:
         """Test counting all results."""
         results = Results()
         for status in [Status.REPRODUCIBLE, Status.UNREPRODUCIBLE, Status.NOTFOUND]:
-            results.add(Result(
-                name="test",
-                version="1.0",
-                arch="x86_64",
-                distribution="openwrt",
-                status=status,
-            ))
+            results.add(
+                Result(
+                    name="test",
+                    version="1.0",
+                    arch="x86_64",
+                    distribution="openwrt",
+                    status=status,
+                )
+            )
         assert results.total_count() == 3
 
     def test_stats(self):
         """Test statistics generation."""
         results = Results()
-        results.add(Result(
-            name="a", version="1.0", arch="x86_64",
-            distribution="openwrt", status=Status.REPRODUCIBLE,
-        ))
-        results.add(Result(
-            name="b", version="1.0", arch="x86_64",
-            distribution="openwrt", status=Status.REPRODUCIBLE,
-        ))
-        results.add(Result(
-            name="c", version="1.0", arch="x86_64",
-            distribution="openwrt", status=Status.UNREPRODUCIBLE,
-        ))
+        results.add(
+            Result(
+                name="a",
+                version="1.0",
+                arch="x86_64",
+                distribution="openwrt",
+                status=Status.REPRODUCIBLE,
+            )
+        )
+        results.add(
+            Result(
+                name="b",
+                version="1.0",
+                arch="x86_64",
+                distribution="openwrt",
+                status=Status.REPRODUCIBLE,
+            )
+        )
+        results.add(
+            Result(
+                name="c",
+                version="1.0",
+                arch="x86_64",
+                distribution="openwrt",
+                status=Status.UNREPRODUCIBLE,
+            )
+        )
 
         stats = results.stats()
         assert stats["reproducible"] == 2

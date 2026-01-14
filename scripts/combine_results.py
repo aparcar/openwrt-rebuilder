@@ -34,6 +34,7 @@ try:
     sys.path.insert(0, str(Path(__file__).parent.parent))
     from src.rebuilder.reporting.html import BuildInfo, HTMLReportGenerator
     from src.rebuilder.reporting.json_output import load_rbvf_output, merge_rbvf_outputs
+
     USE_NEW_TEMPLATES = True
 except ImportError:
     logger.warning("Could not import new package, using legacy HTML generation")
@@ -114,12 +115,14 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
         return stats
 
     def generate_target_page(version, target, target_data, release_dir):
-        target_slug = target.replace('/', '_')
+        target_slug = target.replace("/", "_")
         (output_dir / release_dir).mkdir(parents=True, exist_ok=True)
 
         target_stats = calculate_stats(target_data)
         total_items = sum(target_stats.values())
-        reproducible_percent = (target_stats['reproducible'] / total_items * 100) if total_items > 0 else 0
+        reproducible_percent = (
+            (target_stats["reproducible"] / total_items * 100) if total_items > 0 else 0
+        )
 
         html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -158,31 +161,37 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
     <div class="header"><h1>{target}</h1><h2>Version: {version}</h2></div>
     <div class="summary-box">
         <h3>Target Summary</h3>
-        <p><strong>{reproducible_percent:.1f}% Reproducible</strong> ({target_stats['reproducible']} of {total_items} items)</p>
+        <p><strong>{reproducible_percent:.1f}% Reproducible</strong> ({target_stats["reproducible"]} of {total_items} items)</p>
     </div>
 """
         for category in ["images", "packages"]:
             if category not in target_data:
                 continue
-            html_content += f'<div class="category"><div class="category-header">{category.title()}</div>'
+            html_content += (
+                f'<div class="category"><div class="category-header">{category.title()}</div>'
+            )
             for status in ["reproducible", "unreproducible", "notfound", "pending"]:
                 items = target_data[category].get(status, [])
                 if not items:
                     continue
-                html_content += f'<div class="status-header {status}">{status.title()} ({len(items)})</div>'
+                html_content += (
+                    f'<div class="status-header {status}">{status.title()} ({len(items)})</div>'
+                )
                 for item in items:
-                    html_content += f'<div class="item {status}"><div class="item-name">{item["name"]}</div>'
+                    html_content += (
+                        f'<div class="item {status}"><div class="item-name">{item["name"]}</div>'
+                    )
                     html_content += f'<div class="item-details">Arch: {item.get("arch", "N/A")} | Version: {item.get("version", "N/A")}</div>'
                     if item.get("diffoscope"):
                         html_content += f'<div class="diffoscope-link"><a href="../diffoscope/{item["diffoscope"]}" target="_blank">View Diffoscope</a></div>'
-                    html_content += '</div>'
-            html_content += '</div>'
-        html_content += '</body></html>'
+                    html_content += "</div>"
+            html_content += "</div>"
+        html_content += "</body></html>"
         (output_dir / release_dir / f"{target_slug}.html").write_text(html_content)
         return target_stats
 
     def generate_release_page(version, targets_data):
-        release_dir = version.replace('.', '_')
+        release_dir = version.replace(".", "_")
         version_stats = {"reproducible": 0, "unreproducible": 0, "notfound": 0, "pending": 0}
 
         for target, target_data in targets_data.items():
@@ -191,7 +200,7 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
                 version_stats[status] += target_stats[status]
 
         total = sum(version_stats.values())
-        percent = (version_stats['reproducible'] / total * 100) if total > 0 else 0
+        percent = (version_stats["reproducible"] / total * 100) if total > 0 else 0
 
         html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -216,16 +225,16 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
     <div class="targets-grid">
 """
         for target, target_data in targets_data.items():
-            target_slug = target.replace('/', '_')
+            target_slug = target.replace("/", "_")
             t_stats = calculate_stats(target_data)
             t_total = sum(t_stats.values())
-            t_percent = (t_stats['reproducible'] / t_total * 100) if t_total > 0 else 0
+            t_percent = (t_stats["reproducible"] / t_total * 100) if t_total > 0 else 0
             html_content += f'''<div class="target-card">
                 <a href="{release_dir}/{target_slug}.html">{target}</a>
                 <div class="progress-bar"><div class="progress-fill" style="width: {t_percent:.1f}%"></div></div>
                 <div style="text-align: center;">{t_percent:.1f}% Reproducible</div>
             </div>'''
-        html_content += '</div></body></html>'
+        html_content += "</div></body></html>"
         (output_dir / f"{release_dir}.html").write_text(html_content)
         return version_stats
 
@@ -239,7 +248,7 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
             overall_stats[status] += version_stats[status]
 
         total = sum(version_stats.values())
-        percent = (version_stats['reproducible'] / total * 100) if total > 0 else 0
+        percent = (version_stats["reproducible"] / total * 100) if total > 0 else 0
         release_file = f"{version.replace('.', '_')}.html"
         release_cards += f'''<div class="release-card">
             <a href="{release_file}">OpenWrt {version}</a>
@@ -249,7 +258,7 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
         </div>'''
 
     total_all = sum(overall_stats.values())
-    overall_percent = (overall_stats['reproducible'] / total_all * 100) if total_all > 0 else 0
+    overall_percent = (overall_stats["reproducible"] / total_all * 100) if total_all > 0 else 0
 
     index_html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -277,7 +286,7 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
     <div class="releases-grid">{release_cards}</div>
     <div class="summary">
         <h2>Overall: {overall_percent:.1f}% Reproducible</h2>
-        <p>{overall_stats['reproducible']} of {total_all} items</p>
+        <p>{overall_stats["reproducible"]} of {total_all} items</p>
     </div>
     <div class="footer">
         <p>Generated by OpenWrt Reproducible Build CI | <a href="https://reproducible-builds.org/">Learn more</a></p>
@@ -306,7 +315,8 @@ def main(argv: list[str] | None = None) -> int:
         help="Directory to write combined output (default: combined_results)",
     )
     parser.add_argument(
-        "-v", "--verbose",
+        "-v",
+        "--verbose",
         action="store_true",
         help="Enable verbose output",
     )

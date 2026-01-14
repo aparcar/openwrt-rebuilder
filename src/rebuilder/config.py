@@ -36,9 +36,7 @@ class Config:
     )
 
     # Whether to run diffoscope on unreproducible builds
-    use_diffoscope: bool = field(
-        default_factory=lambda: bool(environ.get("USE_DIFFOSCOPE", True))
-    )
+    use_diffoscope: bool = field(default_factory=lambda: bool(environ.get("USE_DIFFOSCOPE", True)))
 
     # Number of parallel jobs
     jobs: int = field(default_factory=lambda: int(environ.get("j", cpu_count() + 1)))
@@ -46,9 +44,7 @@ class Config:
     def __post_init__(self) -> None:
         """Initialize derived paths after dataclass initialization."""
         if self.rebuild_dir is None:
-            self.rebuild_dir = Path(
-                environ.get("REBUILD_DIR", Path.cwd() / "build" / self.version)
-            )
+            self.rebuild_dir = Path(environ.get("REBUILD_DIR", Path.cwd() / "build" / self.version))
 
         if self.dl_dir is None:
             self.dl_dir = Path(environ.get("DL_PATH", self.rebuild_dir / "dl"))

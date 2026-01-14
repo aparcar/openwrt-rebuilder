@@ -50,9 +50,7 @@ class TestComparator:
 class TestCompareProfiles:
     """Tests for profile comparison."""
 
-    def test_compare_profiles_reproducible(
-        self, config: Config, suite: Suite, tmp_path: Path
-    ):
+    def test_compare_profiles_reproducible(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing reproducible profiles."""
         # Create rebuild profiles
         rebuild_profiles = {
@@ -76,9 +74,7 @@ class TestCompareProfiles:
         assert len(suite.images.reproducible) == 1
         assert suite.images.reproducible[0].status == Status.REPRODUCIBLE
 
-    def test_compare_profiles_unreproducible(
-        self, config: Config, suite: Suite, tmp_path: Path
-    ):
+    def test_compare_profiles_unreproducible(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing unreproducible profiles."""
         rebuild_profiles = {
             "profiles": {
@@ -100,9 +96,7 @@ class TestCompareProfiles:
         assert len(suite.images.unreproducible) == 1
         assert suite.images.unreproducible[0].diffoscope == "test.img.html"
 
-    def test_compare_profiles_not_found(
-        self, config: Config, suite: Suite, tmp_path: Path
-    ):
+    def test_compare_profiles_not_found(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing missing profile."""
         rebuild_profiles = {"profiles": {}}
         profiles_path = tmp_path / "profiles.json"
@@ -119,9 +113,7 @@ class TestCompareProfiles:
 class TestComparePackages:
     """Tests for package comparison."""
 
-    def test_compare_packages_reproducible(
-        self, config: Config, suite: Suite, tmp_path: Path
-    ):
+    def test_compare_packages_reproducible(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing reproducible packages."""
         # Create package index
         index = {"architecture": "x86_64", "packages": {"foo": "1.0"}}
@@ -137,9 +129,7 @@ class TestComparePackages:
         assert len(suite.packages.reproducible) == 1
         assert suite.packages.reproducible[0].name == "foo"
 
-    def test_compare_packages_unreproducible(
-        self, config: Config, suite: Suite, tmp_path: Path
-    ):
+    def test_compare_packages_unreproducible(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing unreproducible packages."""
         index = {"architecture": "x86_64", "packages": {"foo": "1.0"}}
         index_path = tmp_path / "index.json"
@@ -169,9 +159,7 @@ class TestComparePackages:
 
         assert suite.packages.total_count() == 0
 
-    def test_compare_packages_handles_apk(
-        self, config: Config, suite: Suite, tmp_path: Path
-    ):
+    def test_compare_packages_handles_apk(self, config: Config, suite: Suite, tmp_path: Path):
         """Test that .apk files are handled."""
         index = {"architecture": "x86_64", "packages": {"foo": "1.0"}}
         index_path = tmp_path / "index.json"

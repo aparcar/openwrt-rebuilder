@@ -23,11 +23,7 @@ def write_rbvf_output(config: Config, suite: Suite, output_path: Path | None = N
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    data = {
-        config.version: {
-            config.target: suite.to_dict()
-        }
-    }
+    data = {config.version: {config.target: suite.to_dict()}}
 
     output_path.write_text(json.dumps(data, indent=4))
     return output_path

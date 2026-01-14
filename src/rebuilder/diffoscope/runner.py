@@ -152,20 +152,27 @@ class DiffoscopeRunner:
 
         # Run diffoscope in container
         try:
-            cmd = " ".join([
-                self.container_runtime,
-                "run",
-                "--rm",
-                "-t",
-                "-w", str(self.config.results_dir),
-                "-v", f"{compare_origin}:{compare_origin}:ro",
-                "-v", f"{compare_rebuild}:{compare_rebuild}:ro",
-                "-v", f"{results_file}:{results_file}:rw",
-                self.image,
-                str(compare_origin.resolve()),
-                str(compare_rebuild.resolve()),
-                "--html", str(results_file),
-            ])
+            cmd = " ".join(
+                [
+                    self.container_runtime,
+                    "run",
+                    "--rm",
+                    "-t",
+                    "-w",
+                    str(self.config.results_dir),
+                    "-v",
+                    f"{compare_origin}:{compare_origin}:ro",
+                    "-v",
+                    f"{compare_rebuild}:{compare_rebuild}:ro",
+                    "-v",
+                    f"{results_file}:{results_file}:rw",
+                    self.image,
+                    str(compare_origin.resolve()),
+                    str(compare_rebuild.resolve()),
+                    "--html",
+                    str(results_file),
+                ]
+            )
             run_command(cmd, shell=True, ignore_errors=True, timeout=self.timeout)
         except TimeoutError:
             logger.warning(f"Diffoscope timed out for {result.name}")

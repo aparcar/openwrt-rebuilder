@@ -32,26 +32,30 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "-v", "--verbose",
+        "-v",
+        "--verbose",
         action="store_true",
         help="Enable verbose output",
     )
 
     parser.add_argument(
-        "-t", "--target",
+        "-t",
+        "--target",
         default=None,
         help="Target architecture (e.g., x86/64, mediatek/filogic)",
     )
 
     parser.add_argument(
-        "-V", "--openwrt-version",
+        "-V",
+        "--openwrt-version",
         default=None,
         dest="openwrt_version",
         help="OpenWrt version to rebuild (e.g., SNAPSHOT, 23.05.2)",
     )
 
     parser.add_argument(
-        "-j", "--jobs",
+        "-j",
+        "--jobs",
         type=int,
         default=None,
         help="Number of parallel build jobs",

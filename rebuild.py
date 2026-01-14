@@ -155,9 +155,7 @@ class Rebuilder:
         target_index = (
             self.config.bin_path / "targets" / self.config.target / "packages" / "index.json"
         )
-        target_sums = (
-            self.config.bin_path / "targets" / self.config.target / "sha256sums"
-        )
+        target_sums = self.config.bin_path / "targets" / self.config.target / "sha256sums"
         if target_index.exists() and target_sums.exists():
             # Download origin sha256sums
             origin_url = f"{self.config.origin_url}/{self.config.target_dir}/sha256sums"
@@ -206,9 +204,7 @@ class Rebuilder:
         runner = DiffoscopeRunner(self.config)
 
         # Collect all unreproducible results
-        unreproducible = (
-            self.suite.packages.unreproducible + self.suite.images.unreproducible
-        )
+        unreproducible = self.suite.packages.unreproducible + self.suite.images.unreproducible
 
         if unreproducible:
             runner.run_parallel(unreproducible)

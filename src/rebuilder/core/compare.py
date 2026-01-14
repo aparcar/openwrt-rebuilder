@@ -97,8 +97,9 @@ class Comparator:
             if not filename.endswith((".ipk", ".apk")):
                 continue
 
-            status = self.compare_file(filename, origin_checksums.get(filename, ""),
-                                        {filename: rebuild_checksum})
+            status = self.compare_file(
+                filename, origin_checksums.get(filename, ""), {filename: rebuild_checksum}
+            )
 
             # Handle case where origin doesn't have this file
             if filename not in origin_checksums:

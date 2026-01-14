@@ -62,12 +62,8 @@ class TestJsonOutput:
 
     def test_merge_rbvf_outputs_multiple_versions(self):
         """Test merging outputs with different versions."""
-        output1 = {
-            "SNAPSHOT": {"x86/64": {"packages": {"reproducible": []}, "images": {}}}
-        }
-        output2 = {
-            "23.05.2": {"x86/64": {"packages": {"reproducible": []}, "images": {}}}
-        }
+        output1 = {"SNAPSHOT": {"x86/64": {"packages": {"reproducible": []}, "images": {}}}}
+        output2 = {"23.05.2": {"x86/64": {"packages": {"reproducible": []}, "images": {}}}}
 
         merged = merge_rbvf_outputs([output1, output2])
 
@@ -76,12 +72,8 @@ class TestJsonOutput:
 
     def test_merge_rbvf_outputs_multiple_targets(self):
         """Test merging outputs with different targets."""
-        output1 = {
-            "SNAPSHOT": {"x86/64": {"packages": {}, "images": {}}}
-        }
-        output2 = {
-            "SNAPSHOT": {"mediatek/filogic": {"packages": {}, "images": {}}}
-        }
+        output1 = {"SNAPSHOT": {"x86/64": {"packages": {}, "images": {}}}}
+        output2 = {"SNAPSHOT": {"mediatek/filogic": {"packages": {}, "images": {}}}}
 
         merged = merge_rbvf_outputs([output1, output2])
 
