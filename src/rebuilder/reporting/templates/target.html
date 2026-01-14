@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}{{ target }} - {{ version }} - OpenWrt Reproducible Build Results{% endblock %}
+
+{% block breadcrumb %}
+<div class="breadcrumb">
+    <a href="../index.html">&larr; All Releases</a> /
+    <a href="../{{ release_dir }}.html">{{ version }}</a> /
+    {{ target }}
+</div>
+{% endblock %}
+
+{% block header %}
+<div class="header">
+    <h1>{{ target }}</h1>
+    <h2 style="font-weight: normal; margin: 10px 0 0 0;">Version: {{ version }}</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+{% set total = stats.reproducible + stats.unreproducible + stats.notfound + stats.pending %}
+{% set percent = (stats.reproducible / total * 100) if total > 0 else 0 %}
+
+<div class="summary-box">
+    <h3 style="margin-top: 0;">Target Summary</h3>
+    <div class="stats-grid" style="margin-bottom: 20px;">
+        <div class="stat-box reproducible">
+            <div class="stat-value">{{ stats.reproducible }}</div>
+            <div class="stat-label">Reproducible</div>
+        </div>
+        <div class="stat-box unreproducible">
+            <div class="stat-value">{{ stats.unreproducible }}</div>
+            <div class="stat-label">Unreproducible</div>
+        </div>
+        <div class="stat-box notfound">
+            <div class="stat-value">{{ stats.notfound }}</div>
+            <div class="stat-label">Not Found</div>
+        </div>
+        <div class="stat-box pending">
+            <div class="stat-value">{{ stats.pending }}</div>
+            <div class="stat-label">Pending</div>
+        </div>
+    </div>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ percent | round(1) }}%"></div>
+    </div>
+    <p style="text-align: center; font-weight: bold; margin-bottom: 0;">
+        {{ percent | round(1) }}% Reproducible ({{ stats.reproducible }} of {{ total }} items)
+    </p>
+</div>
+
+{% for category in ['images', 'packages'] %}
+{% if data.get(category) %}
+<div class="category">
+    <div class="category-header">{{ category | title }}</div>
+    <div class="category-content">
+        {% for status in ['reproducible', 'unreproducible', 'notfound', 'pending'] %}
+        {% set items = data[category].get(status, []) %}
+        {% if items %}
+        <div class="status-section">
+            <div class="status-header {{ status }}">
+                {{ status | title }} ({{ items | length }})
+            </div>
+            {% for item in items %}
+            <div class="item {{ status }}">
+                <div class="item-name">{{ item.name }}</div>
+                <div class="item-details">
+                    Architecture: {{ item.arch or 'N/A' }} |
+                    Version: {{ item.version or 'N/A' }}
+                    {% if item.files %}
+                    {% for file_status, files in item.files.items() %}
+                    <br>Files ({{ file_status }}): {{ files | join(', ') }}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                {% if item.diffoscope %}
+                <div class="diffoscope-link">
+                    <a href="../diffoscope/{{ item.diffoscope }}" target="_blank">View Diffoscope Analysis</a>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
