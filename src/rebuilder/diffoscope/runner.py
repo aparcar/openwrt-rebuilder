@@ -22,7 +22,7 @@ class DiffoscopeRunner:
     def __init__(
         self,
         config: Config,
-        kmod_paths: dict[str, str] | None = None,
+        kernel_version: str = "",
         container_runtime: str = "podman",
         image: str = DIFFOSCOPE_IMAGE,
         timeout: int = 180,
@@ -31,13 +31,13 @@ class DiffoscopeRunner:
 
         Args:
             config: Rebuild configuration.
-            kmod_paths: Mapping of kmod filename to full path for URL construction.
+            kernel_version: Kernel version string for kmod URLs (e.g., "6.12.63-1-abc123").
             container_runtime: Container runtime to use (podman or docker).
             image: Diffoscope container image.
             timeout: Timeout for diffoscope execution in seconds.
         """
         self.config = config
-        self.kmod_paths = kmod_paths or {}
+        self.kernel_version = kernel_version
         self.container_runtime = container_runtime
         self.image = image
         self.timeout = timeout
@@ -47,10 +47,9 @@ class DiffoscopeRunner:
         file_path = result.files.get("unreproducible", [""])[0]
         filename = Path(file_path).name
 
-        # Handle kernel module paths - look up in kmod_paths map
-        if filename.startswith("kmod-") and filename in self.kmod_paths:
-            kmod_path = self.kmod_paths[filename]
-            url = f"{self.config.origin_url}/{self.config.target_dir}/{kmod_path}"
+        # Handle kernel module paths - use kernel version to construct path
+        if filename.startswith("kmod-") and self.kernel_version:
+            url = f"{self.config.origin_url}/{self.config.target_dir}/kmods/{self.kernel_version}/{filename}"
             return url
 
         # Default URL construction

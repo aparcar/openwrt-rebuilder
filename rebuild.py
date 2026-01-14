@@ -39,7 +39,7 @@ from pathlib import Path
 from src.rebuilder.config import Config
 from src.rebuilder.core.build import OpenWrtBuilder
 from src.rebuilder.core.compare import Comparator
-from src.rebuilder.core.download import build_kmod_path_map, download_text
+from src.rebuilder.core.download import download_text
 from src.rebuilder.core.git import GitRepository
 from src.rebuilder.diffoscope import DiffoscopeRunner
 from src.rebuilder.models import Suite
@@ -68,7 +68,6 @@ class Rebuilder:
         self.suite = Suite()
         self.git: GitRepository | None = None
         self.builder: OpenWrtBuilder | None = None
-        self._kmod_paths: dict[str, str] | None = None
 
         # Validate configuration
         errors = self.config.validate()
@@ -80,16 +79,6 @@ class Rebuilder:
         logger.info(f"Target: {self.config.target}")
         logger.info(f"Version: {self.config.version}")
         logger.info(f"Branch: {self.config.branch}")
-
-    def get_kmod_paths(self) -> dict[str, str]:
-        """Get the kmod path mapping from the origin server.
-
-        Returns:
-            Dictionary mapping kmod filename to full path.
-        """
-        if self._kmod_paths is None:
-            self._kmod_paths = build_kmod_path_map(self.config.origin_url, self.config.target_dir)
-        return self._kmod_paths
 
     def setup_repository(self) -> None:
         """Clone and setup the OpenWrt repository."""
@@ -211,9 +200,9 @@ class Rebuilder:
             return
 
         logger.info("Running diffoscope analysis...")
-        # Build kmod path map for downloading origin kmod files
-        kmod_paths = self.get_kmod_paths()
-        runner = DiffoscopeRunner(self.config, kmod_paths=kmod_paths)
+        # Use kernel version from our build (matches origin since same commit)
+        kernel_version = self.builder.kernel_version if self.builder else ""
+        runner = DiffoscopeRunner(self.config, kernel_version=kernel_version)
 
         # Collect all unreproducible results
         unreproducible = self.suite.packages.unreproducible + self.suite.images.unreproducible
