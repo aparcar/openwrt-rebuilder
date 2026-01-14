@@ -2,6 +2,7 @@
 
 import json
 import logging
+import re
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
@@ -33,7 +34,7 @@ def download_file(url: str, path: Path | None = None, timeout: int = 30) -> byte
     Raises:
         DownloadError: If the download fails.
     """
-    logger.info(f"Downloading {url}")
+    logger.debug(f"Downloading {url}")
     try:
         with urlopen(url, timeout=timeout) as response:
             content = response.read()
@@ -45,7 +46,7 @@ def download_file(url: str, path: Path | None = None, timeout: int = 30) -> byte
         raise DownloadError(url, "Request timed out") from e
 
     if path:
-        logger.info(f"Saving to {path}")
+        logger.debug(f"Saving to {path}")
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
 
@@ -87,3 +88,45 @@ def download_json(url: str, timeout: int = 30) -> dict[str, Any]:
     content = download_text(url, timeout=timeout)
     result: dict[str, Any] = json.loads(content)
     return result
+
+
+def discover_kernel_version(origin_url: str, target_dir: str) -> str:
+    """Discover the kernel version string from the origin server.
+
+    The kernel version is extracted from the kmods sha256sums file which
+    contains paths like: kmods/6.12.63-1-abc123def/kmod-foo.apk
+
+    Args:
+        origin_url: Base URL for OpenWrt downloads.
+        target_dir: Target directory path (e.g., "snapshots/targets/x86/64").
+
+    Returns:
+        The kernel version string (e.g., "6.12.63-1-abc123def"), or empty string if not found.
+    """
+    # Try to fetch kmods sha256sums
+    kmods_url = f"{origin_url}/{target_dir}/kmods/sha256sums"
+    try:
+        content = download_text(kmods_url)
+        # Parse kernel version from path like: *kmods/6.12.63-1-abc123/kmod-foo.apk
+        match = re.search(r"\*?kmods/([^/]+)/", content)
+        if match:
+            kernel_version = match.group(1)
+            logger.info(f"Discovered kernel version from origin: {kernel_version}")
+            return kernel_version
+    except DownloadError:
+        logger.debug(f"Could not fetch {kmods_url}")
+
+    # Fallback: try to find from target sha256sums
+    target_url = f"{origin_url}/{target_dir}/sha256sums"
+    try:
+        content = download_text(target_url)
+        match = re.search(r"kmods/([^/]+)/", content)
+        if match:
+            kernel_version = match.group(1)
+            logger.info(f"Discovered kernel version from target sha256sums: {kernel_version}")
+            return kernel_version
+    except DownloadError:
+        logger.debug(f"Could not fetch {target_url}")
+
+    logger.warning("Could not discover kernel version from origin")
+    return ""

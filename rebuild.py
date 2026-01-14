@@ -39,7 +39,7 @@ from pathlib import Path
 from src.rebuilder.config import Config
 from src.rebuilder.core.build import OpenWrtBuilder
 from src.rebuilder.core.compare import Comparator
-from src.rebuilder.core.download import download_text
+from src.rebuilder.core.download import discover_kernel_version, download_text
 from src.rebuilder.core.git import GitRepository
 from src.rebuilder.diffoscope import DiffoscopeRunner
 from src.rebuilder.models import Suite
@@ -68,6 +68,7 @@ class Rebuilder:
         self.suite = Suite()
         self.git: GitRepository | None = None
         self.builder: OpenWrtBuilder | None = None
+        self._origin_kernel_version: str | None = None
 
         # Validate configuration
         errors = self.config.validate()
@@ -79,6 +80,18 @@ class Rebuilder:
         logger.info(f"Target: {self.config.target}")
         logger.info(f"Version: {self.config.version}")
         logger.info(f"Branch: {self.config.branch}")
+
+    def get_origin_kernel_version(self) -> str:
+        """Get the kernel version from the origin server.
+
+        Returns:
+            The kernel version string for kmods URLs.
+        """
+        if self._origin_kernel_version is None:
+            self._origin_kernel_version = discover_kernel_version(
+                self.config.origin_url, self.config.target_dir
+            )
+        return self._origin_kernel_version
 
     def setup_repository(self) -> None:
         """Clone and setup the OpenWrt repository."""
@@ -200,7 +213,8 @@ class Rebuilder:
             return
 
         logger.info("Running diffoscope analysis...")
-        kernel_version = self.builder.kernel_version if self.builder else ""
+        # Use origin kernel version for downloading origin files
+        kernel_version = self.get_origin_kernel_version()
         runner = DiffoscopeRunner(self.config, kernel_version=kernel_version)
 
         # Collect all unreproducible results
