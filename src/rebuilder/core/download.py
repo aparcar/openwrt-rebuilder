@@ -3,6 +3,7 @@
 import json
 import logging
 from pathlib import Path
+from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 
@@ -48,7 +49,7 @@ def download_file(url: str, path: Path | None = None, timeout: int = 30) -> byte
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
 
-    return content
+    return bytes(content)
 
 
 def download_text(url: str, path: Path | None = None, timeout: int = 30) -> str:
@@ -69,7 +70,7 @@ def download_text(url: str, path: Path | None = None, timeout: int = 30) -> str:
     return content.decode("utf-8")
 
 
-def download_json(url: str, timeout: int = 30) -> dict:
+def download_json(url: str, timeout: int = 30) -> dict[str, Any]:
     """Download and parse a JSON file from a URL.
 
     Args:
@@ -84,4 +85,5 @@ def download_json(url: str, timeout: int = 30) -> dict:
         json.JSONDecodeError: If the content is not valid JSON.
     """
     content = download_text(url, timeout=timeout)
-    return json.loads(content)
+    result: dict[str, Any] = json.loads(content)
+    return result

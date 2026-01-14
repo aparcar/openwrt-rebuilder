@@ -84,8 +84,9 @@ class CommandRunner:
             logger.error(f"Command failed: {cmd_str}")
             if capture and proc.stderr:
                 logger.error(f"stderr: {proc.stderr}")
+            cmd_list: Sequence[str] = list(cmd) if not isinstance(cmd, str) else [cmd]
             raise CommandError(
-                cmd if isinstance(cmd, list) else [cmd],
+                cmd_list,
                 proc.returncode,
                 proc.stderr if capture else "",
             )

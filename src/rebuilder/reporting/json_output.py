@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+from typing import Any
 
 from rebuilder.config import Config
 from rebuilder.models import Suite
@@ -29,7 +30,7 @@ def write_rbvf_output(config: Config, suite: Suite, output_path: Path | None = N
     return output_path
 
 
-def load_rbvf_output(path: Path) -> dict:
+def load_rbvf_output(path: Path) -> dict[str, Any]:
     """Load RBVF output from a file.
 
     Args:
@@ -38,10 +39,11 @@ def load_rbvf_output(path: Path) -> dict:
     Returns:
         Parsed JSON data.
     """
-    return json.loads(path.read_text())
+    result: dict[str, Any] = json.loads(path.read_text())
+    return result
 
 
-def merge_rbvf_outputs(outputs: list[dict]) -> dict:
+def merge_rbvf_outputs(outputs: list[dict[str, Any]]) -> dict[str, Any]:
     """Merge multiple RBVF outputs into one.
 
     Args:
@@ -50,7 +52,7 @@ def merge_rbvf_outputs(outputs: list[dict]) -> dict:
     Returns:
         Merged output dictionary.
     """
-    merged: dict = {}
+    merged: dict[str, Any] = {}
 
     for output in outputs:
         for version, version_data in output.items():

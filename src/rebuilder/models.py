@@ -1,8 +1,10 @@
 """Data models for rebuild results."""
 
+from __future__ import annotations
+
 from dataclasses import asdict, dataclass, field
 from enum import Enum
-from typing import Self
+from typing import Any
 
 
 class Status(str, Enum):
@@ -23,13 +25,13 @@ class Result:
     arch: str
     distribution: str
     status: Status
-    metadata: dict = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     log: str | None = None
     epoch: int = 0
     diffoscope: str | None = None
     files: dict[str, list[str]] = field(default_factory=dict)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
         data = asdict(self)
         data["status"] = self.status.value
@@ -67,7 +69,7 @@ class Results:
             "pending": len(self.pending),
         }
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, list[dict[str, Any]]]:
         """Convert to dictionary for JSON serialization."""
         return {
             "reproducible": [r.to_dict() for r in self.reproducible],
@@ -90,7 +92,7 @@ class Suite:
             raise ValueError(f"Invalid category: {category}")
         getattr(self, category).add(result)
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, dict[str, list[dict[str, Any]]]]:
         """Convert to dictionary for JSON serialization."""
         return {
             "packages": self.packages.to_dict(),
@@ -98,7 +100,7 @@ class Suite:
         }
 
     @classmethod
-    def from_dict(cls, data: dict) -> Self:
+    def from_dict(cls, data: dict[str, Any]) -> Suite:
         """Create a Suite from a dictionary."""
         suite = cls()
         for category in ("packages", "images"):

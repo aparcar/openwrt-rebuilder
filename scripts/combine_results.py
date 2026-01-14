@@ -33,7 +33,6 @@ logger = logging.getLogger(__name__)
 try:
     sys.path.insert(0, str(Path(__file__).parent.parent))
     from src.rebuilder.reporting.html import BuildInfo, HTMLReportGenerator
-    from src.rebuilder.reporting.json_output import load_rbvf_output, merge_rbvf_outputs
 
     USE_NEW_TEMPLATES = True
 except ImportError:
@@ -104,7 +103,6 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
     build_time = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     github_sha = environ.get("GITHUB_SHA", "unknown")[:8]
     github_ref = environ.get("GITHUB_REF_NAME", "unknown")
-    github_run_id = environ.get("GITHUB_RUN_ID", "unknown")
 
     def calculate_stats(data: dict) -> dict:
         stats = {"reproducible": 0, "unreproducible": 0, "notfound": 0, "pending": 0}

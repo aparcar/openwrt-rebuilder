@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # Copyright © 2022 - 2025 Paul Spooren <mail@aparcar.org>
 #
@@ -40,10 +39,10 @@ from pathlib import Path
 from src.rebuilder.config import Config
 from src.rebuilder.core.build import OpenWrtBuilder
 from src.rebuilder.core.compare import Comparator
-from src.rebuilder.core.download import download_file, download_text
+from src.rebuilder.core.download import download_text
 from src.rebuilder.core.git import GitRepository
 from src.rebuilder.diffoscope import DiffoscopeRunner
-from src.rebuilder.models import Result, Results, Status, Suite
+from src.rebuilder.models import Suite
 from src.rebuilder.parsers import parse_profiles, parse_sha256sums
 from src.rebuilder.reporting import write_rbvf_output
 

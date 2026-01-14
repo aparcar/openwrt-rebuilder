@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from os import environ
 from pathlib import Path
+from typing import Any
 
 from jinja2 import Environment, PackageLoader, select_autoescape
 
@@ -32,7 +33,7 @@ class BuildInfo:
         )
 
 
-def calculate_stats(data: dict) -> dict[str, int]:
+def calculate_stats(data: dict[str, Any]) -> dict[str, int]:
     """Calculate statistics from result data.
 
     Args:
@@ -78,7 +79,7 @@ class HTMLReportGenerator:
         self,
         version: str,
         target: str,
-        target_data: dict,
+        target_data: dict[str, Any],
         release_dir: str,
     ) -> dict[str, int]:
         """Generate a detailed page for a specific target.
@@ -116,7 +117,7 @@ class HTMLReportGenerator:
     def generate_release_page(
         self,
         version: str,
-        targets_data: dict,
+        targets_data: dict[str, Any],
     ) -> dict[str, int]:
         """Generate a release overview page.
 
@@ -158,7 +159,7 @@ class HTMLReportGenerator:
 
     def generate_index_page(
         self,
-        combined_data: dict,
+        combined_data: dict[str, Any],
         build_info: BuildInfo | None = None,
     ) -> dict[str, int]:
         """Generate the main index page.
@@ -219,7 +220,7 @@ class HTMLReportGenerator:
 
     def generate_all(
         self,
-        combined_data: dict,
+        combined_data: dict[str, Any],
         results_dir: Path | None = None,
         build_info: BuildInfo | None = None,
     ) -> dict[str, int]:
@@ -242,7 +243,7 @@ class HTMLReportGenerator:
 
 
 def generate_reports(
-    combined_data: dict,
+    combined_data: dict[str, Any],
     output_dir: Path,
     results_dir: Path | None = None,
 ) -> dict[str, int]:
