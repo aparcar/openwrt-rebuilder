@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 
 from rebuilder.config import Config
-from rebuilder.core.command import CommandRunner, CommandError
+from rebuilder.core.command import CommandError, CommandRunner
 
 logger = logging.getLogger(__name__)
 

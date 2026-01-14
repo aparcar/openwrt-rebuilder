@@ -2,10 +2,10 @@
 
 import logging
 import os
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from subprocess import CompletedProcess, run
-from typing import Sequence
 
 logger = logging.getLogger(__name__)
 

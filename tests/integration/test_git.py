@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from rebuilder.config import Config
-from rebuilder.core.git import GitRepository, GitError
+from rebuilder.core.git import GitRepository
 
 
 @pytest.fixture

@@ -4,7 +4,6 @@ import logging
 import os
 from multiprocessing import Pool, cpu_count
 from pathlib import Path
-from typing import Callable
 
 from rebuilder.config import Config
 from rebuilder.core.command import run_command

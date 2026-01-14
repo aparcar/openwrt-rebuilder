@@ -2,7 +2,6 @@
 
 import logging
 from os import symlink
-from pathlib import Path
 
 from rebuilder.config import Config
 from rebuilder.core.command import CommandRunner

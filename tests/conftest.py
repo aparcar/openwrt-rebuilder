@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from rebuilder.config import Config
-from rebuilder.models import Result, Results, Status, Suite
+from rebuilder.models import Result, Status, Suite
 
 
 @pytest.fixture
