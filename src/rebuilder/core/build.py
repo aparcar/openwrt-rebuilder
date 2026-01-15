@@ -1,6 +1,7 @@
 """Build operations for OpenWrt compilation."""
 
 import logging
+import re
 from os import symlink
 
 from rebuilder.config import Config
@@ -122,8 +123,11 @@ CONFIG_MAKE_TOOLCHAIN=n
     def setup_kernel_magic(self) -> str:
         """Determine kernel version and magic string.
 
+        Gets the kernel version prefix from the local build, then looks up
+        the actual vermagic from the origin server's kmods directory.
+
         Returns:
-            The kernel version string.
+            The kernel version string (e.g., "6.12.63-1-abc123def").
         """
         logger.info("Determining kernel version")
         result = self.runner.run(
@@ -134,7 +138,6 @@ CONFIG_MAKE_TOOLCHAIN=n
                 "target/linux/",
                 "val.LINUX_VERSION",
                 "val.LINUX_RELEASE",
-                "val.LINUX_VERMAGIC",
             ],
             capture=True,
             env={
@@ -142,8 +145,29 @@ CONFIG_MAKE_TOOLCHAIN=n
                 "INCLUDE_DIR": str(self.config.rebuild_dir / "include"),
             },
         )
-        self._kernel_version = "-".join(result.stdout.strip().splitlines())
-        logger.info(f"Kernel version: {self._kernel_version}")
+        # Get version prefix like "6.12.63-1"
+        version_prefix = "-".join(result.stdout.strip().splitlines())
+        logger.info(f"Kernel version prefix: {version_prefix}")
+
+        # Fetch the actual vermagic from origin's kmods directory
+        kmods_url = f"{self.config.origin_url}/{self.config.target_dir}/kmods/"
+        try:
+            kmods_listing = download_text(kmods_url)
+            # Parse directory listing for matching kernel version
+            # Look for href="6.12.63-1-<hash>/" pattern
+            pattern = rf'href="({re.escape(version_prefix)}-[a-f0-9]+)/"'
+            matches = re.findall(pattern, kmods_listing)
+            if matches:
+                # Use the most recent (last) match if there are multiple
+                self._kernel_version = matches[-1]
+                logger.info(f"Found kernel version from origin: {self._kernel_version}")
+            else:
+                logger.warning(f"No kmod directory found for {version_prefix}, using prefix")
+                self._kernel_version = f"{version_prefix}-unknown"
+        except Exception as e:
+            logger.warning(f"Could not fetch kmods listing: {e}, using local prefix")
+            self._kernel_version = f"{version_prefix}-unknown"
+
         return self._kernel_version
 
     def get_arch_packages(self) -> str:
