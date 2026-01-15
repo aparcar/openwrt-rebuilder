@@ -82,6 +82,9 @@ class Config:
         """Git branch name for this version."""
         if self.version == "SNAPSHOT":
             return "master"
+        # Handle release branch snapshots like "25.12-SNAPSHOT" -> "openwrt-25.12"
+        if self.version.endswith("-SNAPSHOT"):
+            return f"openwrt-{self.version.removesuffix('-SNAPSHOT')}"
         # e.g., "23.05.2" -> "openwrt-23.05"
         return f"openwrt-{self.version.rsplit('.', maxsplit=1)[0]}"
 

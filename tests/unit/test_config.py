@@ -79,6 +79,16 @@ class TestConfig:
         )
         assert config.branch == "openwrt-24.10"
 
+    def test_branch_release_snapshot(self, tmp_path: Path):
+        """Test branch for release branch snapshots like 25.12-SNAPSHOT."""
+        config = Config(
+            version="25.12-SNAPSHOT",
+            rebuild_dir=tmp_path / "build",
+            dl_dir=tmp_path / "dl",
+            results_dir=tmp_path / "results",
+        )
+        assert config.branch == "openwrt-25.12"
+
 
 class TestConfigValidation:
     """Tests for configuration validation."""
