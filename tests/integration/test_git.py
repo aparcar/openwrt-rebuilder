@@ -35,13 +35,21 @@ def git_repo(tmp_path: Path) -> Path:
 @pytest.fixture
 def config_with_local_repo(tmp_path: Path, git_repo: Path) -> Config:
     """Create a config pointing to a local git repository."""
+    # source_mirror is used to construct openwrt_git as {source_mirror}openwrt.git
+    # For local testing, we set it to the parent directory of the repo
+    # and name the repo "openwrt.git"
+    local_mirror = str(git_repo.parent) + "/"
+    # Rename the repo to openwrt.git so the property works
+    new_repo = git_repo.parent / "openwrt.git"
+    git_repo.rename(new_repo)
+
     return Config(
         target="x86/64",
         version="SNAPSHOT",
         rebuild_dir=tmp_path / "build",
         dl_dir=tmp_path / "dl",
         results_dir=tmp_path / "results",
-        openwrt_git=str(git_repo),
+        source_mirror=local_mirror,
     )
 
 

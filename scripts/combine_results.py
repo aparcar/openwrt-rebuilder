@@ -41,10 +41,10 @@ except ImportError:
 
 
 def collect_results(results_dir: Path) -> tuple[dict, list[Path]]:
-    """Collect all output.json files and HTML files from a directory.
+    """Collect all stats.json files and HTML files from a directory.
 
     Args:
-        results_dir: Directory to search for output.json files.
+        results_dir: Directory to search for stats.json files.
 
     Returns:
         Tuple of (combined_data dict, list of HTML file paths).
@@ -52,19 +52,45 @@ def collect_results(results_dir: Path) -> tuple[dict, list[Path]]:
     combined_data = {}
     html_files = []
 
-    for output_path in results_dir.glob("**/output.json"):
-        logger.info(f"Found: {output_path}")
-        results_subdir = output_path.parent
+    for stats_path in results_dir.glob("**/stats.json"):
+        logger.info(f"Found: {stats_path}")
+        results_subdir = stats_path.parent
 
         try:
-            with open(output_path) as f:
-                data = json.load(f)
+            with open(stats_path) as f:
+                stats = json.load(f)
+
+            version = stats.get("version", "unknown")
+            target = stats.get("target", "unknown")
+
+            # Load packages and images
+            packages_path = results_subdir / "packages.json"
+            images_path = results_subdir / "images.json"
+
+            target_data = {"packages": {}, "images": {}}
+
+            if packages_path.exists():
+                packages = json.loads(packages_path.read_text())
+                # Group by status
+                for pkg in packages:
+                    status = pkg.get("status", "UNKWN")
+                    if status not in target_data["packages"]:
+                        target_data["packages"][status] = []
+                    target_data["packages"][status].append(pkg)
+
+            if images_path.exists():
+                images = json.loads(images_path.read_text())
+                # Group by status
+                for img in images:
+                    status = img.get("status", "UNKWN")
+                    if status not in target_data["images"]:
+                        target_data["images"][status] = []
+                    target_data["images"][status].append(img)
 
             # Merge the data
-            for version, version_data in data.items():
-                if version not in combined_data:
-                    combined_data[version] = {}
-                combined_data[version].update(version_data)
+            if version not in combined_data:
+                combined_data[version] = {}
+            combined_data[version][target] = target_data
 
             # Collect HTML files (diffoscope reports)
             for html_file in results_subdir.glob("**/*.html"):
@@ -72,9 +98,9 @@ def collect_results(results_dir: Path) -> tuple[dict, list[Path]]:
                     html_files.append(html_file)
 
         except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse {output_path}: {e}")
+            logger.error(f"Failed to parse {stats_path}: {e}")
         except Exception as e:
-            logger.error(f"Error reading {output_path}: {e}")
+            logger.error(f"Error reading {stats_path}: {e}")
 
     return combined_data, html_files
 
@@ -105,11 +131,20 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
     github_ref = environ.get("GITHUB_REF_NAME", "unknown")
 
     def calculate_stats(data: dict) -> dict:
-        stats = {"reproducible": 0, "unreproducible": 0, "notfound": 0, "pending": 0}
+        stats = {"good": 0, "bad": 0, "unknown": 0}
         for category in ["packages", "images"]:
             if category in data:
-                for status in stats:
-                    stats[status] += len(data[category].get(status, []))
+                # Support both old format (lowercase) and new format (uppercase)
+                for old_key, new_key in [
+                    ("GOOD", "good"),
+                    ("BAD", "bad"),
+                    ("UNKWN", "unknown"),
+                    ("reproducible", "good"),
+                    ("unreproducible", "bad"),
+                    ("notfound", "unknown"),
+                    ("pending", "unknown"),
+                ]:
+                    stats[new_key] += len(data[category].get(old_key, []))
         return stats
 
     def generate_target_page(version, target, target_data, release_dir):
@@ -118,9 +153,7 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
 
         target_stats = calculate_stats(target_data)
         total_items = sum(target_stats.values())
-        reproducible_percent = (
-            (target_stats["reproducible"] / total_items * 100) if total_items > 0 else 0
-        )
+        good_percent = (target_stats["good"] / total_items * 100) if total_items > 0 else 0
 
         html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -136,15 +169,13 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
         .category {{ background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; margin: 15px 0; }}
         .category-header {{ background: #e9ecef; padding: 15px; font-weight: bold; font-size: 1.2em; }}
         .status-header {{ padding: 10px 15px; font-weight: bold; margin: 10px 0; border-radius: 3px; }}
-        .status-header.reproducible {{ background: #d4edda; color: #155724; }}
-        .status-header.unreproducible {{ background: #f8d7da; color: #721c24; }}
-        .status-header.notfound {{ background: #fff3cd; color: #856404; }}
-        .status-header.pending {{ background: #d1ecf1; color: #0c5460; }}
+        .status-header.good {{ background: #d4edda; color: #155724; }}
+        .status-header.bad {{ background: #f8d7da; color: #721c24; }}
+        .status-header.unknown {{ background: #fff3cd; color: #856404; }}
         .item {{ margin: 8px 0; padding: 12px; background: white; border-left: 4px solid #ddd; border-radius: 3px; }}
-        .item.reproducible {{ border-left-color: #28a745; }}
-        .item.unreproducible {{ border-left-color: #dc3545; }}
-        .item.notfound {{ border-left-color: #ffc107; }}
-        .item.pending {{ border-left-color: #17a2b8; }}
+        .item.good {{ border-left-color: #28a745; }}
+        .item.bad {{ border-left-color: #dc3545; }}
+        .item.unknown {{ border-left-color: #ffc107; }}
         .item-name {{ font-weight: bold; margin-bottom: 5px; }}
         .item-details {{ font-size: 0.9em; color: #666; }}
         .diffoscope-link a {{ background: #007bff; color: white; padding: 4px 8px; border-radius: 3px; text-decoration: none; font-size: 0.85em; }}
@@ -159,29 +190,48 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
     <div class="header"><h1>{target}</h1><h2>Version: {version}</h2></div>
     <div class="summary-box">
         <h3>Target Summary</h3>
-        <p><strong>{reproducible_percent:.1f}% Reproducible</strong> ({target_stats["reproducible"]} of {total_items} items)</p>
+        <p><strong>{good_percent:.1f}% GOOD</strong> ({target_stats["good"]} of {total_items} items)</p>
     </div>
 """
+        # Status key mapping for both old and new formats
+        status_keys = [
+            ("GOOD", "good", "GOOD"),
+            ("BAD", "bad", "BAD"),
+            ("UNKWN", "unknown", "UNKNOWN"),
+            ("reproducible", "good", "GOOD"),
+            ("unreproducible", "bad", "BAD"),
+            ("notfound", "unknown", "UNKNOWN"),
+        ]
+
         for category in ["images", "packages"]:
             if category not in target_data:
                 continue
             html_content += (
                 f'<div class="category"><div class="category-header">{category.title()}</div>'
             )
-            for status in ["reproducible", "unreproducible", "notfound", "pending"]:
-                items = target_data[category].get(status, [])
+            seen_statuses = set()
+            for data_key, css_class, display_name in status_keys:
+                if css_class in seen_statuses:
+                    continue
+                items = target_data[category].get(data_key, [])
                 if not items:
                     continue
+                seen_statuses.add(css_class)
                 html_content += (
-                    f'<div class="status-header {status}">{status.title()} ({len(items)})</div>'
+                    f'<div class="status-header {css_class}">{display_name} ({len(items)})</div>'
                 )
                 for item in items:
                     html_content += (
-                        f'<div class="item {status}"><div class="item-name">{item["name"]}</div>'
+                        f'<div class="item {css_class}"><div class="item-name">{item["name"]}</div>'
                     )
-                    html_content += f'<div class="item-details">Arch: {item.get("arch", "N/A")} | Version: {item.get("version", "N/A")}</div>'
-                    if item.get("diffoscope"):
-                        html_content += f'<div class="diffoscope-link"><a href="../diffoscope/{item["diffoscope"]}" target="_blank">View Diffoscope</a></div>'
+                    arch = item.get("architecture", item.get("arch", "N/A"))
+                    html_content += f'<div class="item-details">Arch: {arch} | Version: {item.get("version", "N/A")}</div>'
+                    diffoscope_url = item.get("diffoscope_url") or item.get("diffoscope")
+                    if diffoscope_url:
+                        # Handle both relative and absolute URLs
+                        if not diffoscope_url.startswith(("http", "/")):
+                            diffoscope_url = f"../{diffoscope_url}"
+                        html_content += f'<div class="diffoscope-link"><a href="{diffoscope_url}" target="_blank">View Diffoscope</a></div>'
                     html_content += "</div>"
             html_content += "</div>"
         html_content += "</body></html>"
@@ -190,7 +240,7 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
 
     def generate_release_page(version, targets_data):
         release_dir = version.replace(".", "_")
-        version_stats = {"reproducible": 0, "unreproducible": 0, "notfound": 0, "pending": 0}
+        version_stats = {"good": 0, "bad": 0, "unknown": 0}
 
         for target, target_data in targets_data.items():
             target_stats = generate_target_page(version, target, target_data, release_dir)
@@ -198,7 +248,7 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
                 version_stats[status] += target_stats[status]
 
         total = sum(version_stats.values())
-        percent = (version_stats["reproducible"] / total * 100) if total > 0 else 0
+        percent = (version_stats["good"] / total * 100) if total > 0 else 0
 
         html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -219,25 +269,25 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
 </head>
 <body>
     <div class="breadcrumb"><a href="index.html">← All Releases</a></div>
-    <div class="header"><h1>OpenWrt {version}</h1><p>{percent:.1f}% Reproducible</p></div>
+    <div class="header"><h1>OpenWrt {version}</h1><p>{percent:.1f}% GOOD</p></div>
     <div class="targets-grid">
 """
         for target, target_data in targets_data.items():
             target_slug = target.replace("/", "_")
             t_stats = calculate_stats(target_data)
             t_total = sum(t_stats.values())
-            t_percent = (t_stats["reproducible"] / t_total * 100) if t_total > 0 else 0
+            t_percent = (t_stats["good"] / t_total * 100) if t_total > 0 else 0
             html_content += f'''<div class="target-card">
                 <a href="{release_dir}/{target_slug}.html">{target}</a>
                 <div class="progress-bar"><div class="progress-fill" style="width: {t_percent:.1f}%"></div></div>
-                <div style="text-align: center;">{t_percent:.1f}% Reproducible</div>
+                <div style="text-align: center;">{t_percent:.1f}% GOOD</div>
             </div>'''
         html_content += "</div></body></html>"
         (output_dir / f"{release_dir}.html").write_text(html_content)
         return version_stats
 
     # Generate pages
-    overall_stats = {"reproducible": 0, "unreproducible": 0, "notfound": 0, "pending": 0}
+    overall_stats = {"good": 0, "bad": 0, "unknown": 0}
     release_cards = ""
 
     for version, targets_data in combined_data.items():
@@ -246,17 +296,17 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
             overall_stats[status] += version_stats[status]
 
         total = sum(version_stats.values())
-        percent = (version_stats["reproducible"] / total * 100) if total > 0 else 0
+        percent = (version_stats["good"] / total * 100) if total > 0 else 0
         release_file = f"{version.replace('.', '_')}.html"
         release_cards += f'''<div class="release-card">
             <a href="{release_file}">OpenWrt {version}</a>
             <div class="progress-bar"><div class="progress-fill" style="width: {percent:.1f}%"></div></div>
-            <div style="text-align: center; font-weight: bold;">{percent:.1f}% Reproducible</div>
+            <div style="text-align: center; font-weight: bold;">{percent:.1f}% GOOD</div>
             <div style="text-align: center; color: #666;">{len(targets_data)} targets</div>
         </div>'''
 
     total_all = sum(overall_stats.values())
-    overall_percent = (overall_stats["reproducible"] / total_all * 100) if total_all > 0 else 0
+    overall_percent = (overall_stats["good"] / total_all * 100) if total_all > 0 else 0
 
     index_html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -283,8 +333,8 @@ def generate_reports_legacy(combined_data: dict, output_dir: Path, html_files: l
     </div>
     <div class="releases-grid">{release_cards}</div>
     <div class="summary">
-        <h2>Overall: {overall_percent:.1f}% Reproducible</h2>
-        <p>{overall_stats["reproducible"]} of {total_all} items</p>
+        <h2>Overall: {overall_percent:.1f}% GOOD</h2>
+        <p>{overall_stats["good"]} GOOD, {overall_stats["bad"]} BAD, {overall_stats["unknown"]} UNKNOWN</p>
     </div>
     <div class="footer">
         <p>Generated by OpenWrt Reproducible Build CI | <a href="https://reproducible-builds.org/">Learn more</a></p>
@@ -342,11 +392,6 @@ def main(argv: list[str] | None = None) -> int:
     # Create output directory
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Write combined JSON
-    combined_json_path = args.output_dir / "output.json"
-    combined_json_path.write_text(json.dumps(combined_data, indent=2))
-    logger.info(f"Written combined JSON to {combined_json_path}")
-
     # Generate HTML reports
     logger.info("Generating HTML reports...")
 
@@ -361,13 +406,13 @@ def main(argv: list[str] | None = None) -> int:
 
     # Print summary
     total = sum(stats.values())
-    percent = (stats["reproducible"] / total * 100) if total > 0 else 0
+    percent = (stats["good"] / total * 100) if total > 0 else 0
 
     logger.info("=" * 60)
-    logger.info(f"Summary: {percent:.1f}% Reproducible ({stats['reproducible']}/{total})")
-    logger.info(f"  Unreproducible: {stats['unreproducible']}")
-    logger.info(f"  Not found: {stats['notfound']}")
-    logger.info(f"  Pending: {stats['pending']}")
+    logger.info(f"Summary: {percent:.1f}% GOOD ({stats['good']}/{total})")
+    logger.info(f"  GOOD: {stats['good']}")
+    logger.info(f"  BAD: {stats['bad']}")
+    logger.info(f"  UNKNOWN: {stats['unknown']}")
     logger.info("=" * 60)
 
     return 0

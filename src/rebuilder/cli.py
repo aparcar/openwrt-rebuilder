@@ -190,14 +190,14 @@ def run_rebuild(config: Config) -> int:
         pkg_stats = suite.packages.stats()
         img_stats = suite.images.stats()
         logger.info(
-            f"Packages: {pkg_stats['reproducible']} reproducible, "
-            f"{pkg_stats['unreproducible']} unreproducible, "
-            f"{pkg_stats['notfound']} not found"
+            f"Packages: {pkg_stats['good']} GOOD, "
+            f"{pkg_stats['bad']} BAD, "
+            f"{pkg_stats['unknown']} UNKNOWN"
         )
         logger.info(
-            f"Images: {img_stats['reproducible']} reproducible, "
-            f"{img_stats['unreproducible']} unreproducible, "
-            f"{img_stats['notfound']} not found"
+            f"Images: {img_stats['good']} GOOD, "
+            f"{img_stats['bad']} BAD, "
+            f"{img_stats['unknown']} UNKNOWN"
         )
 
         return 0
