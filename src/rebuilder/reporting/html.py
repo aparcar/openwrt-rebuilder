@@ -137,8 +137,8 @@ class HTMLReportGenerator:
         Returns:
             Aggregated statistics for this version.
         """
-        release_dir = version.replace(".", "_")
-        version_stats = {"reproducible": 0, "unreproducible": 0, "notfound": 0, "pending": 0}
+        release_dir = version.replace(".", "_").replace("/", "_")
+        version_stats = {"good": 0, "bad": 0, "unknown": 0}
 
         # Process each target and collect stats
         targets_with_stats = {}
@@ -149,7 +149,7 @@ class HTMLReportGenerator:
                 "stats": target_stats,
             }
             for status in version_stats:
-                version_stats[status] += target_stats[status]
+                version_stats[status] += target_stats.get(status, 0)
 
         # Generate release page
         template = self.env.get_template("release.html")
@@ -180,7 +180,7 @@ class HTMLReportGenerator:
         Returns:
             Overall statistics.
         """
-        overall_stats = {"reproducible": 0, "unreproducible": 0, "notfound": 0, "pending": 0}
+        overall_stats = {"good": 0, "bad": 0, "unknown": 0}
 
         # Process each release and collect stats
         releases = {}
@@ -191,7 +191,7 @@ class HTMLReportGenerator:
                 "target_count": len(targets_data),
             }
             for status in overall_stats:
-                overall_stats[status] += version_stats[status]
+                overall_stats[status] += version_stats.get(status, 0)
 
         # Generate index page
         template = self.env.get_template("index.html")

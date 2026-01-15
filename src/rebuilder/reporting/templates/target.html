@@ -2,89 +2,123 @@
 
 {% block title %}{{ target }} - {{ version }} - OpenWrt Reproducible Build Results{% endblock %}
 
-{% block breadcrumb %}
-<div class="breadcrumb">
-    <a href="../index.html">&larr; All Releases</a> /
-    <a href="../{{ release_dir }}.html">{{ version }}</a> /
-    {{ target }}
-</div>
-{% endblock %}
+{% block nav_home %}../index.html{% endblock %}
 
-{% block header %}
-<div class="header">
-    <h1>{{ target }}</h1>
-    <h2 style="font-weight: normal; margin: 10px 0 0 0;">Version: {{ version }}</h2>
+{% block hero %}
+<div class="hero-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../index.html" class="text-white-50">All Releases</a></li>
+                <li class="breadcrumb-item"><a href="../{{ release_dir }}.html" class="text-white-50">{{ version }}</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">{{ target }}</li>
+            </ol>
+        </nav>
+        <h1 class="mb-2">{{ target }}</h1>
+        <p class="lead mb-0 opacity-75">OpenWrt {{ version }}</p>
+    </div>
 </div>
 {% endblock %}
 
 {% block content %}
-{% set total = stats.reproducible + stats.unreproducible + stats.notfound + stats.pending %}
-{% set percent = (stats.reproducible / total * 100) if total > 0 else 0 %}
+{% set total = stats.good + stats.bad + stats.unknown %}
+{% set percent = (stats.good / total * 100) if total > 0 else 0 %}
 
-<div class="summary-box">
-    <h3 style="margin-top: 0;">Target Summary</h3>
-    <div class="stats-grid" style="margin-bottom: 20px;">
-        <div class="stat-box reproducible">
-            <div class="stat-value">{{ stats.reproducible }}</div>
-            <div class="stat-label">Reproducible</div>
-        </div>
-        <div class="stat-box unreproducible">
-            <div class="stat-value">{{ stats.unreproducible }}</div>
-            <div class="stat-label">Unreproducible</div>
-        </div>
-        <div class="stat-box notfound">
-            <div class="stat-value">{{ stats.notfound }}</div>
-            <div class="stat-label">Not Found</div>
-        </div>
-        <div class="stat-box pending">
-            <div class="stat-value">{{ stats.pending }}</div>
-            <div class="stat-label">Pending</div>
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h5 class="card-title mb-3">Reproducibility Status</h5>
+                        <div class="progress mb-2">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ percent | round(1) }}%">
+                                {{ percent | round(1) }}% GOOD
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">{{ stats.good }} of {{ total }} artifacts are reproducible</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <span class="percentage-display text-success">{{ percent | round(1) }}%</span>
+                        <span class="d-block text-muted">Reproducible</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="progress-bar">
-        <div class="progress-fill" style="width: {{ percent | round(1) }}%"></div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="stat-card status-good-subtle">
+            <div class="stat-value text-success">{{ stats.good }}</div>
+            <div class="stat-label text-success">GOOD</div>
+        </div>
     </div>
-    <p style="text-align: center; font-weight: bold; margin-bottom: 0;">
-        {{ percent | round(1) }}% Reproducible ({{ stats.reproducible }} of {{ total }} items)
-    </p>
+    <div class="col-md-4">
+        <div class="stat-card status-bad-subtle">
+            <div class="stat-value text-danger">{{ stats.bad }}</div>
+            <div class="stat-label text-danger">BAD</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card status-unknown-subtle">
+            <div class="stat-value text-warning">{{ stats.unknown }}</div>
+            <div class="stat-label text-warning">UNKNOWN</div>
+        </div>
+    </div>
 </div>
 
 {% for category in ['images', 'packages'] %}
 {% if data.get(category) %}
-<div class="category">
-    <div class="category-header">{{ category | title }}</div>
-    <div class="category-content">
-        {% for status in ['reproducible', 'unreproducible', 'notfound', 'pending'] %}
+{% set cat_total = (data[category].get('GOOD', []) | length) + (data[category].get('BAD', []) | length) + (data[category].get('UNKWN', []) | length) %}
+<details class="card mb-4" open>
+    <summary class="card-header bg-light d-flex align-items-center" style="cursor: pointer;">
+        <i class="bi bi-{% if category == 'images' %}hdd{% else %}box-seam{% endif %} me-2"></i>
+        {{ category | title }}
+        <span class="badge bg-secondary ms-2">{{ cat_total }}</span>
+        <i class="bi bi-chevron-down ms-auto"></i>
+    </summary>
+    <div class="card-body p-0">
+        {% for status, css_class, icon in [('GOOD', 'good', 'check-circle-fill'), ('BAD', 'bad', 'x-circle-fill'), ('UNKWN', 'unknown', 'question-circle-fill')] %}
         {% set items = data[category].get(status, []) %}
         {% if items %}
-        <div class="status-section">
-            <div class="status-header {{ status }}">
-                {{ status | title }} ({{ items | length }})
-            </div>
-            {% for item in items %}
-            <div class="item {{ status }}">
-                <div class="item-name">{{ item.name }}</div>
-                <div class="item-details">
-                    Architecture: {{ item.arch or 'N/A' }} |
-                    Version: {{ item.version or 'N/A' }}
-                    {% if item.files %}
-                    {% for file_status, files in item.files.items() %}
-                    <br>Files ({{ file_status }}): {{ files | join(', ') }}
-                    {% endfor %}
-                    {% endif %}
+        <details class="border-bottom" {% if status == 'BAD' %}open{% endif %}>
+            <summary class="px-3 py-2 bg-light border-bottom d-flex align-items-center" style="cursor: pointer;">
+                <span class="badge status-{{ css_class }} status-badge me-2">
+                    <i class="bi bi-{{ icon }} me-1"></i>{{ status }}
+                </span>
+                <span class="text-muted">{{ items | length }} item{{ 's' if items | length != 1 else '' }}</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </summary>
+            <div class="list-group list-group-flush">
+                {% for item in items %}
+                <div class="list-group-item result-item {{ css_class }}">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="mb-1 fw-semibold">{{ item.name }}</h6>
+                            <small class="text-muted">
+                                <i class="bi bi-cpu me-1"></i>{{ item.architecture or item.arch or 'N/A' }}
+                                <span class="mx-2">|</span>
+                                <i class="bi bi-tag me-1"></i>{{ item.version or 'N/A' }}
+                            </small>
+                        </div>
+                        {% if item.diffoscope_url or item.diffoscope %}
+                        {% set diffoscope_href = item.diffoscope_url or item.diffoscope %}
+                        <a href="{% if not diffoscope_href.startswith('http') and not diffoscope_href.startswith('/') %}../{{ diffoscope_href }}{% else %}{{ diffoscope_href }}{% endif %}" 
+                           class="btn btn-sm btn-outline-primary" target="_blank">
+                            <i class="bi bi-file-diff me-1"></i>Diffoscope
+                        </a>
+                        {% endif %}
+                    </div>
                 </div>
-                {% if item.diffoscope %}
-                <div class="diffoscope-link">
-                    <a href="../diffoscope/{{ item.diffoscope }}" target="_blank">View Diffoscope Analysis</a>
-                </div>
-                {% endif %}
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        </details>
         {% endif %}
         {% endfor %}
     </div>
-</div>
+</details>
 {% endif %}
 {% endfor %}
 {% endblock %}

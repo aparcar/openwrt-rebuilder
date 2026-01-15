@@ -97,6 +97,13 @@ jobs:
         with:
           version: "latest"
 
+      - name: Checkout gh-pages
+        uses: actions/checkout@v6
+        with:
+          ref: gh-pages
+          path: gh-pages
+        continue-on-error: true
+
       - name: Download all artifacts
         uses: actions/download-artifact@v7
         with:
@@ -104,7 +111,15 @@ jobs:
           path: results/
 
       - name: Combine results and generate hierarchical overview
-        run: uv run python3 -u ./scripts/combine_results.py
+        run: |
+          # Copy existing gh-pages content as base (if exists)
+          if [ -d gh-pages ]; then
+            mkdir -p combined_results
+            cp -r gh-pages/* combined_results/ 2>/dev/null || true
+            rm -rf combined_results/.git
+          fi
+          # Merge new results on top
+          uv run openwrt-rebuilder combine --results-dir results --output-dir combined_results
 
       - name: Publish to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -113,3 +128,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: combined_results/
+          force_orphan: true
