@@ -78,6 +78,7 @@ class Comparator:
                 built_at=self._build_time,
                 has_diffoscope=has_diffoscope,
                 diffoscope_url=diffoscope_url,
+                rebuild_path=f"targets/{self.config.target}/{filename}",
             )
             self.suite.add_result("images", result)
 
@@ -132,5 +133,6 @@ class Comparator:
                 built_at=self._build_time,
                 has_diffoscope=has_diffoscope,
                 diffoscope_url=diffoscope_url,
+                rebuild_path=f"{file_prefix}/{filename}",
             )
             self.suite.add_result("packages", result)

@@ -117,18 +117,11 @@ class DiffoscopeRunner:
             logger.warning(f"No diffoscope output path for {result.name}")
             return False
 
-        # Construct file path from result name
-        # For packages: bin/packages/{arch}/base/{name}_{version}_{arch}.ipk
-        # For images: bin/targets/{target}/{name}
-        filename = result.name
-        if filename.endswith((".ipk", ".apk")):
-            rebuild_file = (
-                self.config.bin_path / "packages" / result.architecture / "base" / filename
-            )
-        else:
-            # Image file
-            rebuild_file = self.config.bin_path / "targets" / self.config.target / filename
+        if not result.rebuild_path:
+            logger.warning(f"No rebuild path for {result.name}")
+            return False
 
+        rebuild_file = self.config.bin_path / result.rebuild_path
         origin_file = rebuild_file.parent / (rebuild_file.name + ".orig")
         # Extract filename from diffoscope_url (e.g., "diffoscope/foo.html" -> "foo.html")
         diffoscope_filename = Path(result.diffoscope_url).name
