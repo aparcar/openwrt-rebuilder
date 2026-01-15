@@ -82,7 +82,7 @@ jobs:
       - name: Run rebuilder
         env:
           TARGET: x86/64
-          VERSION: SNAPSHOT
+          VERSION: 25.12.0-rc2
         run: uv run openwrt-rebuilder
 
       - name: Upload results
