@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}OpenWrt Reproducible Build Results{% endblock %}</title>
+    <style>
+        :root {
+            --color-reproducible: #28a745;
+            --color-unreproducible: #dc3545;
+            --color-notfound: #ffc107;
+            --color-pending: #17a2b8;
+            --color-bg-reproducible: #d4edda;
+            --color-bg-unreproducible: #f8d7da;
+            --color-bg-notfound: #fff3cd;
+            --color-bg-pending: #d1ecf1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+        }
+
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .build-info {
+            font-size: 0.85em;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .breadcrumb a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .summary-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .summary-box h2 {
+            margin-top: 0;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--color-reproducible), #20c997);
+            transition: width 0.3s ease;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .stat-box.reproducible { background: var(--color-bg-reproducible); color: #155724; }
+        .stat-box.unreproducible { background: var(--color-bg-unreproducible); color: #721c24; }
+        .stat-box.notfound { background: var(--color-bg-notfound); color: #856404; }
+        .stat-box.pending { background: var(--color-bg-pending); color: #0c5460; }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-title a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .card-title a:hover {
+            color: #3498db;
+        }
+
+        .category {
+            background: white;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-header {
+            background: #e9ecef;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .category-content {
+            padding: 15px;
+        }
+
+        .status-section {
+            margin: 15px 0;
+        }
+
+        .status-header {
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .status-header.reproducible { background: var(--color-bg-reproducible); color: #155724; }
+        .status-header.unreproducible { background: var(--color-bg-unreproducible); color: #721c24; }
+        .status-header.notfound { background: var(--color-bg-notfound); color: #856404; }
+        .status-header.pending { background: var(--color-bg-pending); color: #0c5460; }
+
+        .item {
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-left: 4px solid #ddd;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .item.reproducible { border-left-color: var(--color-reproducible); }
+        .item.unreproducible { border-left-color: var(--color-unreproducible); }
+        .item.notfound { border-left-color: var(--color-notfound); }
+        .item.pending { border-left-color: var(--color-pending); }
+
+        .item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .item-details {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .diffoscope-link {
+            margin-top: 8px;
+        }
+
+        .diffoscope-link a {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85em;
+        }
+
+        .diffoscope-link a:hover {
+            background: #0056b3;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            font-size: 0.9em;
+            color: #666;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .footer a {
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+    {% block extra_styles %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        {% block breadcrumb %}{% endblock %}
+
+        {% block header %}{% endblock %}
+
+        {% block content %}{% endblock %}
+
+        <div class="footer">
+            <p><strong>About Reproducible Builds:</strong> Reproducible builds enable verification that no vulnerabilities or backdoors have been introduced during compilation by allowing independent verification of build outputs.</p>
+            <p>Generated by OpenWrt Reproducible Build CI | <a href="https://reproducible-builds.org/">Learn more about reproducible builds</a></p>
+        </div>
+    </div>
+</body>
+</html>
