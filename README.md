@@ -1,50 +1,57 @@
 # OpenWrt rebuilder
 
-[![pipeline status](https://gitlab.com/aparcar/openwrt-rebuilder/badges/master/pipeline.svg)](https://gitlab.com/aparcar/openwrt-rebuilder/-/commits/master)
 ![CI](https://github.com/aparcar/openwrt-rebuilder/workflows/CI/badge.svg)
-
 
 Rebuild and verify binaries released by OpenWrt.org.
 
+## Requirements
+
+- [uv](https://docs.astral.sh/uv/) package manager
+- OpenWrt build dependencies (build-essential, git, etc.)
+
 ## Running
 
-Be sure to have all default OpenWrt building dependencies installed. To run the
-rebuilder simply type the following command:
+To run the rebuilder using uv:
 
-    openwrt-rebuilder
+```sh
+uv run openwrt-rebuilder
+```
 
-The following `env` variables are possible to change the rebuilders behavior:
+## Configuration
 
-    # target to be build
-    TARGET # default: "ath79/generic"
+The following environment variables control the rebuilder's behavior:
 
-    # version to be build
-    VERSION # default:  "SNAPSHOT"
+| Variable         | Default                         | Description                                                                  |
+| ---------------- | ------------------------------- | ---------------------------------------------------------------------------- |
+| `TARGET`         | `x86/64`                        | Target architecture (e.g., `ath79/generic`, `mediatek/filogic`)              |
+| `VERSION`        | `SNAPSHOT`                      | OpenWrt version to build                                                     |
+| `SOURCE_MIRROR`  | `https://codeberg.org/openwrt/` | Mirror for OpenWrt git sources (also supports `https://github.com/openwrt/`) |
+| `ORIGIN_URL`     | `https://downloads.openwrt.org` | URL for official OpenWrt builds                                              |
+| `REBUILD_DIR`    | `./build/{VERSION}`             | Build directory                                                              |
+| `RESULTS_DIR`    | `./results/{VERSION}/{TARGET}`  | Output directory for results                                                 |
+| `DL_PATH`        | `{REBUILD_DIR}/dl`              | Downloads directory                                                          |
+| `USE_DIFFOSCOPE` | `True`                          | Run diffoscope on unreproducible files                                       |
+| `j`              | CPU count + 1                   | Number of parallel build jobs                                                |
 
-    # branch to be build
-    BRANCH # default:  "master"
+### Example
 
-    # where to build OpenWrt
-    REBUILD_DIR # default:  Path.cwd() / "openwrt"
+```sh
+TARGET=mediatek/filogic VERSION=SNAPSHOT uv run openwrt-rebuilder
+```
 
-    # where to find the origin builds
-    ORIGIN_URL # default:  "https://downloads.cdn.openwrt.org"
+To use GitHub instead of Codeberg as the source mirror:
 
-    # where to get the openwrt source git
-    OPENWRT_GIT # default:  "https://github.com/openwrt/openwrt.git"
+```sh
+SOURCE_MIRROR=https://github.com/openwrt/ uv run openwrt-rebuilder
+```
 
-    # run diffoscope on unreproducible files
-    USE_DIFFOSCOPE # default:  False
+## Diffoscope
 
-    # number of cores to use
-    j # default:  cpu_count() + 1
+For diffoscope analysis, either:
 
-    # where to store rendered html and diffoscope output
-    RESULTS_DIR # default:  Path.cwd() / "results"
+- Run within the `aparcar/rebuild-diffoscope` Docker container
+- Install diffoscope directly on the system
 
-For Diffoscope results it is possible to run the script within the Docker
-container `aparcar/rebuild-diffoscope` or install Diffoscope directly.
+## Output
 
-The output of the script is a single
-[rbvf.json](https://github.com/aparcar/reproducible-builds-verification-format)
-file.
+The script produces a [rbvf.json](https://github.com/aparcar/reproducible-builds-verification-format) file containing the verification results.

@@ -1,11 +1,21 @@
 """Command-line interface for the rebuilder."""
 
 import argparse
+import json
 import logging
 import sys
+from pathlib import Path
 
 from rebuilder import __version__
 from rebuilder.config import Config
+from rebuilder.core.build import OpenWrtBuilder
+from rebuilder.core.compare import Comparator
+from rebuilder.core.download import download_text
+from rebuilder.core.git import GitRepository
+from rebuilder.diffoscope import DiffoscopeRunner
+from rebuilder.models import Suite
+from rebuilder.parsers import parse_profiles, parse_sha256sums
+from rebuilder.reporting import write_rbvf_output
 
 
 def setup_logging(verbose: bool = False) -> None:
@@ -76,6 +86,130 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(args)
 
 
+def run_rebuild(config: Config) -> int:
+    """Run the full rebuild workflow.
+
+    Args:
+        config: Rebuild configuration.
+
+    Returns:
+        Exit code (0 for success).
+    """
+    logger = logging.getLogger(__name__)
+    suite = Suite()
+
+    try:
+        # Setup repository
+        logger.info("Setting up repository...")
+        git = GitRepository(config)
+        git.clone()
+
+        # Setup build
+        logger.info("Setting up build configuration...")
+        builder = OpenWrtBuilder(config)
+
+        commit_string, commit = builder.setup_version_buildinfo()
+        logger.info(f"Version: {commit_string}, Commit: {commit}")
+
+        builder.setup_feeds_buildinfo()
+        git.checkout(commit)
+        builder.update_feeds()
+
+        # Apply patches if any
+        patches_dir = Path.cwd() / "patches" / config.version
+        if patches_dir.exists():
+            git.apply_patches(patches_dir)
+
+        builder.setup_config_buildinfo()
+        builder.setup_kernel_magic()
+
+        # Download sources
+        builder.download_sources()
+
+        # Get origin profiles before building
+        url = f"{config.origin_url}/{config.target_dir}/profiles.json"
+        origin_profiles = parse_profiles(download_text(url))
+
+        # Build
+        builder.full_build()
+
+        # Compare results
+        logger.info("Comparing results...")
+        comparator = Comparator(config, suite)
+
+        profiles_path = config.bin_path / "targets" / config.target / "profiles.json"
+        if profiles_path.exists():
+            comparator.compare_profiles(origin_profiles, profiles_path)
+
+        target_index = config.bin_path / "targets" / config.target / "packages" / "index.json"
+        target_sums = config.bin_path / "targets" / config.target / "sha256sums"
+        if target_index.exists() and target_sums.exists():
+            origin_url = f"{config.origin_url}/{config.target_dir}/sha256sums"
+            origin_sums = parse_sha256sums(download_text(origin_url))
+            rebuild_sums = parse_sha256sums(target_sums.read_text())
+            comparator.compare_packages(
+                origin_sums, rebuild_sums, target_index, f"targets/{config.target}/packages"
+            )
+
+        if target_index.exists():
+            arch = json.loads(target_index.read_text()).get("architecture", "")
+            base_index = config.bin_path / "packages" / arch / "base" / "index.json"
+            base_sums = config.bin_path / "packages" / arch / "sha256sums"
+
+            if base_index.exists() and base_sums.exists():
+                origin_base_url = (
+                    f"{config.origin_url}/{config.release_dir}/packages/{arch}/sha256sums"
+                )
+                try:
+                    origin_base_sums = parse_sha256sums(download_text(origin_base_url))
+                    rebuild_base_sums = parse_sha256sums(base_sums.read_text())
+                    comparator.compare_packages(
+                        origin_base_sums, rebuild_base_sums, base_index, f"packages/{arch}/base"
+                    )
+                except Exception as e:
+                    logger.warning(f"Could not compare base packages: {e}")
+
+        # Run diffoscope
+        if config.use_diffoscope:
+            logger.info("Running diffoscope analysis...")
+            runner = DiffoscopeRunner(config, kernel_version=builder.kernel_version)
+            unreproducible = suite.packages.unreproducible + suite.images.unreproducible
+            if unreproducible:
+                runner.run_parallel(unreproducible)
+            else:
+                logger.info("No unreproducible results to analyze")
+
+        # Save results
+        logger.info("Saving results...")
+        config.results_dir.mkdir(parents=True, exist_ok=True)
+        (config.results_dir / "base").mkdir(exist_ok=True)
+        output_path = write_rbvf_output(config, suite)
+        logger.info(f"Results written to {output_path}")
+
+        # Summary
+        pkg_stats = suite.packages.stats()
+        img_stats = suite.images.stats()
+        logger.info(
+            f"Packages: {pkg_stats['reproducible']} reproducible, "
+            f"{pkg_stats['unreproducible']} unreproducible, "
+            f"{pkg_stats['notfound']} not found"
+        )
+        logger.info(
+            f"Images: {img_stats['reproducible']} reproducible, "
+            f"{img_stats['unreproducible']} unreproducible, "
+            f"{img_stats['notfound']} not found"
+        )
+
+        return 0
+
+    except KeyboardInterrupt:
+        logger.info("Interrupted by user")
+        return 130
+    except Exception as e:
+        logger.exception(f"Rebuild failed: {e}")
+        return 1
+
+
 def main(args: list[str] | None = None) -> int:
     """Main entry point for the CLI."""
     parsed = parse_args(args)
@@ -116,12 +250,9 @@ def main(args: list[str] | None = None) -> int:
         logger.info(f"  Jobs: {config.jobs}")
         return 0
 
-    # TODO: Run the actual rebuild
+    # Run the rebuild
     logger.info(f"Starting rebuild for {config.target} @ {config.version}")
-    logger.info("Note: Full rebuild logic not yet migrated to new structure")
-    logger.info("Use rebuild.py directly for now")
-
-    return 0
+    return run_rebuild(config)
 
 
 if __name__ == "__main__":

@@ -53,22 +53,6 @@ jobs:
           file: ./coverage.xml
           fail_ci_if_error: false
 
-  test-legacy:
-    # Test that the original rebuild.py still works
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Syntax check rebuild.py
-        run: |
-          python -m py_compile rebuild.py
-          python -m py_compile scripts/combine_results.py
-
   rebuild:
     # Run a full rebuild verification
     runs-on: ubuntu-latest
@@ -76,19 +60,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
       - name: Install uv
         uses: astral-sh/setup-uv@v4
         with:
           version: "latest"
-
-      - name: Install Python dependencies
-        run: |
-          uv pip install --system -e ".[dev]"
 
       - name: Free disk space
         run: |
@@ -108,8 +83,7 @@ jobs:
         env:
           TARGET: x86/64
           VERSION: SNAPSHOT
-        run: |
-          python rebuild.py
+        run: uv run openwrt-rebuilder
 
       - name: Upload results
         uses: actions/upload-artifact@v4

@@ -67,7 +67,7 @@ jobs:
             openwrt-feeds-
 
       - name: Run rebuilder on ${{ matrix.target }}
-        run: uv run python3 -u rebuild.py
+        run: uv run openwrt-rebuilder
         env:
           TARGET: ${{ matrix.target }}
           VERSION: ${{ github.event.inputs.version || matrix.version }}
