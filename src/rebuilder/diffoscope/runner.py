@@ -44,8 +44,12 @@ class DiffoscopeRunner:
 
     def _get_download_url(self, result: Result) -> str:
         """Get the download URL for an origin file."""
-        file_path = result.files.get("unreproducible", [""])[0]
-        filename = Path(file_path).name
+        # Use artifact_url if available
+        if result.artifact_url:
+            return result.artifact_url
+
+        # Fallback: construct URL from name
+        filename = result.name
 
         # Handle kernel module paths - use kernel version to construct path
         if filename.startswith("kmod-") and self.kernel_version:
@@ -53,7 +57,7 @@ class DiffoscopeRunner:
             return url
 
         # Default URL construction
-        url = f"{self.config.origin_url}/{self.config.release_dir}/{file_path}"
+        url = f"{self.config.origin_url}/{self.config.release_dir}/{filename}"
         return url
 
     def _unpack_apk(self, apk_path: Path, unpack_dir: Path, apk_bin: Path) -> None:
@@ -109,18 +113,26 @@ class DiffoscopeRunner:
         Returns:
             True if diffoscope ran successfully.
         """
-        if not result.diffoscope:
+        if not result.has_diffoscope or not result.diffoscope_url:
             logger.warning(f"No diffoscope output path for {result.name}")
             return False
 
-        file_path = result.files.get("unreproducible", [""])[0]
-        if not file_path:
-            logger.warning(f"No file path for {result.name}")
-            return False
+        # Construct file path from result name
+        # For packages: bin/packages/{arch}/base/{name}_{version}_{arch}.ipk
+        # For images: bin/targets/{target}/{name}
+        filename = result.name
+        if filename.endswith((".ipk", ".apk")):
+            rebuild_file = (
+                self.config.bin_path / "packages" / result.architecture / "base" / filename
+            )
+        else:
+            # Image file
+            rebuild_file = self.config.bin_path / "targets" / self.config.target / filename
 
-        rebuild_file = self.config.bin_path / file_path
         origin_file = rebuild_file.parent / (rebuild_file.name + ".orig")
-        results_file = self.config.results_dir / result.diffoscope
+        # Extract filename from diffoscope_url (e.g., "diffoscope/foo.html" -> "foo.html")
+        diffoscope_filename = Path(result.diffoscope_url).name
+        results_file = self.config.results_dir / "diffoscope" / diffoscope_filename
 
         logger.info(f"Running diffoscope on {result.name}")
 

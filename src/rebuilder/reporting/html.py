@@ -40,14 +40,23 @@ def calculate_stats(data: dict[str, Any]) -> dict[str, int]:
         data: Dictionary containing packages and/or images results.
 
     Returns:
-        Dictionary with counts for each status.
+        Dictionary with counts for each status (rebuilderd compatible).
     """
-    stats = {"reproducible": 0, "unreproducible": 0, "notfound": 0, "pending": 0}
+    stats = {"good": 0, "bad": 0, "unknown": 0}
 
     for category in ["packages", "images"]:
         if category in data:
-            for status in stats:
-                stats[status] += len(data[category].get(status, []))
+            # Support both old format (lowercase) and new format (uppercase)
+            for old_key, new_key in [
+                ("GOOD", "good"),
+                ("BAD", "bad"),
+                ("UNKWN", "unknown"),
+                ("reproducible", "good"),
+                ("unreproducible", "bad"),
+                ("notfound", "unknown"),
+                ("pending", "unknown"),
+            ]:
+                stats[new_key] += len(data[category].get(old_key, []))
 
     return stats
 

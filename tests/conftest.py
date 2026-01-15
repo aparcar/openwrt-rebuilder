@@ -72,7 +72,7 @@ def config(tmp_path: Path) -> Config:
         dl_dir=tmp_path / "dl",
         results_dir=tmp_path / "results",
         origin_url="https://downloads.openwrt.org",
-        openwrt_git="https://github.com/openwrt/openwrt.git",
+        source_mirror="https://codeberg.org/openwrt/",
         use_diffoscope=False,
         jobs=2,
     )
@@ -90,10 +90,10 @@ def sample_result() -> Result:
     return Result(
         name="base-files",
         version="1.0.0",
-        arch="x86_64",
-        distribution="openwrt",
-        status=Status.REPRODUCIBLE,
-        files={"reproducible": ["packages/base/base-files-1.0.0.ipk"]},
+        architecture="x86_64",
+        suite="SNAPSHOT",
+        distro="openwrt",
+        status=Status.GOOD,
     )
 
 
@@ -102,57 +102,58 @@ def populated_suite() -> Suite:
     """Create a suite with sample results."""
     suite = Suite()
 
-    # Add some reproducible packages
+    # Add some GOOD packages
     for i in range(3):
         suite.add_result(
             "packages",
             Result(
                 name=f"pkg-{i}",
                 version="1.0",
-                arch="x86_64",
-                distribution="openwrt",
-                status=Status.REPRODUCIBLE,
-                files={"reproducible": [f"packages/pkg-{i}-1.0.ipk"]},
+                architecture="x86_64",
+                suite="SNAPSHOT",
+                distro="openwrt",
+                status=Status.GOOD,
             ),
         )
 
-    # Add an unreproducible package
+    # Add a BAD package
     suite.add_result(
         "packages",
         Result(
             name="unrep-pkg",
             version="2.0",
-            arch="x86_64",
-            distribution="openwrt",
-            status=Status.UNREPRODUCIBLE,
-            diffoscope="unrep-pkg-2.0.ipk.html",
-            files={"unreproducible": ["packages/unrep-pkg-2.0.ipk"]},
+            architecture="x86_64",
+            suite="SNAPSHOT",
+            distro="openwrt",
+            status=Status.BAD,
+            has_diffoscope=True,
+            diffoscope_url="diffoscope/unrep-pkg-2.0.ipk.html",
         ),
     )
 
-    # Add a not found package
+    # Add an UNKNOWN package
     suite.add_result(
         "packages",
         Result(
             name="missing-pkg",
             version="1.0",
-            arch="x86_64",
-            distribution="openwrt",
-            status=Status.NOTFOUND,
-            files={"notfound": ["packages/missing-pkg-1.0.ipk"]},
+            architecture="x86_64",
+            suite="SNAPSHOT",
+            distro="openwrt",
+            status=Status.UNKNOWN,
         ),
     )
 
-    # Add reproducible images
+    # Add GOOD images
     suite.add_result(
         "images",
         Result(
             name="openwrt-x86-64-generic.img",
             version="SNAPSHOT",
-            arch="x86/64",
-            distribution="openwrt",
-            status=Status.REPRODUCIBLE,
-            files={"reproducible": ["targets/x86/64/openwrt-x86-64-generic.img"]},
+            architecture="x86/64",
+            suite="SNAPSHOT",
+            distro="openwrt",
+            status=Status.GOOD,
         ),
     )
 

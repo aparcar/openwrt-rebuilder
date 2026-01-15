@@ -19,38 +19,38 @@ def comparator(config: Config, suite: Suite) -> Comparator:
 class TestComparator:
     """Tests for Comparator class."""
 
-    def test_compare_file_reproducible(self, comparator: Comparator):
+    def test_compare_file_good(self, comparator: Comparator):
         """Test comparing identical files."""
         status = comparator.compare_file(
             "test.ipk",
             "abc123",
             {"test.ipk": "abc123"},
         )
-        assert status == Status.REPRODUCIBLE
+        assert status == Status.GOOD
 
-    def test_compare_file_unreproducible(self, comparator: Comparator):
+    def test_compare_file_bad(self, comparator: Comparator):
         """Test comparing different files."""
         status = comparator.compare_file(
             "test.ipk",
             "abc123",
             {"test.ipk": "different"},
         )
-        assert status == Status.UNREPRODUCIBLE
+        assert status == Status.BAD
 
-    def test_compare_file_not_found(self, comparator: Comparator):
+    def test_compare_file_unknown(self, comparator: Comparator):
         """Test comparing missing file."""
         status = comparator.compare_file(
             "missing.ipk",
             "abc123",
             {"other.ipk": "abc123"},
         )
-        assert status == Status.NOTFOUND
+        assert status == Status.UNKNOWN
 
 
 class TestCompareProfiles:
     """Tests for profile comparison."""
 
-    def test_compare_profiles_reproducible(self, config: Config, suite: Suite, tmp_path: Path):
+    def test_compare_profiles_good(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing reproducible profiles."""
         # Create rebuild profiles
         rebuild_profiles = {
@@ -71,10 +71,10 @@ class TestCompareProfiles:
         comparator = Comparator(config, suite)
         comparator.compare_profiles(origin, profiles_path)
 
-        assert len(suite.images.reproducible) == 1
-        assert suite.images.reproducible[0].status == Status.REPRODUCIBLE
+        assert len(suite.images.good) == 1
+        assert suite.images.good[0].status == Status.GOOD
 
-    def test_compare_profiles_unreproducible(self, config: Config, suite: Suite, tmp_path: Path):
+    def test_compare_profiles_bad(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing unreproducible profiles."""
         rebuild_profiles = {
             "profiles": {
@@ -93,10 +93,11 @@ class TestCompareProfiles:
         comparator = Comparator(config, suite)
         comparator.compare_profiles(origin, profiles_path)
 
-        assert len(suite.images.unreproducible) == 1
-        assert suite.images.unreproducible[0].diffoscope == "test.img.html"
+        assert len(suite.images.bad) == 1
+        assert suite.images.bad[0].has_diffoscope is True
+        assert suite.images.bad[0].diffoscope_url == "diffoscope/test.img.html"
 
-    def test_compare_profiles_not_found(self, config: Config, suite: Suite, tmp_path: Path):
+    def test_compare_profiles_unknown(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing missing profile."""
         rebuild_profiles = {"profiles": {}}
         profiles_path = tmp_path / "profiles.json"
@@ -107,13 +108,13 @@ class TestCompareProfiles:
         comparator = Comparator(config, suite)
         comparator.compare_profiles(origin, profiles_path)
 
-        assert len(suite.images.notfound) == 1
+        assert len(suite.images.unknown) == 1
 
 
 class TestComparePackages:
     """Tests for package comparison."""
 
-    def test_compare_packages_reproducible(self, config: Config, suite: Suite, tmp_path: Path):
+    def test_compare_packages_good(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing reproducible packages."""
         # Create package index
         index = {"architecture": "x86_64", "packages": {"foo": "1.0"}}
@@ -126,10 +127,10 @@ class TestComparePackages:
         comparator = Comparator(config, suite)
         comparator.compare_packages(origin, rebuild, index_path, "packages/base")
 
-        assert len(suite.packages.reproducible) == 1
-        assert suite.packages.reproducible[0].name == "foo"
+        assert len(suite.packages.good) == 1
+        assert suite.packages.good[0].name == "foo"
 
-    def test_compare_packages_unreproducible(self, config: Config, suite: Suite, tmp_path: Path):
+    def test_compare_packages_bad(self, config: Config, suite: Suite, tmp_path: Path):
         """Test comparing unreproducible packages."""
         index = {"architecture": "x86_64", "packages": {"foo": "1.0"}}
         index_path = tmp_path / "index.json"
@@ -141,8 +142,9 @@ class TestComparePackages:
         comparator = Comparator(config, suite)
         comparator.compare_packages(origin, rebuild, index_path, "packages/base")
 
-        assert len(suite.packages.unreproducible) == 1
-        assert suite.packages.unreproducible[0].diffoscope == "foo-1.0.ipk.html"
+        assert len(suite.packages.bad) == 1
+        assert suite.packages.bad[0].has_diffoscope is True
+        assert suite.packages.bad[0].diffoscope_url == "diffoscope/foo-1.0.ipk.html"
 
     def test_compare_packages_ignores_non_packages(
         self, config: Config, suite: Suite, tmp_path: Path
@@ -171,4 +173,4 @@ class TestComparePackages:
         comparator = Comparator(config, suite)
         comparator.compare_packages(origin, rebuild, index_path, "packages/base")
 
-        assert len(suite.packages.reproducible) == 1
+        assert len(suite.packages.good) == 1

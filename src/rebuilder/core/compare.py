@@ -1,6 +1,7 @@
 """Comparison logic for rebuild verification."""
 
 import logging
+from datetime import datetime, timezone
 from pathlib import Path
 
 from rebuilder.config import Config
@@ -22,6 +23,7 @@ class Comparator:
         """
         self.config = config
         self.suite = suite
+        self._build_time = datetime.now(timezone.utc).isoformat()
 
     def compare_file(
         self,
@@ -40,12 +42,12 @@ class Comparator:
             The comparison status.
         """
         if filename not in rebuild_checksums:
-            return Status.NOTFOUND
+            return Status.UNKNOWN
 
         if origin_checksum != rebuild_checksums[filename]:
-            return Status.UNREPRODUCIBLE
+            return Status.BAD
 
-        return Status.REPRODUCIBLE
+        return Status.GOOD
 
     def compare_profiles(
         self,
@@ -62,16 +64,20 @@ class Comparator:
 
         for filename, origin_checksum in origin_profiles.items():
             status = self.compare_file(filename, origin_checksum, rebuild_profiles)
-            diffoscope = f"{filename}.html" if status == Status.UNREPRODUCIBLE else None
+            has_diffoscope = status == Status.BAD
+            diffoscope_url = f"diffoscope/{filename}.html" if has_diffoscope else None
 
             result = Result(
                 name=filename,
                 version=self.config.version,
-                arch=self.config.target,
-                distribution="openwrt",
+                architecture=self.config.target,
+                suite=self.config.version,
+                distro="openwrt",
                 status=status,
-                diffoscope=diffoscope,
-                files={status.value: [f"targets/{self.config.target}/{filename}"]},
+                artifact_url=f"{self.config.origin_url}/{self.config.target_dir}/{filename}",
+                built_at=self._build_time,
+                has_diffoscope=has_diffoscope,
+                diffoscope_url=diffoscope_url,
             )
             self.suite.add_result("images", result)
 
@@ -103,7 +109,7 @@ class Comparator:
 
             # Handle case where origin doesn't have this file
             if filename not in origin_checksums:
-                status = Status.NOTFOUND
+                status = Status.UNKNOWN
 
             # Parse package name and version from filename
             map_name = filename.rsplit(".", 1)[0]  # Remove .ipk/.apk extension
@@ -112,15 +118,19 @@ class Comparator:
                 continue
 
             package_name, version = version_map[map_name]
-            diffoscope = f"{filename}.html" if status == Status.UNREPRODUCIBLE else None
+            has_diffoscope = status == Status.BAD
+            diffoscope_url = f"diffoscope/{filename}.html" if has_diffoscope else None
 
             result = Result(
                 name=package_name,
                 version=version,
-                arch=package_index.architecture,
-                distribution="openwrt",
+                architecture=package_index.architecture,
+                suite=self.config.version,
+                distro="openwrt",
                 status=status,
-                diffoscope=diffoscope,
-                files={status.value: [f"{file_prefix}/{filename}"]},
+                artifact_url=f"{self.config.origin_url}/{self.config.release_dir}/{file_prefix}/{filename}",
+                built_at=self._build_time,
+                has_diffoscope=has_diffoscope,
+                diffoscope_url=diffoscope_url,
             )
             self.suite.add_result("packages", result)

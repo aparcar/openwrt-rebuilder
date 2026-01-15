@@ -10,15 +10,15 @@ class TestStatus:
 
     def test_status_values(self):
         """Test status enum has expected values."""
-        assert Status.REPRODUCIBLE.value == "reproducible"
-        assert Status.UNREPRODUCIBLE.value == "unreproducible"
-        assert Status.NOTFOUND.value == "notfound"
-        assert Status.PENDING.value == "pending"
+        assert Status.GOOD.value == "GOOD"
+        assert Status.BAD.value == "BAD"
+        assert Status.UNKNOWN.value == "UNKWN"
 
     def test_status_from_string(self):
         """Test creating status from string."""
-        assert Status("reproducible") == Status.REPRODUCIBLE
-        assert Status("unreproducible") == Status.UNREPRODUCIBLE
+        assert Status("GOOD") == Status.GOOD
+        assert Status("BAD") == Status.BAD
+        assert Status("UNKWN") == Status.UNKNOWN
 
 
 class TestResult:
@@ -28,29 +28,31 @@ class TestResult:
         """Test creating a result."""
         assert sample_result.name == "base-files"
         assert sample_result.version == "1.0.0"
-        assert sample_result.status == Status.REPRODUCIBLE
+        assert sample_result.status == Status.GOOD
 
     def test_result_to_dict(self, sample_result: Result):
         """Test converting result to dictionary."""
         data = sample_result.to_dict()
         assert data["name"] == "base-files"
-        assert data["status"] == "reproducible"  # String, not enum
-        assert data["files"]["reproducible"] == ["packages/base/base-files-1.0.0.ipk"]
+        assert data["status"] == "GOOD"  # String, not enum
+        assert data["architecture"] == "x86_64"
+        assert data["distro"] == "openwrt"
 
     def test_result_default_values(self):
         """Test result with default values."""
         result = Result(
             name="test",
             version="1.0",
-            arch="x86_64",
-            distribution="openwrt",
-            status=Status.PENDING,
+            architecture="x86_64",
+            suite="SNAPSHOT",
+            distro="openwrt",
+            status=Status.UNKNOWN,
         )
-        assert result.metadata == {}
-        assert result.log is None
-        assert result.epoch == 0
-        assert result.diffoscope is None
-        assert result.files == {}
+        assert result.artifact_url == ""
+        assert result.build_id is None
+        assert result.built_at is None
+        assert result.has_diffoscope is False
+        assert result.diffoscope_url is None
 
 
 class TestResults:
@@ -59,42 +61,45 @@ class TestResults:
     def test_empty_results(self):
         """Test empty results container."""
         results = Results()
-        assert len(results.reproducible) == 0
-        assert len(results.unreproducible) == 0
+        assert len(results.good) == 0
+        assert len(results.bad) == 0
         assert results.total_count() == 0
 
     def test_add_result(self, sample_result: Result):
         """Test adding a result."""
         results = Results()
         results.add(sample_result)
-        assert len(results.reproducible) == 1
-        assert results.reproducible[0] == sample_result
+        assert len(results.good) == 1
+        assert results.good[0] == sample_result
 
-    def test_add_unreproducible_result(self):
-        """Test adding an unreproducible result."""
+    def test_add_bad_result(self):
+        """Test adding a BAD result."""
         results = Results()
         result = Result(
             name="test",
             version="1.0",
-            arch="x86_64",
-            distribution="openwrt",
-            status=Status.UNREPRODUCIBLE,
-            diffoscope="test.html",
+            architecture="x86_64",
+            suite="SNAPSHOT",
+            distro="openwrt",
+            status=Status.BAD,
+            has_diffoscope=True,
+            diffoscope_url="diffoscope/test.html",
         )
         results.add(result)
-        assert len(results.unreproducible) == 1
-        assert len(results.reproducible) == 0
+        assert len(results.bad) == 1
+        assert len(results.good) == 0
 
     def test_total_count(self):
         """Test counting all results."""
         results = Results()
-        for status in [Status.REPRODUCIBLE, Status.UNREPRODUCIBLE, Status.NOTFOUND]:
+        for status in [Status.GOOD, Status.BAD, Status.UNKNOWN]:
             results.add(
                 Result(
                     name="test",
                     version="1.0",
-                    arch="x86_64",
-                    distribution="openwrt",
+                    architecture="x86_64",
+                    suite="SNAPSHOT",
+                    distro="openwrt",
                     status=status,
                 )
             )
@@ -107,35 +112,37 @@ class TestResults:
             Result(
                 name="a",
                 version="1.0",
-                arch="x86_64",
-                distribution="openwrt",
-                status=Status.REPRODUCIBLE,
+                architecture="x86_64",
+                suite="SNAPSHOT",
+                distro="openwrt",
+                status=Status.GOOD,
             )
         )
         results.add(
             Result(
                 name="b",
                 version="1.0",
-                arch="x86_64",
-                distribution="openwrt",
-                status=Status.REPRODUCIBLE,
+                architecture="x86_64",
+                suite="SNAPSHOT",
+                distro="openwrt",
+                status=Status.GOOD,
             )
         )
         results.add(
             Result(
                 name="c",
                 version="1.0",
-                arch="x86_64",
-                distribution="openwrt",
-                status=Status.UNREPRODUCIBLE,
+                architecture="x86_64",
+                suite="SNAPSHOT",
+                distro="openwrt",
+                status=Status.BAD,
             )
         )
 
         stats = results.stats()
-        assert stats["reproducible"] == 2
-        assert stats["unreproducible"] == 1
-        assert stats["notfound"] == 0
-        assert stats["pending"] == 0
+        assert stats["good"] == 2
+        assert stats["bad"] == 1
+        assert stats["unknown"] == 0
 
 
 class TestSuite:
@@ -157,9 +164,10 @@ class TestSuite:
         result = Result(
             name="openwrt-x86-64.img",
             version="SNAPSHOT",
-            arch="x86/64",
-            distribution="openwrt",
-            status=Status.REPRODUCIBLE,
+            architecture="x86/64",
+            suite="SNAPSHOT",
+            distro="openwrt",
+            status=Status.GOOD,
         )
         suite.add_result("images", result)
         assert suite.images.total_count() == 1
@@ -175,8 +183,8 @@ class TestSuite:
         data = populated_suite.to_dict()
         assert "packages" in data
         assert "images" in data
-        assert len(data["packages"]["reproducible"]) == 3
-        assert len(data["packages"]["unreproducible"]) == 1
+        assert len(data["packages"]["GOOD"]) == 3
+        assert len(data["packages"]["BAD"]) == 1
 
     def test_suite_from_dict(self, populated_suite: Suite):
         """Test creating suite from dictionary."""
@@ -185,5 +193,5 @@ class TestSuite:
 
         assert new_suite.packages.total_count() == populated_suite.packages.total_count()
         assert new_suite.images.total_count() == populated_suite.images.total_count()
-        assert len(new_suite.packages.reproducible) == 3
-        assert len(new_suite.packages.unreproducible) == 1
+        assert len(new_suite.packages.good) == 3
+        assert len(new_suite.packages.bad) == 1
