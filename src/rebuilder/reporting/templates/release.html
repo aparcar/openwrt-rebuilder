@@ -2,84 +2,124 @@
 
 {% block title %}{{ version }} - OpenWrt Reproducible Build Results{% endblock %}
 
-{% block breadcrumb %}
-<div class="breadcrumb">
-    <a href="index.html">&larr; All Releases</a>
-</div>
-{% endblock %}
-
-{% block header %}
-<div class="header">
-    <h1>OpenWrt {{ version }}</h1>
-    <p>Reproducible Build Results</p>
+{% block hero %}
+<div class="hero-section">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html" class="text-white-50">All Releases</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">{{ version }}</li>
+            </ol>
+        </nav>
+        <h1 class="mb-2">OpenWrt {{ version }}</h1>
+        <p class="lead mb-0 opacity-75">Reproducible Build Results</p>
+    </div>
 </div>
 {% endblock %}
 
 {% block content %}
-<div class="card-grid">
+{% if version_stats %}
+{% set total = version_stats.good + version_stats.bad + version_stats.unknown %}
+{% set percent = (version_stats.good / total * 100) if total > 0 else 0 %}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h5 class="card-title mb-3">Release Overview</h5>
+                        <div class="progress mb-2">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ percent | round(1) }}%">
+                                {{ percent | round(1) }}% GOOD
+                            </div>
+                        </div>
+                        <p class="text-muted mb-0">{{ version_stats.good }} of {{ total }} artifacts are reproducible across {{ targets | length }} target{{ 's' if targets | length != 1 else '' }}</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <span class="percentage-display text-success">{{ percent | round(1) }}%</span>
+                        <span class="d-block text-muted">Reproducible</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="stat-card status-good-subtle">
+            <div class="stat-value text-success">{{ version_stats.good }}</div>
+            <div class="stat-label text-success">GOOD</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card status-bad-subtle">
+            <div class="stat-value text-danger">{{ version_stats.bad }}</div>
+            <div class="stat-label text-danger">BAD</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card status-unknown-subtle">
+            <div class="stat-value text-warning">{{ version_stats.unknown }}</div>
+            <div class="stat-label text-warning">UNKNOWN</div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<h4 class="mb-3">
+    <i class="bi bi-bullseye me-2"></i>Targets
+    <span class="badge bg-secondary">{{ targets | length }}</span>
+</h4>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     {% for target, target_data in targets.items() %}
     {% set stats = target_data.stats %}
-    {% set total = stats.reproducible + stats.unreproducible + stats.notfound + stats.pending %}
-    {% set percent = (stats.reproducible / total * 100) if total > 0 else 0 %}
+    {% set t_total = stats.good + stats.bad + stats.unknown %}
+    {% set t_percent = (stats.good / t_total * 100) if t_total > 0 else 0 %}
     {% set target_slug = target | replace('/', '_') %}
-    <div class="card">
-        <div class="card-title">
-            <a href="{{ release_dir }}/{{ target_slug }}.html">{{ target }}</a>
-        </div>
-        <div class="progress-bar">
-            <div class="progress-fill" style="width: {{ percent | round(1) }}%"></div>
-        </div>
-        <div style="text-align: center; font-size: 1.2em; font-weight: bold; margin: 12px 0;">
-            {{ percent | round(1) }}% Reproducible
-        </div>
-        <div class="stats-grid">
-            <div class="stat-box reproducible">
-                <div class="stat-value">{{ stats.reproducible }}</div>
-                <div class="stat-label">Reproducible</div>
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-header">
+                <a href="{{ release_dir }}/{{ target_slug }}.html" class="text-decoration-none text-dark">
+                    <i class="bi bi-cpu me-2"></i>{{ target }}
+                </a>
             </div>
-            <div class="stat-box unreproducible">
-                <div class="stat-value">{{ stats.unreproducible }}</div>
-                <div class="stat-label">Unreproducible</div>
+            <div class="card-body">
+                <div class="progress mb-3">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ t_percent | round(1) }}%">
+                        {{ t_percent | round(1) }}%
+                    </div>
+                </div>
+                <div class="row text-center g-2">
+                    <div class="col-4">
+                        <span class="badge status-good w-100 py-2">
+                            <span class="d-block fs-5">{{ stats.good }}</span>
+                            <small>GOOD</small>
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="badge status-bad w-100 py-2">
+                            <span class="d-block fs-5">{{ stats.bad }}</span>
+                            <small>BAD</small>
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="badge status-unknown w-100 py-2">
+                            <span class="d-block fs-5">{{ stats.unknown }}</span>
+                            <small>UNKWN</small>
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="stat-box notfound">
-                <div class="stat-value">{{ stats.notfound }}</div>
-                <div class="stat-label">Not Found</div>
-            </div>
-            <div class="stat-box pending">
-                <div class="stat-value">{{ stats.pending }}</div>
-                <div class="stat-label">Pending</div>
+            <div class="card-footer bg-transparent">
+                <a href="{{ release_dir }}/{{ target_slug }}.html" class="btn btn-sm btn-outline-primary w-100">
+                    View Details <i class="bi bi-arrow-right ms-1"></i>
+                </a>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
-
-{% if version_stats %}
-{% set total = version_stats.reproducible + version_stats.unreproducible + version_stats.notfound + version_stats.pending %}
-{% set percent = (version_stats.reproducible / total * 100) if total > 0 else 0 %}
-<div class="summary-box" style="text-align: center;">
-    <h2>{{ version }} Overall Summary</h2>
-    <div style="font-size: 1.4em; font-weight: bold; margin: 15px 0;">
-        {{ percent | round(1) }}% Reproducible ({{ version_stats.reproducible }} of {{ total }} items)
-    </div>
-    <div class="stats-grid" style="max-width: 600px; margin: 0 auto;">
-        <div class="stat-box reproducible">
-            <div class="stat-value">{{ version_stats.reproducible }}</div>
-            <div class="stat-label">Reproducible</div>
-        </div>
-        <div class="stat-box unreproducible">
-            <div class="stat-value">{{ version_stats.unreproducible }}</div>
-            <div class="stat-label">Unreproducible</div>
-        </div>
-        <div class="stat-box notfound">
-            <div class="stat-value">{{ version_stats.notfound }}</div>
-            <div class="stat-label">Not Found</div>
-        </div>
-        <div class="stat-box pending">
-            <div class="stat-value">{{ version_stats.pending }}</div>
-            <div class="stat-label">Pending</div>
-        </div>
-    </div>
-</div>
-{% endif %}
 {% endblock %}

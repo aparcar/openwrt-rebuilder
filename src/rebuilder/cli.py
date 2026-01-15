@@ -16,6 +16,7 @@ from rebuilder.diffoscope import DiffoscopeRunner
 from rebuilder.models import Suite
 from rebuilder.parsers import parse_profiles, parse_sha256sums
 from rebuilder.reporting import write_rbvf_output
+from rebuilder.reporting.combine import combine_results
 
 
 def setup_logging(verbose: bool = False) -> None:
@@ -48,13 +49,66 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
         help="Enable verbose output",
     )
 
+    # Subcommands
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+    # Build command (default behavior)
+    build_parser = subparsers.add_parser("build", help="Run a rebuild verification")
+    build_parser.add_argument(
+        "-t",
+        "--target",
+        default=None,
+        help="Target architecture (e.g., x86/64, mediatek/filogic)",
+    )
+    build_parser.add_argument(
+        "-V",
+        "--openwrt-version",
+        default=None,
+        dest="openwrt_version",
+        help="OpenWrt version to rebuild (e.g., SNAPSHOT, 23.05.2)",
+    )
+    build_parser.add_argument(
+        "-j",
+        "--jobs",
+        type=int,
+        default=None,
+        help="Number of parallel build jobs",
+    )
+    build_parser.add_argument(
+        "--no-diffoscope",
+        action="store_true",
+        help="Skip diffoscope analysis",
+    )
+    build_parser.add_argument(
+        "--validate-only",
+        action="store_true",
+        help="Only validate configuration, don't run rebuild",
+    )
+
+    # Combine results command
+    combine_parser = subparsers.add_parser(
+        "combine", help="Combine results from multiple builds and generate HTML reports"
+    )
+    combine_parser.add_argument(
+        "--results-dir",
+        type=Path,
+        default=Path("results"),
+        help="Directory containing result artifacts (default: results)",
+    )
+    combine_parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("combined_results"),
+        help="Directory to write combined output (default: combined_results)",
+    )
+
+    # For backwards compatibility, also accept build args at top level
     parser.add_argument(
         "-t",
         "--target",
         default=None,
         help="Target architecture (e.g., x86/64, mediatek/filogic)",
     )
-
     parser.add_argument(
         "-V",
         "--openwrt-version",
@@ -62,7 +116,6 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
         dest="openwrt_version",
         help="OpenWrt version to rebuild (e.g., SNAPSHOT, 23.05.2)",
     )
-
     parser.add_argument(
         "-j",
         "--jobs",
@@ -70,13 +123,11 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
         default=None,
         help="Number of parallel build jobs",
     )
-
     parser.add_argument(
         "--no-diffoscope",
         action="store_true",
         help="Skip diffoscope analysis",
     )
-
     parser.add_argument(
         "--validate-only",
         action="store_true",
@@ -110,6 +161,14 @@ def run_rebuild(config: Config) -> int:
 
         commit_string, commit = builder.setup_version_buildinfo()
         logger.info(f"Version: {commit_string}, Commit: {commit}")
+
+        # For snapshot builds, include version code in results path
+        # e.g., SNAPSHOT/r28532-abc123def/x86/64/ or 25.12-SNAPSHOT/r28532-abc123def/x86/64/
+        if "SNAPSHOT" in config.version:
+            config.results_dir = (
+                config.results_dir.parent.parent / config.version / commit_string / config.target
+            )
+            logger.info(f"Snapshot results will be saved to: {config.results_dir}")
 
         builder.setup_feeds_buildinfo()
         git.checkout(commit)
@@ -210,6 +269,28 @@ def run_rebuild(config: Config) -> int:
         return 1
 
 
+def run_combine(results_dir: Path, output_dir: Path) -> int:
+    """Run the combine results workflow.
+
+    Args:
+        results_dir: Directory containing result artifacts.
+        output_dir: Directory to write combined output.
+
+    Returns:
+        Exit code (0 for success).
+    """
+    logger = logging.getLogger(__name__)
+
+    try:
+        stats = combine_results(results_dir, output_dir)
+        if sum(stats.values()) == 0:
+            return 1
+        return 0
+    except Exception as e:
+        logger.exception(f"Combine failed: {e}")
+        return 1
+
+
 def main(args: list[str] | None = None) -> int:
     """Main entry point for the CLI."""
     parsed = parse_args(args)
@@ -217,6 +298,11 @@ def main(args: list[str] | None = None) -> int:
 
     logger = logging.getLogger(__name__)
 
+    # Handle combine command
+    if parsed.command == "combine":
+        return run_combine(parsed.results_dir, parsed.output_dir)
+
+    # Handle build command or default (no subcommand)
     # Build configuration from args and environment
     config_kwargs = {}
     if parsed.target:
