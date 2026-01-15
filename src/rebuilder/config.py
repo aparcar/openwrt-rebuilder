@@ -30,9 +30,10 @@ class Config:
         default_factory=lambda: environ.get("ORIGIN_URL", "https://downloads.openwrt.org")
     )
 
-    # OpenWrt git repository URL
-    openwrt_git: str = field(
-        default_factory=lambda: environ.get("OPENWRT_GIT", "https://github.com/openwrt/openwrt.git")
+    # Mirror URL for OpenWrt sources (replaces git.openwrt.org which often returns 503)
+    # Use "https://codeberg.org/openwrt/" or "https://github.com/openwrt/"
+    source_mirror: str = field(
+        default_factory=lambda: environ.get("SOURCE_MIRROR", "https://codeberg.org/openwrt/")
     )
 
     # Whether to run diffoscope on unreproducible builds
@@ -53,6 +54,11 @@ class Config:
             self.results_dir = Path(
                 environ.get("RESULTS_DIR", Path.cwd() / "results" / self.version / self.target)
             )
+
+    @property
+    def openwrt_git(self) -> str:
+        """Git URL for the main OpenWrt repository."""
+        return f"{self.source_mirror}openwrt.git"
 
     @property
     def bin_path(self) -> Path:
