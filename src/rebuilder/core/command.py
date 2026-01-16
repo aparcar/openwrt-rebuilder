@@ -60,7 +60,7 @@ class CommandRunner:
         """
         work_dir = cwd or self.cwd
         cmd_str = cmd if isinstance(cmd, str) else " ".join(str(c) for c in cmd)
-        logger.info(f"Running: {cmd_str} in {work_dir}")
+        logger.debug(f"Running: {cmd_str} in {work_dir}")
 
         # Merge environment
         current_env = os.environ.copy()
