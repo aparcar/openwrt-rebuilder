@@ -103,13 +103,31 @@
                                 <i class="bi bi-tag me-1"></i>{{ item.version or 'N/A' }}
                             </small>
                         </div>
-                        {% if item.diffoscope_url or item.diffoscope %}
-                        {% set diffoscope_href = item.diffoscope_url or item.diffoscope %}
-                        <a href="{% if not diffoscope_href.startswith('http') and not diffoscope_href.startswith('/') %}../{{ diffoscope_href }}{% else %}{{ diffoscope_href }}{% endif %}" 
-                           class="btn btn-sm btn-outline-primary" target="_blank">
-                            <i class="bi bi-file-diff me-1"></i>Diffoscope
-                        </a>
-                        {% endif %}
+                        <div class="btn-group" role="group">
+                            {% if item.origin_download_url %}
+                            <a href="../{{ item.origin_download_url }}"
+                               class="btn btn-sm btn-outline-secondary"
+                               title="Download original file for inspection"
+                               download>
+                                <i class="bi bi-download me-1"></i>Origin
+                            </a>
+                            {% endif %}
+                            {% if item.rebuild_download_url %}
+                            <a href="../{{ item.rebuild_download_url }}"
+                               class="btn btn-sm btn-outline-secondary"
+                               title="Download rebuilt file for inspection"
+                               download>
+                                <i class="bi bi-download me-1"></i>Rebuild
+                            </a>
+                            {% endif %}
+                            {% if item.diffoscope_url or item.diffoscope %}
+                            {% set diffoscope_href = item.diffoscope_url or item.diffoscope %}
+                            <a href="{% if not diffoscope_href.startswith('http') and not diffoscope_href.startswith('/') %}../{{ diffoscope_href }}{% else %}{{ diffoscope_href }}{% endif %}"
+                               class="btn btn-sm btn-outline-primary" target="_blank">
+                                <i class="bi bi-file-diff me-1"></i>Diffoscope
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 {% endfor %}

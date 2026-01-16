@@ -35,6 +35,9 @@ class Result:
     has_attestation: bool = False
     diffoscope_url: str | None = None  # URL to diffoscope HTML
     rebuild_path: str | None = None  # Path to rebuilt file relative to bin/
+    # URLs for downloading stored unreproducible artifacts (for manual inspection)
+    origin_download_url: str | None = None  # URL to download the origin file
+    rebuild_download_url: str | None = None  # URL to download the rebuilt file
 
     def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
@@ -52,6 +55,8 @@ class Result:
             "has_attestation": self.has_attestation,
             "diffoscope_url": self.diffoscope_url,
             "rebuild_path": self.rebuild_path,
+            "origin_download_url": self.origin_download_url,
+            "rebuild_download_url": self.rebuild_download_url,
         }
 
 
@@ -149,6 +154,8 @@ class Suite:
                         has_attestation=item.get("has_attestation", False),
                         diffoscope_url=item.get("diffoscope_url"),
                         rebuild_path=item.get("rebuild_path"),
+                        origin_download_url=item.get("origin_download_url"),
+                        rebuild_download_url=item.get("rebuild_download_url"),
                     )
                     suite.add_result(category, result)
         return suite
