@@ -46,6 +46,29 @@
     </div>
 </div>
 
+{% if history and history.entries | length > 1 %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="bi bi-graph-up me-2"></i>Reproducibility Timeline
+            </div>
+            <div class="card-body">
+                <canvas id="timeline-chart" height="100"></canvas>
+                <p class="text-muted small mt-2 mb-0">
+                    Showing {{ history.entries | length }} historical builds.
+                    {% if 'SNAPSHOT' in version %}
+                    Each point represents a different OpenWrt commit.
+                    {% else %}
+                    Each point represents a rebuild of the same release.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <div class="row mb-4">
     <div class="col-md-4">
         <div class="stat-card status-good-subtle">
@@ -122,4 +145,105 @@
     </div>
     {% endfor %}
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if history and history.entries | length > 1 %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+    const historyData = {{ history_json | safe }};
+    if (!historyData || !historyData.entries || historyData.entries.length < 2) return;
+
+    // Reverse to show oldest to newest (left to right)
+    const entries = [...historyData.entries].reverse();
+
+    // Prepare data for the chart
+    const labels = entries.map(e => {
+        if (e.version_code) {
+            // For SNAPSHOT: show version code (e.g., r28532)
+            return e.version_code.split('-')[0];
+        } else {
+            // For releases: show date
+            const date = new Date(e.timestamp);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+    });
+
+    const percentages = entries.map(e => {
+        const total = e.stats.good + e.stats.bad + e.stats.unknown;
+        return total > 0 ? (e.stats.good / total * 100).toFixed(1) : 0;
+    });
+
+    const goodCounts = entries.map(e => e.stats.good);
+    const badCounts = entries.map(e => e.stats.bad);
+    const unknownCounts = entries.map(e => e.stats.unknown);
+
+    const ctx = document.getElementById('timeline-chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '% Reproducible',
+                data: percentages,
+                borderColor: '#198754',
+                backgroundColor: 'rgba(25, 135, 84, 0.1)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function(context) {
+                            const idx = context[0].dataIndex;
+                            const entry = entries[idx];
+                            if (entry.version_code) {
+                                return 'Commit: ' + entry.version_code;
+                            }
+                            return new Date(entry.timestamp).toLocaleString();
+                        },
+                        afterLabel: function(context) {
+                            const idx = context.dataIndex;
+                            const entry = entries[idx];
+                            return [
+                                'Good: ' + entry.stats.good,
+                                'Bad: ' + entry.stats.bad,
+                                'Unknown: ' + entry.stats.unknown
+                            ];
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    min: 0,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 0
+                    }
+                }
+            }
+        }
+    });
+})();
+</script>
+{% endif %}
 {% endblock %}

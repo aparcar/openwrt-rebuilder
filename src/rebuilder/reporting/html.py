@@ -1,5 +1,6 @@
 """HTML report generation using Jinja2 templates."""
 
+import json
 import logging
 import shutil
 from dataclasses import dataclass
@@ -11,6 +12,9 @@ from typing import Any
 from jinja2 import Environment, PackageLoader, select_autoescape
 
 logger = logging.getLogger(__name__)
+
+# Type alias for history data (imported from combine at runtime to avoid circular import)
+VersionHistory = dict[str, Any]
 
 
 @dataclass
@@ -129,12 +133,14 @@ class HTMLReportGenerator:
         self,
         version: str,
         targets_data: dict[str, Any],
+        history: VersionHistory | None = None,
     ) -> dict[str, int]:
         """Generate a release overview page.
 
         Args:
             version: OpenWrt version.
             targets_data: Dictionary of target -> results.
+            history: Optional history data for timeline visualization.
 
         Returns:
             Aggregated statistics for this version.
@@ -153,6 +159,9 @@ class HTMLReportGenerator:
             for status in version_stats:
                 version_stats[status] += target_stats.get(status, 0)
 
+        # Prepare history data for the chart (JSON-encoded for JavaScript)
+        history_json = json.dumps(history) if history else "null"
+
         # Generate release page
         template = self.env.get_template("release.html")
         html = template.render(
@@ -160,6 +169,8 @@ class HTMLReportGenerator:
             release_dir=release_dir,
             targets=targets_with_stats,
             version_stats=version_stats,
+            history=history,
+            history_json=history_json,
         )
 
         output_path = self.output_dir / f"{release_dir}.html"
@@ -172,28 +183,47 @@ class HTMLReportGenerator:
         self,
         combined_data: dict[str, Any],
         build_info: BuildInfo | None = None,
+        all_histories: dict[str, VersionHistory] | None = None,
     ) -> dict[str, int]:
         """Generate the main index page.
 
         Args:
             combined_data: Dictionary of version -> targets -> results.
             build_info: Optional build metadata.
+            all_histories: Optional dict of base_version -> history data.
 
         Returns:
             Overall statistics.
         """
         overall_stats = {"good": 0, "bad": 0, "unknown": 0}
 
+        if all_histories is None:
+            all_histories = {}
+
+        # Group versions by base version for history lookup
+        # e.g., "SNAPSHOT/r28532-abc" -> "SNAPSHOT"
+        def get_base_version(version_key: str) -> str:
+            if "SNAPSHOT" in version_key and "/" in version_key:
+                return version_key.split("/", 1)[0]
+            return version_key
+
         # Process each release and collect stats
         releases = {}
         for version, targets_data in combined_data.items():
-            version_stats = self.generate_release_page(version, targets_data)
+            base_version = get_base_version(version)
+            history = all_histories.get(base_version)
+
+            version_stats = self.generate_release_page(version, targets_data, history)
             releases[version] = {
                 "stats": version_stats,
                 "target_count": len(targets_data),
+                "has_history": history is not None and len(history.get("entries", [])) > 1,
             }
             for status in overall_stats:
                 overall_stats[status] += version_stats.get(status, 0)
+
+        # Prepare combined history for index page chart
+        all_histories_json = json.dumps(all_histories) if all_histories else "{}"
 
         # Generate index page
         template = self.env.get_template("index.html")
@@ -201,6 +231,8 @@ class HTMLReportGenerator:
             releases=releases,
             overall_stats=overall_stats,
             build_info=build_info,
+            all_histories=all_histories,
+            all_histories_json=all_histories_json,
         )
 
         output_path = self.output_dir / "index.html"
@@ -278,6 +310,7 @@ class HTMLReportGenerator:
         combined_data: dict[str, Any],
         results_dir: Path | None = None,
         build_info: BuildInfo | None = None,
+        all_histories: dict[str, VersionHistory] | None = None,
     ) -> dict[str, int]:
         """Generate complete HTML report hierarchy.
 
@@ -285,6 +318,7 @@ class HTMLReportGenerator:
             combined_data: Combined RBVF output data.
             results_dir: Optional directory with diffoscope reports.
             build_info: Optional build metadata.
+            all_histories: Optional dict of base_version -> history data.
 
         Returns:
             Overall statistics.
@@ -295,7 +329,7 @@ class HTMLReportGenerator:
             self.copy_diffoscope_reports(results_dir)
             self.copy_unreproducible_artifacts(results_dir)
 
-        return self.generate_index_page(combined_data, build_info)
+        return self.generate_index_page(combined_data, build_info, all_histories)
 
 
 def generate_reports(
