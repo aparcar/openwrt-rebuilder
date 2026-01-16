@@ -1,6 +1,5 @@
 """Tests for history functionality in combine.py."""
 
-import json
 from pathlib import Path
 
 import pytest
