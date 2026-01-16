@@ -80,7 +80,7 @@ jobs:
         if: always()
         with:
           name: results-${{ env.VERSION }}-${{ env.target_slug }}
-          path: results/${{ env.VERSION }}/
+          path: results/
 
   overview:
     name: Generate Overview
@@ -108,6 +108,7 @@ jobs:
         with:
           pattern: results-*
           path: results/
+          merge-multiple: true
 
       - name: Combine results and generate hierarchical overview
         run: |
