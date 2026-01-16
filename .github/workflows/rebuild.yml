@@ -110,6 +110,12 @@ jobs:
           pattern: results-*
           path: results/
 
+      - name: Debug - List results structure
+        run: |
+          echo "=== Results directory structure ==="
+          find results -type f -name "*.json" 2>/dev/null || echo "No json files found"
+          ls -laR results/ 2>/dev/null || echo "results/ does not exist"
+
       - name: Combine results and generate hierarchical overview
         run: |
           # Copy existing gh-pages content as base (if exists)
