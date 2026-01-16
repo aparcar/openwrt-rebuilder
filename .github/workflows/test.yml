@@ -55,6 +55,7 @@ jobs:
 
   rebuild:
     # Run a full rebuild verification
+    needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 360  # 6 hours max
     steps:
