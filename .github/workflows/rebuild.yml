@@ -4,28 +4,28 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "OpenWrt version to build"
+        description: "OpenWrt version to build (e.g., SNAPSHOT, 25.12.0-rc2, 23.05.5)"
         required: false
         default: "SNAPSHOT"
         type: string
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.inputs.version || 'SNAPSHOT' }}
   cancel-in-progress: true
 
 jobs:
   build:
-    name: ${{ matrix.version }} - ${{ matrix.target }}
+    name: ${{ github.event.inputs.version || 'SNAPSHOT' }} - ${{ matrix.target }}
     runs-on: self-hosted
     strategy:
       fail-fast: False
       matrix:
-        version:
-          - 25.12.0-rc2
         target:
           - "mediatek/filogic"
           - "x86/64"
           - "x86/generic"
+    env:
+      VERSION: ${{ github.event.inputs.version || 'SNAPSHOT' }}
     steps:
       - name: Verify that podman works
         run: podman run --rm alpine echo "Podman is working"
@@ -40,37 +40,36 @@ jobs:
       - name: Cache OpenWrt git repository
         uses: actions/cache@v5
         with:
-          path: ./build/${{ github.event.inputs.version || matrix.version }}/.git
-          key: openwrt-git-${{ matrix.version }}-${{ github.sha }}
+          path: ./build/${{ env.VERSION }}/.git
+          key: openwrt-git-${{ env.VERSION }}-${{ github.sha }}
           restore-keys: |
-            openwrt-git-${{ matrix.version }}-
+            openwrt-git-${{ env.VERSION }}-
             openwrt-git-
 
       - name: Cache downloads
         uses: actions/cache@v5
         with:
-          path: ./build/${{ github.event.inputs.version || matrix.version }}/dl
-          key: openwrt-dl-${{ matrix.version }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
+          path: ./build/${{ env.VERSION }}/dl
+          key: openwrt-dl-${{ env.VERSION }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
           restore-keys: |
-            openwrt-dl-${{ matrix.version }}-
+            openwrt-dl-${{ env.VERSION }}-
             openwrt-dl-
 
       - name: Cache feeds
         uses: actions/cache@v5
         with:
           path: |
-            ./build/${{ github.event.inputs.version || matrix.version }}/feeds
-            ./build/${{ github.event.inputs.version || matrix.version }}/package/feeds
-          key: openwrt-feeds-${{ matrix.version }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
+            ./build/${{ env.VERSION }}/feeds
+            ./build/${{ env.VERSION }}/package/feeds
+          key: openwrt-feeds-${{ env.VERSION }}-${{ hashFiles('**/feeds.conf*', '**/feeds.buildinfo*') }}
           restore-keys: |
-            openwrt-feeds-${{ matrix.version }}-
+            openwrt-feeds-${{ env.VERSION }}-
             openwrt-feeds-
 
       - name: Run rebuilder on ${{ matrix.target }}
         run: uv run openwrt-rebuilder
         env:
           TARGET: ${{ matrix.target }}
-          VERSION: ${{ github.event.inputs.version || matrix.version }}
           USE_DIFFOSCOPE: True
 
       - name: Slug target name
@@ -80,8 +79,8 @@ jobs:
       - uses: actions/upload-artifact@v6
         if: always()
         with:
-          name: results-${{ github.event.inputs.version || matrix.version }}-${{ env.target_slug }}
-          path: results/${{ github.event.inputs.version || matrix.version }}/${{ matrix.target }}/
+          name: results-${{ env.VERSION }}-${{ env.target_slug }}
+          path: results/${{ env.VERSION }}/
 
   overview:
     name: Generate Overview
