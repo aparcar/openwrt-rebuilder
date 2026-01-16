@@ -13,8 +13,9 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 
 logger = logging.getLogger(__name__)
 
-# Type alias for history data (imported from combine at runtime to avoid circular import)
-VersionHistory = dict[str, Any]
+# Type alias for history data
+# Using Any to avoid circular import with combine.py's TypedDict
+VersionHistory = dict[str, Any]  # Actually: {"version": str, "entries": list[HistoryEntry]}
 
 
 @dataclass

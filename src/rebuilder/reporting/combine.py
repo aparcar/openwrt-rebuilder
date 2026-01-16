@@ -5,7 +5,7 @@ import logging
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, TypedDict
+from typing import Any, TypedDict, cast
 
 from rebuilder.reporting.html import BuildInfo, HTMLReportGenerator
 
@@ -88,7 +88,7 @@ def load_history(output_dir: Path, base_version: str) -> VersionHistory:
     if history_path.exists():
         try:
             with open(history_path) as f:
-                data = json.load(f)
+                data: VersionHistory = json.load(f)
                 logger.info(f"Loaded history with {len(data.get('entries', []))} entries")
                 return data
         except (json.JSONDecodeError, KeyError) as e:
@@ -194,7 +194,6 @@ def cleanup_old_artifacts(
         Number of files/directories removed.
     """
     removed_count = 0
-    version_slug = get_version_slug(base_version)
 
     # For now, we'll clean the entire diffoscope and artifacts directories
     # since they'll be repopulated with current run data
@@ -403,18 +402,17 @@ def calculate_target_stats(target_data: TargetData) -> TargetStats:
     Returns:
         Statistics dictionary.
     """
-    stats: TargetStats = {"good": 0, "bad": 0, "unknown": 0}
+    good = 0
+    bad = 0
+    unknown = 0
 
     for category in ["packages", "images"]:
         if category in target_data:
-            for status_key, stat_key in [
-                ("GOOD", "good"),
-                ("BAD", "bad"),
-                ("UNKWN", "unknown"),
-            ]:
-                stats[stat_key] += len(target_data[category].get(status_key, []))
+            good += len(target_data[category].get("GOOD", []))
+            bad += len(target_data[category].get("BAD", []))
+            unknown += len(target_data[category].get("UNKWN", []))
 
-    return stats
+    return {"good": good, "bad": bad, "unknown": unknown}
 
 
 def combine_results(
@@ -464,9 +462,7 @@ def combine_results(
 
         # Calculate stats for new results
         # Find all version keys that match this base version
-        matching_keys = [
-            k for k in combined_data.keys() if get_base_version(k)[0] == base_version
-        ]
+        matching_keys = [k for k in combined_data.keys() if get_base_version(k)[0] == base_version]
 
         # Aggregate stats across all matching version keys
         overall_stats: TargetStats = {"good": 0, "bad": 0, "unknown": 0}
@@ -504,14 +500,14 @@ def combine_results(
                 if target not in combined_data[version]:
                     combined_data[version][target] = target_data
 
-    logger.info(
-        f"Total: {len(combined_data)} version(s), {len(html_files)} new diffoscope reports"
-    )
+    logger.info(f"Total: {len(combined_data)} version(s), {len(html_files)} new diffoscope reports")
 
     # Generate HTML reports with history data
     logger.info("Generating HTML reports...")
     generator = HTMLReportGenerator(output_dir)
-    stats = generator.generate_all(combined_data, results_dir, build_info, all_histories)
+    # Cast to satisfy type checker (VersionHistory TypedDict is compatible with dict[str, Any])
+    histories_for_html = cast(dict[str, dict[str, Any]], all_histories)
+    stats = generator.generate_all(combined_data, results_dir, build_info, histories_for_html)
 
     # Save all updated histories
     for base_version, history in all_histories.items():
