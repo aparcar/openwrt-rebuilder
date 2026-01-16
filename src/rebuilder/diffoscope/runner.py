@@ -2,6 +2,7 @@
 
 import logging
 import os
+import shutil
 from multiprocessing import Pool, cpu_count
 from pathlib import Path
 
@@ -11,6 +12,9 @@ from rebuilder.core.download import DownloadError, download_file
 from rebuilder.models import Result
 
 logger = logging.getLogger(__name__)
+
+# Default limit for storing unreproducible artifacts
+DEFAULT_ARTIFACT_STORAGE_LIMIT = 5
 
 # Default container image for diffoscope
 DIFFOSCOPE_IMAGE = "registry.salsa.debian.org/reproducible-builds/diffoscope"
@@ -191,6 +195,88 @@ class DiffoscopeRunner:
 
         results_file.chmod(0o755)
         return True
+
+    def store_artifact(self, result: Result, category: str) -> bool:
+        """Store an unreproducible artifact for manual inspection.
+
+        Stores both the origin and rebuilt versions of an unreproducible artifact
+        in the results directory for later download and inspection.
+
+        Args:
+            result: The unreproducible result to store.
+            category: Category name for organizing storage ('images' or 'packages').
+
+        Returns:
+            True if artifacts were stored successfully.
+        """
+        if not result.rebuild_path:
+            logger.warning(f"No rebuild path for {result.name}")
+            return False
+
+        rebuild_file = self.config.bin_path / result.rebuild_path
+        if not rebuild_file.is_file():
+            logger.warning(f"Rebuild file not found: {rebuild_file}")
+            return False
+
+        # Create artifacts directory structure: artifacts/{category}/{artifact_name}/
+        artifacts_dir = self.config.results_dir / "artifacts" / category / result.name
+        artifacts_dir.mkdir(parents=True, exist_ok=True)
+
+        origin_dest = artifacts_dir / f"{result.name}.orig"
+        rebuild_dest = artifacts_dir / result.name
+
+        logger.info(f"Storing unreproducible artifact: {result.name}")
+
+        # Download origin file
+        download_url = self._get_download_url(result)
+        try:
+            download_file(download_url, origin_dest)
+        except DownloadError as e:
+            logger.error(f"Failed to download origin file {download_url}: {e}")
+            return False
+
+        # Copy rebuild file
+        try:
+            shutil.copy2(rebuild_file, rebuild_dest)
+        except OSError as e:
+            logger.error(f"Failed to copy rebuild file {rebuild_file}: {e}")
+            return False
+
+        # Update result with download URLs (relative paths for web serving)
+        result.origin_download_url = f"artifacts/{category}/{result.name}/{result.name}.orig"
+        result.rebuild_download_url = f"artifacts/{category}/{result.name}/{result.name}"
+
+        logger.info(f"Stored artifact {result.name}: origin and rebuild")
+        return True
+
+    def store_artifacts(
+        self,
+        results: list[Result],
+        category: str,
+        limit: int = DEFAULT_ARTIFACT_STORAGE_LIMIT,
+    ) -> int:
+        """Store multiple unreproducible artifacts for manual inspection.
+
+        Args:
+            results: List of unreproducible results to potentially store.
+            category: Category name ('images' or 'packages').
+            limit: Maximum number of artifacts to store.
+
+        Returns:
+            Number of artifacts successfully stored.
+        """
+        if not results:
+            return 0
+
+        self.config.results_dir.mkdir(parents=True, exist_ok=True)
+        stored = 0
+
+        for result in results[:limit]:
+            if self.store_artifact(result, category):
+                stored += 1
+
+        logger.info(f"Stored {stored} unreproducible {category} artifacts (limit: {limit})")
+        return stored
 
     def run_parallel(self, results: list[Result], workers: int | None = None) -> None:
         """Run diffoscope on multiple results in parallel.

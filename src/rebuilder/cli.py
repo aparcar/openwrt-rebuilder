@@ -228,13 +228,18 @@ def run_rebuild(config: Config) -> int:
                 except Exception as e:
                     logger.warning(f"Could not compare base packages: {e}")
 
-        # Run diffoscope
+        # Run diffoscope and store unreproducible artifacts
         if config.use_diffoscope:
             logger.info("Running diffoscope analysis...")
             runner = DiffoscopeRunner(config, kernel_version=builder.kernel_version)
             unreproducible = suite.packages.unreproducible + suite.images.unreproducible
             if unreproducible:
                 runner.run_parallel(unreproducible)
+
+                # Store first 5 unreproducible images and packages for manual inspection
+                logger.info("Storing unreproducible artifacts for manual inspection...")
+                runner.store_artifacts(suite.images.unreproducible, "images", limit=5)
+                runner.store_artifacts(suite.packages.unreproducible, "packages", limit=5)
             else:
                 logger.info("No unreproducible results to analyze")
 

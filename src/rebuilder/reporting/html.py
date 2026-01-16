@@ -72,6 +72,7 @@ class HTMLReportGenerator:
         """
         self.output_dir = output_dir
         self.diffoscope_dir = output_dir / "diffoscope"
+        self.artifacts_dir = output_dir / "artifacts"
 
         # Setup Jinja2 environment
         self.env = Environment(
@@ -83,6 +84,7 @@ class HTMLReportGenerator:
         """Create output directories."""
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.diffoscope_dir.mkdir(parents=True, exist_ok=True)
+        self.artifacts_dir.mkdir(parents=True, exist_ok=True)
 
     def generate_target_page(
         self,
@@ -227,6 +229,50 @@ class HTMLReportGenerator:
         logger.info(f"Copied {count} diffoscope reports")
         return count
 
+    def copy_unreproducible_artifacts(self, results_dir: Path) -> int:
+        """Copy unreproducible artifacts to the output directory.
+
+        Copies stored origin and rebuild files for manual inspection.
+
+        Args:
+            results_dir: Directory containing result artifacts.
+
+        Returns:
+            Number of artifact pairs copied.
+        """
+        count = 0
+        artifacts_src = results_dir / "artifacts"
+
+        if not artifacts_src.exists():
+            logger.debug("No artifacts directory found")
+            return 0
+
+        # Copy the entire artifacts directory structure
+        for category_dir in artifacts_src.iterdir():
+            if not category_dir.is_dir():
+                continue
+
+            category_name = category_dir.name
+            for artifact_dir in category_dir.iterdir():
+                if not artifact_dir.is_dir():
+                    continue
+
+                # Create destination directory
+                dest_dir = self.artifacts_dir / category_name / artifact_dir.name
+                dest_dir.mkdir(parents=True, exist_ok=True)
+
+                # Copy all files in the artifact directory
+                for artifact_file in artifact_dir.iterdir():
+                    if artifact_file.is_file():
+                        dest = dest_dir / artifact_file.name
+                        shutil.copy2(artifact_file, dest)
+                        logger.debug(f"Copied {artifact_file} to {dest}")
+
+                count += 1
+
+        logger.info(f"Copied {count} unreproducible artifact pairs")
+        return count
+
     def generate_all(
         self,
         combined_data: dict[str, Any],
@@ -247,6 +293,7 @@ class HTMLReportGenerator:
 
         if results_dir:
             self.copy_diffoscope_reports(results_dir)
+            self.copy_unreproducible_artifacts(results_dir)
 
         return self.generate_index_page(combined_data, build_info)
 
