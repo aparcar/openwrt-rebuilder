@@ -251,6 +251,59 @@ class TestUpdateHistory:
         # New entry should be first
         assert result["entries"][0]["version_code"] == "r99999-new"
 
+    def test_update_release_replaces_existing(self, build_info: BuildInfo):
+        """Test that rebuilding a release replaces the existing entry."""
+        # Existing release entry (no version_code)
+        history: VersionHistory = {
+            "version": "25.12.0",
+            "entries": [
+                {
+                    "timestamp": "2025-01-15T12:00:00+00:00",
+                    "version_code": None,
+                    "run_id": "12344",
+                    "commit": "old_commit",
+                    "stats": {"good": 90, "bad": 15, "unknown": 10},
+                    "targets": {"x86/64": {"good": 45, "bad": 7, "unknown": 5}},
+                }
+            ],
+        }
+        stats = {"good": 100, "bad": 10, "unknown": 5}
+        targets = {"x86/64": {"good": 50, "bad": 5, "unknown": 2}}
+
+        result = update_history(
+            history,
+            stats,
+            targets,
+            None,  # No version_code for releases
+            build_info,
+            "2025-01-16T12:00:00+00:00",
+        )
+
+        # Should update existing entry, not add new one
+        assert len(result["entries"]) == 1
+        assert result["entries"][0]["stats"]["good"] == 100
+        assert result["entries"][0]["commit"] == "abc123"
+        assert result["entries"][0]["run_id"] == "12345"
+
+    def test_release_first_build(self, build_info: BuildInfo):
+        """Test first build of a release adds entry."""
+        history: VersionHistory = {"version": "25.12.0", "entries": []}
+        stats = {"good": 100, "bad": 10, "unknown": 5}
+        targets = {"x86/64": {"good": 50, "bad": 5, "unknown": 2}}
+
+        result = update_history(
+            history,
+            stats,
+            targets,
+            None,  # No version_code for releases
+            build_info,
+            "2025-01-16T12:00:00+00:00",
+        )
+
+        assert len(result["entries"]) == 1
+        assert result["entries"][0]["version_code"] is None
+        assert result["entries"][0]["stats"]["good"] == 100
+
 
 class TestCleanupOldArtifacts:
     """Tests for cleanup_old_artifacts function."""

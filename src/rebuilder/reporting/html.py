@@ -128,7 +128,78 @@ class HTMLReportGenerator:
         output_path.write_text(html)
         logger.info(f"Generated {output_path}")
 
+        # Also write JSON files for persistence across runs
+        self._write_target_json(version, target, target_data, stats)
+
         return stats
+
+    def _write_target_json(
+        self,
+        version: str,
+        target: str,
+        target_data: dict[str, Any],
+        stats: dict[str, int],
+    ) -> None:
+        """Write JSON data files for a target to preserve data across runs.
+
+        Args:
+            version: OpenWrt version (e.g., "SNAPSHOT/r28532-abc" or "25.12.0").
+            target: Target architecture.
+            target_data: Results data for this target.
+            stats: Calculated statistics.
+        """
+        # Create directory structure matching the expected layout
+        # For SNAPSHOT: output_dir/SNAPSHOT/r28532-abc/x86/64/
+        # For releases: output_dir/25.12.0/x86/64/
+        # Use the original version string (with slashes) for directory structure
+        json_dir = self.output_dir / version / target
+        json_dir.mkdir(parents=True, exist_ok=True)
+
+        # Flatten packages data back to list format
+        packages = []
+        for status_items in target_data.get("packages", {}).values():
+            packages.extend(status_items)
+
+        # Flatten images data back to list format
+        images = []
+        for status_items in target_data.get("images", {}).values():
+            images.extend(status_items)
+
+        # Write packages.json
+        (json_dir / "packages.json").write_text(json.dumps(packages, indent=2))
+
+        # Write images.json
+        (json_dir / "images.json").write_text(json.dumps(images, indent=2))
+
+        # Write stats.json
+        stats_data = {
+            "target": target,
+            "version": version.split("/")[0] if "/" in version else version,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "packages": {"good": 0, "bad": 0, "unknown": 0},
+            "images": {"good": 0, "bad": 0, "unknown": 0},
+            "totals": stats,
+        }
+        # Calculate per-category stats
+        for pkg in packages:
+            status = pkg.get("status", "UNKWN")
+            if status == "GOOD":
+                stats_data["packages"]["good"] += 1
+            elif status == "BAD":
+                stats_data["packages"]["bad"] += 1
+            else:
+                stats_data["packages"]["unknown"] += 1
+        for img in images:
+            status = img.get("status", "UNKWN")
+            if status == "GOOD":
+                stats_data["images"]["good"] += 1
+            elif status == "BAD":
+                stats_data["images"]["bad"] += 1
+            else:
+                stats_data["images"]["unknown"] += 1
+
+        (json_dir / "stats.json").write_text(json.dumps(stats_data, indent=2))
+        logger.debug(f"Wrote JSON data to {json_dir}")
 
     def generate_release_page(
         self,
