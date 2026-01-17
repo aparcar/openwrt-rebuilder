@@ -21,9 +21,9 @@ jobs:
       fail-fast: False
       matrix:
         target:
-          - "mediatek/filogic"
+          # - "mediatek/filogic"
           - "x86/64"
-          - "x86/generic"
+          # - "x86/generic"
     env:
       VERSION: ${{ github.event.inputs.version || 'SNAPSHOT' }}
     steps:
