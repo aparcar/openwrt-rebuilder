@@ -172,31 +172,35 @@ class HTMLReportGenerator:
         (json_dir / "images.json").write_text(json.dumps(images, indent=2))
 
         # Write stats.json
-        stats_data = {
-            "target": target,
-            "version": version.split("/")[0] if "/" in version else version,
-            "generated_at": datetime.now(timezone.utc).isoformat(),
-            "packages": {"good": 0, "bad": 0, "unknown": 0},
-            "images": {"good": 0, "bad": 0, "unknown": 0},
-            "totals": stats,
-        }
+        pkg_stats: dict[str, int] = {"good": 0, "bad": 0, "unknown": 0}
+        img_stats: dict[str, int] = {"good": 0, "bad": 0, "unknown": 0}
+
         # Calculate per-category stats
         for pkg in packages:
             status = pkg.get("status", "UNKWN")
             if status == "GOOD":
-                stats_data["packages"]["good"] += 1
+                pkg_stats["good"] += 1
             elif status == "BAD":
-                stats_data["packages"]["bad"] += 1
+                pkg_stats["bad"] += 1
             else:
-                stats_data["packages"]["unknown"] += 1
+                pkg_stats["unknown"] += 1
         for img in images:
             status = img.get("status", "UNKWN")
             if status == "GOOD":
-                stats_data["images"]["good"] += 1
+                img_stats["good"] += 1
             elif status == "BAD":
-                stats_data["images"]["bad"] += 1
+                img_stats["bad"] += 1
             else:
-                stats_data["images"]["unknown"] += 1
+                img_stats["unknown"] += 1
+
+        stats_data = {
+            "target": target,
+            "version": version.split("/")[0] if "/" in version else version,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "packages": pkg_stats,
+            "images": img_stats,
+            "totals": stats,
+        }
 
         (json_dir / "stats.json").write_text(json.dumps(stats_data, indent=2))
         logger.debug(f"Wrote JSON data to {json_dir}")
