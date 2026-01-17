@@ -149,18 +149,27 @@ def update_history(
         "targets": targets,
     }
 
-    # Check if we're updating an existing entry (same version_code for SNAPSHOT)
+    # Check if we're updating an existing entry
+    # For SNAPSHOT: match by version_code (e.g., r28532-abc)
+    # For releases: only keep the latest entry (releases don't change)
     existing_idx = None
     if version_code:
+        # SNAPSHOT build - find entry with same version_code
         for idx, entry in enumerate(history["entries"]):
             if entry.get("version_code") == version_code:
                 existing_idx = idx
                 break
+    else:
+        # Release build - always update the first (most recent) entry if it exists
+        # and has no version_code (i.e., it's also a release entry)
+        if history["entries"] and not history["entries"][0].get("version_code"):
+            existing_idx = 0
 
     if existing_idx is not None:
         # Update existing entry
         history["entries"][existing_idx] = new_entry
-        logger.info(f"Updated existing history entry for {version_code}")
+        identifier = version_code if version_code else "release"
+        logger.info(f"Updated existing history entry for {identifier}")
     else:
         # Add new entry at the beginning
         history["entries"].insert(0, new_entry)

@@ -54,6 +54,7 @@ class GitRepository:
         """Clone the OpenWrt repository if it doesn't exist.
 
         If the repository already exists, fetch and reset to the target branch.
+        Ensures full history is available for SOURCE_DATE_EPOCH calculation.
         """
         if not self.path.is_dir():
             logger.info(f"Cloning {self.config.openwrt_git} to {self.path}")
@@ -62,6 +63,8 @@ class GitRepository:
             runner.run(["git", "clone", self.config.openwrt_git, str(self.path)], capture=True)
         else:
             logger.info("Updating existing repository")
+            # Unshallow if this is a shallow clone (needed for SOURCE_DATE_EPOCH)
+            self._git("fetch", "--unshallow", capture=True, ignore_errors=True)
             self._git("fetch", "--all", capture=True)
             self._git("reset", "--hard", f"origin/{self.config.branch}", capture=True)
 
