@@ -1,0 +1,20 @@
+{
+  "target": "x86/64",
+  "version": "25.12.0-rc2",
+  "generated_at": "2026-01-17T09:10:38.341694+00:00",
+  "packages": {
+    "good": 1248,
+    "bad": 106,
+    "unknown": 2
+  },
+  "images": {
+    "good": 0,
+    "bad": 6,
+    "unknown": 0
+  },
+  "totals": {
+    "good": 1248,
+    "bad": 112,
+    "unknown": 2
+  }
+}

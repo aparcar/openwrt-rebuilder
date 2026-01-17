@@ -1,0 +1,20 @@
+{
+  "target": "mediatek/filogic",
+  "version": "25.12.0-rc2",
+  "generated_at": "2026-01-17T09:10:38.320361+00:00",
+  "packages": {
+    "good": 1170,
+    "bad": 115,
+    "unknown": 2
+  },
+  "images": {
+    "good": 131,
+    "bad": 347,
+    "unknown": 0
+  },
+  "totals": {
+    "good": 1301,
+    "bad": 462,
+    "unknown": 2
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "version": "25.12.0-rc2",
+  "entries": [
+    {
+      "timestamp": "2026-01-17T06:31:24.823936+00:00",
+      "version_code": null,
+      "run_id": "21087177184",
+      "commit": "948d16e0",
+      "stats": {
+        "good": 3776,
+        "bad": 685,
+        "unknown": 6
+      },
+      "targets": {
+        "mediatek/filogic": {
+          "good": 1301,
+          "bad": 462,
+          "unknown": 2
+        },
+        "x86/64": {
+          "good": 1248,
+          "bad": 112,
+          "unknown": 2
+        },
+        "x86/generic": {
+          "good": 1227,
+          "bad": 111,
+          "unknown": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-01-16T12:41:13.377541+00:00",
+      "version_code": null,
+      "run_id": "21061083877",
+      "commit": "fd25c9a3",
+      "stats": {
+        "good": 3776,
+        "bad": 686,
+        "unknown": 5
+      },
+      "targets": {
+        "x86/64": {
+          "good": 1248,
+          "bad": 112,
+          "unknown": 2
+        },
+        "x86/generic": {
+          "good": 1227,
+          "bad": 111,
+          "unknown": 2
+        },
+        "mediatek/filogic": {
+          "good": 1301,
+          "bad": 463,
+          "unknown": 1
+        }
+      }
+    }
+  ]
+}
