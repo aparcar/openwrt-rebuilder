@@ -1,0 +1,33 @@
+{
+  "version": "SNAPSHOT",
+  "entries": [
+    {
+      "timestamp": "2026-01-17T03:47:15.343474+00:00",
+      "version_code": "SNAPSHOT",
+      "run_id": "21087174647",
+      "commit": "948d16e0",
+      "stats": {
+        "good": 3794,
+        "bad": 667,
+        "unknown": 0
+      },
+      "targets": {
+        "mediatek/filogic": {
+          "good": 1307,
+          "bad": 462,
+          "unknown": 0
+        },
+        "x86/64": {
+          "good": 1254,
+          "bad": 103,
+          "unknown": 0
+        },
+        "x86/generic": {
+          "good": 1233,
+          "bad": 102,
+          "unknown": 0
+        }
+      }
+    }
+  ]
+}
