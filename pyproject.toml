@@ -23,9 +23,7 @@ classifiers = [
 ]
 keywords = ["openwrt", "reproducible-builds", "firmware", "verification"]
 
-dependencies = [
-    "jinja2>=3.0",
-]
+dependencies = []
 
 [project.optional-dependencies]
 dev = [

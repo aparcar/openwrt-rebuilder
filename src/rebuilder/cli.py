@@ -1,22 +1,26 @@
-"""Command-line interface for the rebuilder."""
+"""Command-line interface for the rebuilder.
+
+Two build subcommands produce rebuilt artifacts into ``--output`` for an external
+verifier (rebuilderd) to compare:
+
+  * ``firmware`` — rebuild a whole target from source
+  * ``package``  — rebuild a single apk package via the SDK
+
+Everything is passed as CLI parameters; the tool reads no environment variables.
+"""
 
 import argparse
-import json
 import logging
+import shutil
 import sys
 from pathlib import Path
+from typing import Any
 
 from rebuilder import __version__
 from rebuilder.config import Config
 from rebuilder.core.build import OpenWrtBuilder
-from rebuilder.core.compare import Comparator
-from rebuilder.core.download import download_text
 from rebuilder.core.git import GitRepository
-from rebuilder.diffoscope import DiffoscopeRunner
-from rebuilder.models import Suite
-from rebuilder.parsers import parse_profiles, parse_sha256sums
-from rebuilder.reporting import write_rbvf_output
-from rebuilder.reporting.combine import combine_results
+from rebuilder.core.package import PackageRebuilder, SdkConfig
 
 
 def setup_logging(verbose: bool = False) -> None:
@@ -33,266 +37,155 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
         prog="openwrt-rebuilder",
-        description="Reproducible builds verification tool for OpenWrt firmware",
+        description="Rebuild OpenWrt firmware and packages for reproducibility checks",
     )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
 
-    parser.add_argument(
-        "--version",
-        action="version",
-        version=f"%(prog)s {__version__}",
-    )
-
-    parser.add_argument(
-        "-v",
-        "--verbose",
-        action="store_true",
-        help="Enable verbose output",
-    )
-
-    # Subcommands
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-    # Build command (default behavior)
-    build_parser = subparsers.add_parser("build", help="Run a rebuild verification")
-    build_parser.add_argument(
-        "-t",
-        "--target",
-        default=None,
-        help="Target architecture (e.g., x86/64, mediatek/filogic)",
+    # firmware: rebuild a whole target from source
+    fw = subparsers.add_parser("firmware", help="Rebuild a firmware target from source")
+    fw.add_argument("--target", required=True, help="Target/subtarget, e.g. x86/64")
+    fw.add_argument("--release", required=True, help="Release, e.g. SNAPSHOT or 24.10.0")
+    fw.add_argument(
+        "--output", required=True, type=Path, help="Directory to write rebuilt artifacts into"
     )
-    build_parser.add_argument(
-        "-V",
-        "--openwrt-version",
-        default=None,
-        dest="openwrt_version",
-        help="OpenWrt version to rebuild (e.g., SNAPSHOT, 23.05.2)",
+    fw.add_argument("-j", "--jobs", type=int, default=None, help="Number of parallel build jobs")
+    fw.add_argument(
+        "--build-dir", type=Path, default=None, help="Build tree (default: ./build/<release>)"
     )
-    build_parser.add_argument(
-        "-j",
-        "--jobs",
-        type=int,
-        default=None,
-        help="Number of parallel build jobs",
-    )
-    build_parser.add_argument(
-        "--no-diffoscope",
-        action="store_true",
-        help="Skip diffoscope analysis",
-    )
-    build_parser.add_argument(
-        "--validate-only",
-        action="store_true",
-        help="Only validate configuration, don't run rebuild",
-    )
+    fw.add_argument("--dl-dir", type=Path, default=None, help="Source download cache")
+    fw.add_argument("--source-mirror", default=None, help="Git mirror for OpenWrt sources")
+    fw.add_argument("--origin-url", default=None, help="Origin URL for published OpenWrt builds")
 
-    # Combine results command
-    combine_parser = subparsers.add_parser(
-        "combine", help="Combine results from multiple builds and generate HTML reports"
+    # package: rebuild a single apk package via the SDK
+    pkg = subparsers.add_parser("package", help="Rebuild a single apk package via the SDK")
+    pkg.add_argument("--package", required=True, help="apk filename, e.g. tmate-2.4.0-r3.apk")
+    pkg.add_argument("--target", required=True, help="Target/subtarget of the SDK, e.g. x86/64")
+    pkg.add_argument("--release", required=True, help="Release, e.g. SNAPSHOT or 24.10.0")
+    pkg.add_argument(
+        "--output", required=True, type=Path, help="Directory to write the rebuilt .apk into"
     )
-    combine_parser.add_argument(
-        "--results-dir",
-        type=Path,
-        default=Path("results"),
-        help="Directory containing result artifacts (default: results)",
-    )
-    combine_parser.add_argument(
-        "--output-dir",
-        type=Path,
-        default=Path("combined_results"),
-        help="Directory to write combined output (default: combined_results)",
-    )
-
-    # For backwards compatibility, also accept build args at top level
-    parser.add_argument(
-        "-t",
-        "--target",
-        default=None,
-        help="Target architecture (e.g., x86/64, mediatek/filogic)",
-    )
-    parser.add_argument(
-        "-V",
-        "--openwrt-version",
-        default=None,
-        dest="openwrt_version",
-        help="OpenWrt version to rebuild (e.g., SNAPSHOT, 23.05.2)",
-    )
-    parser.add_argument(
-        "-j",
-        "--jobs",
-        type=int,
-        default=None,
-        help="Number of parallel build jobs",
-    )
-    parser.add_argument(
-        "--no-diffoscope",
-        action="store_true",
-        help="Skip diffoscope analysis",
-    )
-    parser.add_argument(
-        "--validate-only",
-        action="store_true",
-        help="Only validate configuration, don't run rebuild",
-    )
+    pkg.add_argument("--upstream", default=None, help="Base URL for downloads.openwrt.org")
+    pkg.add_argument("--sdk-cache", type=Path, default=None, help="Cache dir for verified SDKs")
+    pkg.add_argument("--dl-dir", type=Path, default=None, help="OpenWrt source download cache")
+    pkg.add_argument("--keyring-dir", type=Path, default=None, help="Dir of OpenWrt GPG keys")
 
     return parser.parse_args(args)
 
 
-def run_rebuild(config: Config) -> int:
-    """Run the full rebuild workflow.
+def _publish_artifacts(bin_dir: Path, output_dir: Path) -> None:
+    """Copy the rebuilt artifacts (flat) into the output dir for the verifier."""
+    logger = logging.getLogger(__name__)
+    if not bin_dir.is_dir():
+        logger.warning("No artifacts under %s; leaving output empty for comparison", bin_dir)
+        return
+    output_dir.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for item in bin_dir.iterdir():
+        if item.is_file():
+            shutil.copy2(item, output_dir / item.name)
+            count += 1
+    logger.info("Published %d artifacts to %s", count, output_dir)
 
-    Args:
-        config: Rebuild configuration.
 
-    Returns:
-        Exit code (0 for success).
+def _publish_logs(logs_dir: Path, dest: Path) -> None:
+    """Copy OpenWrt's per-package build logs alongside the artifacts, if any."""
+    if logs_dir.is_dir():
+        if dest.exists():
+            shutil.rmtree(dest)
+        shutil.copytree(logs_dir, dest)
+
+
+def run_firmware(args: argparse.Namespace) -> int:
+    """Rebuild a firmware target from source into ``args.output``.
+
+    Builds exactly the way the buildbots do (full history checkout, pinned feeds,
+    restored release .config) but does no comparison — the verifier compares the
+    published files against ``args.output`` itself.
     """
     logger = logging.getLogger(__name__)
-    suite = Suite()
+
+    kwargs: dict[str, Any] = {"target": args.target, "version": args.release}
+    if args.build_dir:
+        kwargs["rebuild_dir"] = args.build_dir
+    if args.dl_dir:
+        kwargs["dl_dir"] = args.dl_dir
+    if args.jobs:
+        kwargs["jobs"] = args.jobs
+    if args.source_mirror:
+        kwargs["source_mirror"] = args.source_mirror
+    if args.origin_url:
+        kwargs["origin_url"] = args.origin_url
+    config = Config(**kwargs)
+    # Keep build logs under the build tree so they're cleaned up with it.
+    config.results_dir = config.rebuild_dir / "results"
+
+    errors = config.validate()
+    if errors:
+        for error in errors:
+            logger.error("Configuration error: %s", error)
+        return 1
+
+    logger.info("=== openwrt firmware rebuild ===")
+    logger.info("target:  %s", config.target)
+    logger.info("release: %s", config.version)
+    logger.info("output:  %s", args.output)
 
     try:
-        # Setup repository
-        logger.info("Setting up repository...")
         git = GitRepository(config)
         git.clone()
 
-        # Setup build
-        logger.info("Setting up build configuration...")
         builder = OpenWrtBuilder(config)
-
-        commit_string, commit = builder.setup_version_buildinfo()
-        logger.info(f"Version: {commit_string}, Commit: {commit}")
-
-        # For snapshot builds, include version code in results path
-        # e.g., SNAPSHOT/r28532-abc123def/x86/64/ or 25.12-SNAPSHOT/r28532-abc123def/x86/64/
-        if "SNAPSHOT" in config.version:
-            config.results_dir = (
-                config.results_dir.parent.parent / config.version / commit_string / config.target
-            )
-            logger.info(f"Snapshot results will be saved to: {config.results_dir}")
-
+        _, commit = builder.setup_version_buildinfo()
         builder.setup_feeds_buildinfo()
         git.checkout(commit)
         builder.update_feeds()
 
-        # Apply patches if any
         patches_dir = Path.cwd() / "patches" / config.version
         if patches_dir.exists():
             git.apply_patches(patches_dir)
 
         builder.setup_config_buildinfo()
-        builder.setup_kernel_magic()
-
-        # Download sources
         builder.download_sources()
-
-        # Get origin profiles before building
-        url = f"{config.origin_url}/{config.target_dir}/profiles.json"
-        origin_profiles = parse_profiles(download_text(url))
-
-        # Build
         builder.full_build()
 
-        # Compare results
-        logger.info("Comparing results...")
-        comparator = Comparator(config, suite)
-
-        profiles_path = config.bin_path / "targets" / config.target / "profiles.json"
-        if profiles_path.exists():
-            comparator.compare_profiles(origin_profiles, profiles_path)
-
-        target_index = config.bin_path / "targets" / config.target / "packages" / "index.json"
-        target_sums = config.bin_path / "targets" / config.target / "sha256sums"
-        if target_index.exists() and target_sums.exists():
-            origin_url = f"{config.origin_url}/{config.target_dir}/sha256sums"
-            origin_sums = parse_sha256sums(download_text(origin_url))
-            rebuild_sums = parse_sha256sums(target_sums.read_text())
-            comparator.compare_packages(
-                origin_sums, rebuild_sums, target_index, f"targets/{config.target}/packages"
-            )
-
-        if target_index.exists():
-            arch = json.loads(target_index.read_text()).get("architecture", "")
-            base_index = config.bin_path / "packages" / arch / "base" / "index.json"
-            base_sums = config.bin_path / "packages" / arch / "sha256sums"
-
-            if base_index.exists() and base_sums.exists():
-                origin_base_url = (
-                    f"{config.origin_url}/{config.release_dir}/packages/{arch}/sha256sums"
-                )
-                try:
-                    origin_base_sums = parse_sha256sums(download_text(origin_base_url))
-                    rebuild_base_sums = parse_sha256sums(base_sums.read_text())
-                    comparator.compare_packages(
-                        origin_base_sums, rebuild_base_sums, base_index, f"packages/{arch}/base"
-                    )
-                except Exception as e:
-                    logger.warning(f"Could not compare base packages: {e}")
-
-        # Run diffoscope and store unreproducible artifacts
-        if config.use_diffoscope:
-            logger.info("Running diffoscope analysis...")
-            runner = DiffoscopeRunner(config, kernel_version=builder.kernel_version)
-            unreproducible = suite.packages.unreproducible + suite.images.unreproducible
-            if unreproducible:
-                runner.run_parallel(unreproducible)
-
-                # Store first 5 unreproducible images and packages for manual inspection
-                logger.info("Storing unreproducible artifacts for manual inspection...")
-                runner.store_artifacts(suite.images.unreproducible, "images", limit=5)
-                runner.store_artifacts(suite.packages.unreproducible, "packages", limit=5)
-            else:
-                logger.info("No unreproducible results to analyze")
-
-        # Save results
-        logger.info("Saving results...")
-        config.results_dir.mkdir(parents=True, exist_ok=True)
-        (config.results_dir / "base").mkdir(exist_ok=True)
-        output_path = write_rbvf_output(config, suite)
-        logger.info(f"Results written to {output_path}")
-
-        # Summary
-        pkg_stats = suite.packages.stats()
-        img_stats = suite.images.stats()
-        logger.info(
-            f"Packages: {pkg_stats['good']} GOOD, "
-            f"{pkg_stats['bad']} BAD, "
-            f"{pkg_stats['unknown']} UNKNOWN"
-        )
-        logger.info(
-            f"Images: {img_stats['good']} GOOD, "
-            f"{img_stats['bad']} BAD, "
-            f"{img_stats['unknown']} UNKNOWN"
-        )
-
+        _publish_artifacts(config.bin_path / "targets" / config.target, args.output)
         return 0
-
-    except KeyboardInterrupt:
-        logger.info("Interrupted by user")
-        return 130
     except Exception as e:
-        logger.exception(f"Rebuild failed: {e}")
+        logger.exception(f"Firmware rebuild failed: {e}")
         return 1
+    finally:
+        _publish_logs(config.results_dir / "logs", args.output / "logs")
 
 
-def run_combine(results_dir: Path, output_dir: Path) -> int:
-    """Run the combine results workflow.
+def run_package(args: argparse.Namespace) -> int:
+    """Rebuild a single apk package into ``args.output``.
 
-    Args:
-        results_dir: Directory containing result artifacts.
-        output_dir: Directory to write combined output.
-
-    Returns:
-        Exit code (0 for success).
+    Returns 0 even when no artifact is produced (the verifier records BAD rather
+    than a hard failure).
     """
     logger = logging.getLogger(__name__)
 
+    sdk_kwargs: dict[str, Any] = {}
+    if args.upstream:
+        sdk_kwargs["upstream"] = args.upstream
+    if args.sdk_cache:
+        sdk_kwargs["sdk_cache"] = args.sdk_cache
+    if args.dl_dir:
+        sdk_kwargs["dl_dir"] = args.dl_dir
+    if args.keyring_dir:
+        sdk_kwargs["keyring_dir"] = args.keyring_dir
+
     try:
-        stats = combine_results(results_dir, output_dir)
-        if sum(stats.values()) == 0:
-            return 1
+        rebuilder = PackageRebuilder(SdkConfig(**sdk_kwargs))
+        result = rebuilder.rebuild(args.package, args.target, args.release, args.output)
+        if result is None:
+            logger.warning("No artifact produced; leaving output empty for comparison")
         return 0
     except Exception as e:
-        logger.exception(f"Combine failed: {e}")
+        logger.exception(f"Package rebuild failed: {e}")
         return 1
 
 
@@ -300,50 +193,15 @@ def main(args: list[str] | None = None) -> int:
     """Main entry point for the CLI."""
     parsed = parse_args(args)
     setup_logging(parsed.verbose)
-
     logger = logging.getLogger(__name__)
 
-    # Handle combine command
-    if parsed.command == "combine":
-        return run_combine(parsed.results_dir, parsed.output_dir)
+    if parsed.command == "firmware":
+        return run_firmware(parsed)
+    if parsed.command == "package":
+        return run_package(parsed)
 
-    # Handle build command or default (no subcommand)
-    # Build configuration from args and environment
-    config_kwargs = {}
-    if parsed.target:
-        config_kwargs["target"] = parsed.target
-    if parsed.openwrt_version:
-        config_kwargs["version"] = parsed.openwrt_version
-    if parsed.jobs:
-        config_kwargs["jobs"] = parsed.jobs
-    if parsed.no_diffoscope:
-        config_kwargs["use_diffoscope"] = False
-
-    try:
-        config = Config(**config_kwargs)
-    except Exception as e:
-        logger.error(f"Failed to create configuration: {e}")
-        return 1
-
-    # Validate configuration
-    errors = config.validate()
-    if errors:
-        logger.error("Configuration validation failed:")
-        for error in errors:
-            logger.error(f"  - {error}")
-        return 1
-
-    if parsed.validate_only:
-        logger.info("Configuration is valid")
-        logger.info(f"  Target: {config.target}")
-        logger.info(f"  Version: {config.version}")
-        logger.info(f"  Branch: {config.branch}")
-        logger.info(f"  Jobs: {config.jobs}")
-        return 0
-
-    # Run the rebuild
-    logger.info(f"Starting rebuild for {config.target} @ {config.version}")
-    return run_rebuild(config)
+    logger.error("no command given; use 'firmware' or 'package'")
+    return 1
 
 
 if __name__ == "__main__":

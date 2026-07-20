@@ -2,19 +2,22 @@
 
 from dataclasses import dataclass, field
 from multiprocessing import cpu_count
-from os import environ
 from pathlib import Path
 
 
 @dataclass
 class Config:
-    """Immutable configuration for a rebuild run."""
+    """Immutable configuration for a rebuild run.
+
+    All values come from CLI parameters (see cli.py); there is no environment
+    fallback. Paths left as ``None`` are derived under the current directory.
+    """
 
     # Target architecture (e.g., "x86/64", "mediatek/filogic")
-    target: str = field(default_factory=lambda: environ.get("TARGET", "x86/64").replace("-", "/"))
+    target: str = "x86/64"
 
     # OpenWrt version to rebuild
-    version: str = field(default_factory=lambda: environ.get("VERSION", "SNAPSHOT"))
+    version: str = "SNAPSHOT"
 
     # Base directory for the build
     rebuild_dir: Path = field(default=None)  # type: ignore[assignment]
@@ -26,34 +29,25 @@ class Config:
     results_dir: Path = field(default=None)  # type: ignore[assignment]
 
     # Origin URL for official OpenWrt builds
-    origin_url: str = field(
-        default_factory=lambda: environ.get("ORIGIN_URL", "https://downloads.openwrt.org")
-    )
+    origin_url: str = "https://downloads.openwrt.org"
 
     # Mirror URL for OpenWrt sources (replaces git.openwrt.org which often returns 503)
     # Use "https://codeberg.org/openwrt/" or "https://github.com/openwrt/"
-    source_mirror: str = field(
-        default_factory=lambda: environ.get("SOURCE_MIRROR", "https://codeberg.org/openwrt/")
-    )
-
-    # Whether to run diffoscope on unreproducible builds
-    use_diffoscope: bool = field(default_factory=lambda: bool(environ.get("USE_DIFFOSCOPE", True)))
+    source_mirror: str = "https://codeberg.org/openwrt/"
 
     # Number of parallel jobs
-    jobs: int = field(default_factory=lambda: int(environ.get("j", cpu_count() + 1)))
+    jobs: int = field(default_factory=lambda: cpu_count() + 1)
 
     def __post_init__(self) -> None:
         """Initialize derived paths after dataclass initialization."""
         if self.rebuild_dir is None:
-            self.rebuild_dir = Path(environ.get("REBUILD_DIR", Path.cwd() / "build" / self.version))
+            self.rebuild_dir = Path.cwd() / "build" / self.version
 
         if self.dl_dir is None:
-            self.dl_dir = Path(environ.get("DL_PATH", self.rebuild_dir / "dl"))
+            self.dl_dir = self.rebuild_dir / "dl"
 
         if self.results_dir is None:
-            self.results_dir = Path(
-                environ.get("RESULTS_DIR", Path.cwd() / "results" / self.version / self.target)
-            )
+            self.results_dir = Path.cwd() / "results" / self.version / self.target
 
     @property
     def openwrt_git(self) -> str:
@@ -87,11 +81,6 @@ class Config:
             return f"openwrt-{self.version.removesuffix('-SNAPSHOT')}"
         # e.g., "23.05.2" -> "openwrt-23.05"
         return f"openwrt-{self.version.rsplit('.', maxsplit=1)[0]}"
-
-    @classmethod
-    def from_env(cls) -> "Config":
-        """Create configuration from environment variables."""
-        return cls()
 
     def validate(self) -> list[str]:
         """Validate configuration and return list of errors (empty if valid)."""

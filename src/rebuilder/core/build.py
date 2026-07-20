@@ -113,12 +113,19 @@ class OpenWrtBuilder:
         url = f"{self.config.origin_url}/{self.config.target_dir}/config.buildinfo"
         config_content = download_text(url)
 
-        # Add our overrides to speed up the build
+        # Overrides that skip the distributable side-artifacts the official build
+        # also ships (ImageBuilder, SDK, standalone toolchain, kernel-debug) —
+        # none affect the firmware image bytes.
+        #
+        # We deliberately do NOT set CONFIG_BPF_TOOLCHAIN_HOST: config.buildinfo
+        # leaves CONFIG_BPF_TOOLCHAIN_* unset, so the official build compiles the
+        # BPF LLVM from source. Forcing the host toolchain uses whatever clang the
+        # builder happens to have (a different version), which breaks
+        # package/kernel/bpf-headers and makes any eBPF non-reproducible.
         config_overrides = """
 CONFIG_COLLECT_KERNEL_DEBUG=n
 CONFIG_IB=n
 CONFIG_SDK=n
-CONFIG_BPF_TOOLCHAIN_HOST=y
 CONFIG_MAKE_TOOLCHAIN=n
 """
         (self.config.rebuild_dir / ".config").write_text(config_content + config_overrides)
