@@ -75,13 +75,28 @@ class GitRepository:
         self._git("checkout", self.config.branch, capture=True)
         self._git("reset", "--hard", commit, capture=True)
 
-        # For release versions, create a version tag branch
+        # For a tagged release, build from the tag: OpenWrt hardcodes
+        # VERSION_NUMBER/VERSION_CODE into include/version.mk at the tag, which
+        # drives image filenames and /etc/openwrt_release. Branch snapshots
+        # (e.g. "24.10-SNAPSHOT") have no such tag, so fall back to the pinned
+        # commit already checked out above.
         if self.config.version != "SNAPSHOT":
             tag = f"v{self.config.version}"
-            # Delete existing branch if it exists
-            self._git("branch", "-f", "-D", tag, capture=True, ignore_errors=True)
-            # Create and checkout the tag branch
-            self._git("checkout", tag, "-f", "-b", tag, capture=True)
+            if self._tag_exists(tag):
+                # Delete existing branch if it exists, then check out the tag
+                self._git("branch", "-f", "-D", tag, capture=True, ignore_errors=True)
+                self._git("checkout", tag, "-f", "-b", tag, capture=True)
+            else:
+                logger.info(f"No tag {tag}; building from commit {commit}")
+
+    def _tag_exists(self, tag: str) -> bool:
+        """Return True if the given annotated/lightweight tag resolves to a commit."""
+        result = self.runner.run(
+            ["git", "rev-parse", "-q", "--verify", f"refs/tags/{tag}^{{commit}}"],
+            capture=True,
+            ignore_errors=True,
+        )
+        return result.returncode == 0
 
     def get_version_string(self) -> str:
         """Get the version string from getver.sh.
