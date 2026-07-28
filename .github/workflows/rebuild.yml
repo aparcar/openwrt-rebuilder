@@ -80,7 +80,7 @@ jobs:
 
       # The rebuilt artifacts (plus build logs) are the deliverable; comparing
       # them against downloads.openwrt.org is the caller's job (rebuilderd).
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: firmware-${{ env.RELEASE }}-${{ env.target_slug }}
