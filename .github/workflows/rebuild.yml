@@ -40,7 +40,7 @@ jobs:
         run: echo "target_slug=$(echo '${{ matrix.target }}' | tr '/' '_')" >> "$GITHUB_ENV"
 
       - name: Cache OpenWrt git repository
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ./build/${{ env.RELEASE }}/.git
           key: openwrt-git-${{ env.RELEASE }}-${{ github.sha }}
@@ -49,7 +49,7 @@ jobs:
             openwrt-git-
 
       - name: Cache downloads
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ./build/${{ env.RELEASE }}/dl
           key: openwrt-dl-${{ env.RELEASE }}-${{ env.target_slug }}-${{ github.run_id }}
@@ -59,7 +59,7 @@ jobs:
             openwrt-dl-
 
       - name: Cache feeds
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ./build/${{ env.RELEASE }}/feeds
