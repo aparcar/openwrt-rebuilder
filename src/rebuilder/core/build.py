@@ -3,12 +3,55 @@
 import logging
 import re
 from os import symlink
+from pathlib import Path
 
 from rebuilder.config import Config
-from rebuilder.core.command import CommandRunner
+from rebuilder.core.command import CommandError, CommandRunner
 from rebuilder.core.download import download_text
 
 logger = logging.getLogger(__name__)
+
+LOG_TAIL_LINES = 60
+"""Lines quoted from each failed package's build log."""
+
+MAX_FAILED_LOGS = 5
+"""Failed packages whose log tails are quoted; the rest are only listed."""
+
+_FAILED_DIR = re.compile(r"ERROR: (\S+) (?:\[\S+\] )?failed to build")
+
+
+def failure_report(log_dir: Path) -> str:
+    """Describe the failed packages from OpenWrt's BUILD_LOG directory.
+
+    rebuilderd keeps only the backend's stdout/stderr, and the log directory
+    dies with the build's tempdir, so the failure has to be quoted into the
+    output itself. OpenWrt appends one ``ERROR: <dir> failed to build.`` line
+    per failure to ``<log_dir>/<subdir>/error.txt`` — packages whose errors
+    IGNORE_ERRORS let through are listed too, so the fatal one is among them,
+    not necessarily last under -j.
+    """
+    errors = [
+        line.strip()
+        for error_txt in sorted(log_dir.glob("*/error.txt"))
+        for line in error_txt.read_text(errors="replace").splitlines()
+        if line.strip()
+    ]
+    if not errors:
+        return ""
+
+    report = ["failed packages (from error.txt):", *(f"  {line}" for line in errors)]
+    for line in errors[:MAX_FAILED_LOGS]:
+        match = _FAILED_DIR.search(line)
+        if not match:
+            continue
+        logs = sorted((log_dir / match.group(1)).rglob("*.txt"), key=lambda p: p.stat().st_mtime)
+        if not logs:
+            continue
+        tail = logs[-1].read_text(errors="replace").splitlines()[-LOG_TAIL_LINES:]
+        report += [f"--- tail of {logs[-1].relative_to(log_dir)} ---", *tail]
+    if len(errors) > MAX_FAILED_LOGS:
+        report.append(f"(logs of the other {len(errors) - MAX_FAILED_LOGS} failures not shown)")
+    return "\n".join(report)
 
 
 class BuildError(Exception):
@@ -64,16 +107,25 @@ class OpenWrtBuilder:
             verbose: If True, show make output. Otherwise suppress it.
         """
         j = jobs if jobs is not None else self.config.jobs
+        log_dir = self.config.results_dir / "logs"
         cmd = [
             "make",
-            "IGNORE_ERRORS='n m'",
+            # No shell here: quotes would reach make literally. (package/Makefile
+            # then matched neither word and fell back to its "n m" default.)
+            "IGNORE_ERRORS=n m",
             "BUILD_LOG=1",
-            f"BUILD_LOG_DIR={self.config.results_dir}/logs",
+            f"BUILD_LOG_DIR={log_dir}",
             f"-j{j}",
             *targets,
         ]
-        # Capture output to suppress it (logs are written to BUILD_LOG_DIR)
-        self.runner.run(cmd, capture=not verbose)
+        # Capture output to suppress it (logs are written to BUILD_LOG_DIR).
+        # OpenWrt prints "ERROR: <pkg> failed to build." to stdout, not stderr,
+        # so the CommandError summary covers both.
+        try:
+            self.runner.run(cmd, capture=not verbose)
+        except CommandError as err:
+            report = failure_report(log_dir) or f"no error.txt under {log_dir}"
+            raise BuildError(" ".join(targets), f"{err}\n{report}") from err
 
     def setup_feeds_buildinfo(self) -> str:
         """Download and configure package feeds.

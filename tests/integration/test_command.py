@@ -58,6 +58,39 @@ class TestCommandRunner:
         result = runner.run(["cat"], capture=True, input_data="test input")
         assert result.stdout == "test input"
 
+    def test_failing_command_reports_its_output(self, tmp_path: Path):
+        """A captured failure quotes the error instead of just the exit code."""
+        runner = CommandRunner(cwd=tmp_path)
+        with pytest.raises(CommandError) as exc_info:
+            runner.run(
+                ["sh", "-c", "echo 'make: *** [Makefile:1: all] Error 2' >&2; exit 2"], capture=True
+            )
+        assert "make: *** [Makefile:1: all] Error 2" in str(exc_info.value)
+
+    def test_tee_streams_and_keeps_the_error(self, tmp_path: Path, capfd):
+        """tee shows the output live and still explains the failure."""
+        runner = CommandRunner(cwd=tmp_path)
+        script = "echo compiling; echo 'cc: fatal error: no input files' >&2; exit 1"
+        with pytest.raises(CommandError) as exc_info:
+            runner.run(["sh", "-c", script], tee=True)
+
+        assert "compiling" in capfd.readouterr().out
+        quoted = str(exc_info.value).splitlines()[1:]
+        assert quoted == ["  cc: fatal error: no input files"]  # only error lines are quoted
+
+    def test_tee_success_returns_no_captured_output(self, tmp_path: Path):
+        """Output went to the terminal, so the result carries none of it."""
+        runner = CommandRunner(cwd=tmp_path)
+        result = runner.run(["echo", "hello"], tee=True)
+        assert result.returncode == 0
+        assert result.stdout is None
+
+    def test_tee_and_capture_are_exclusive(self, tmp_path: Path):
+        """Asking for both is a programming error, not a silent preference."""
+        runner = CommandRunner(cwd=tmp_path)
+        with pytest.raises(ValueError):
+            runner.run(["true"], tee=True, capture=True)
+
 
 class TestRunCommandFunction:
     """Tests for the run_command convenience function."""

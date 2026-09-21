@@ -23,7 +23,7 @@ import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
-from rebuilder.core.command import CommandRunner
+from rebuilder.core.command import CommandError, CommandRunner
 from rebuilder.core.download import DownloadError, download_file, download_text
 
 logger = logging.getLogger(__name__)
@@ -259,18 +259,27 @@ class PackageRebuilder:
         # rebuild must omit it too or every apk would differ by a signature we
         # can't reproduce.
         dl = f"DL_DIR={self.config.dl_dir}"
-        runner.run(["make", dl, f"package/{src}/clean", "V=s"])
-        runner.run(
-            [
-                "make",
-                dl,
-                f"package/{src}/compile",
-                "V=s",
-                f"-j{os.cpu_count() or 1}",
-                "CONFIG_SIGNED_PACKAGES=",
-                "CONFIG_SIGN_EACH_PACKAGE=",
-            ]
-        )
+        # tee: the build output belongs in the worker log, but a failure has to
+        # quote the error lines rather than just the make exit code.
+        try:
+            runner.run(["make", dl, f"package/{src}/clean", "V=s"], tee=True)
+            runner.run(
+                [
+                    "make",
+                    dl,
+                    f"package/{src}/compile",
+                    "V=s",
+                    f"-j{os.cpu_count() or 1}",
+                    "CONFIG_SIGNED_PACKAGES=",
+                    "CONFIG_SIGN_EACH_PACKAGE=",
+                ],
+                tee=True,
+            )
+        except CommandError as err:
+            raise PackageRebuildError(
+                f"building {source.name} (source package {src}) for "
+                f"{source.target} {source.release} failed:\n{err}"
+            ) from err
 
     def _source_package(self, work: Path, binpkg: str) -> str:
         """Map a binary package to its source package via tmp/.packageinfo.

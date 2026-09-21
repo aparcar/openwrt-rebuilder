@@ -71,7 +71,7 @@ class GitRepository:
         Args:
             commit: Commit hash or reference to checkout.
         """
-        logger.info(f"Checking out {self.config.branch}")
+        logger.info(f"Checking out {commit} on {self.config.branch}")
         self._git("checkout", self.config.branch, capture=True)
         self._git("reset", "--hard", commit, capture=True)
 
