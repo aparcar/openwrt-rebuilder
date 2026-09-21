@@ -33,6 +33,14 @@ class TestConfig:
         assert config.version == "23.05.2"
         assert config.jobs == 4
 
+    def test_relative_paths_become_absolute(self, tmp_path: Path, monkeypatch):
+        """make runs in rebuild_dir, so paths handed to it must not be relative."""
+        monkeypatch.chdir(tmp_path)
+        config = Config(rebuild_dir=Path("here"))
+        assert config.rebuild_dir == tmp_path / "here"
+        assert config.dl_dir == tmp_path / "here" / "dl"
+        assert config.results_dir.is_absolute()
+
     def test_bin_path(self, config: Config):
         """Test bin_path property."""
         assert config.bin_path == config.rebuild_dir / "bin"

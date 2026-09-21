@@ -49,6 +49,13 @@ class Config:
         if self.results_dir is None:
             self.results_dir = Path.cwd() / "results" / self.version / self.target
 
+        # Absolute: these are handed to make, which runs in rebuild_dir (and
+        # sub-makes elsewhere), so a relative --build-dir would make OpenWrt
+        # write BUILD_LOG_DIR to build/build/... while we read build/...
+        self.rebuild_dir = self.rebuild_dir.absolute()
+        self.dl_dir = self.dl_dir.absolute()
+        self.results_dir = self.results_dir.absolute()
+
     @property
     def openwrt_git(self) -> str:
         """Git URL for the main OpenWrt repository."""

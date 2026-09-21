@@ -18,9 +18,19 @@ from typing import Any
 
 from rebuilder import __version__
 from rebuilder.config import Config
-from rebuilder.core.build import OpenWrtBuilder
+from rebuilder.core.build import BuildError, OpenWrtBuilder
+from rebuilder.core.command import CommandError
+from rebuilder.core.download import DownloadError
 from rebuilder.core.git import GitRepository
-from rebuilder.core.package import PackageRebuilder, SdkConfig
+from rebuilder.core.package import PackageRebuilder, PackageRebuildError, SdkConfig
+
+EXPECTED_FAILURES = (CommandError, DownloadError, BuildError, PackageRebuildError)
+"""Ways a rebuild is known to fail: report them, don't dump a traceback.
+
+A failing build is the normal outcome of an unreproducible or broken package —
+the make error matters, the Python call stack that ran make does not. Anything
+else is a bug here and keeps its traceback.
+"""
 
 
 def setup_logging(verbose: bool = False) -> None:
@@ -153,6 +163,10 @@ def run_firmware(args: argparse.Namespace) -> int:
 
         _publish_artifacts(config.bin_path / "targets" / config.target, args.output)
         return 0
+    except EXPECTED_FAILURES as e:
+        logger.error("Firmware rebuild failed: %s", e)
+        logger.debug("traceback", exc_info=True)
+        return 1
     except Exception as e:
         logger.exception(f"Firmware rebuild failed: {e}")
         return 1
@@ -184,6 +198,10 @@ def run_package(args: argparse.Namespace) -> int:
         if result is None:
             logger.warning("No artifact produced; leaving output empty for comparison")
         return 0
+    except EXPECTED_FAILURES as e:
+        logger.error("Package rebuild failed: %s", e)
+        logger.debug("traceback", exc_info=True)
+        return 1
     except Exception as e:
         logger.exception(f"Package rebuild failed: {e}")
         return 1
