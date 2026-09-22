@@ -86,17 +86,28 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
 
 
 def _publish_artifacts(bin_dir: Path, output_dir: Path) -> None:
-    """Copy the rebuilt artifacts (flat) into the output dir for the verifier."""
+    """Copy the rebuilt artifacts (flat) into the output dir for the verifier.
+
+    Publishes the files directly in the target dir (images, metadata) and every
+    apk below it: the target packages and kmods the same build produces land in
+    subdirectories (packages/), while the verifier matches rebuilt files by
+    filename in a flat output dir.
+    """
     logger = logging.getLogger(__name__)
     if not bin_dir.is_dir():
         logger.warning("No artifacts under %s; leaving output empty for comparison", bin_dir)
         return
     output_dir.mkdir(parents=True, exist_ok=True)
+    artifacts = [item for item in bin_dir.iterdir() if item.is_file()]
+    artifacts += sorted(item for item in bin_dir.glob("*/**/*.apk") if item.is_file())
     count = 0
-    for item in bin_dir.iterdir():
-        if item.is_file():
-            shutil.copy2(item, output_dir / item.name)
-            count += 1
+    for item in artifacts:
+        dest = output_dir / item.name
+        if dest.exists():
+            logger.warning("Skipping %s: %s already published", item, item.name)
+            continue
+        shutil.copy2(item, dest)
+        count += 1
     logger.info("Published %d artifacts to %s", count, output_dir)
 
 
