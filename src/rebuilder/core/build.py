@@ -136,7 +136,8 @@ class OpenWrtBuilder:
         logger.info("Setting up feeds from buildinfo")
         url = f"{self.config.origin_url}/{self.config.target_dir}/feeds.buildinfo"
         feeds = download_text(url)
-        # Use mirror instead of git.openwrt.org (often returns 503)
+        # Only with an explicit mirror: upstream keeps the feeds under /feed/ and
+        # /project/, not next to openwrt.git, so there is nothing to rewrite.
         if self.config.source_mirror:
             feeds = feeds.replace("https://git.openwrt.org/feed/", self.config.source_mirror)
             feeds = feeds.replace("https://git.openwrt.org/project/", self.config.source_mirror)

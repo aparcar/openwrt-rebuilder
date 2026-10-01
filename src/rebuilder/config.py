@@ -4,6 +4,9 @@ from dataclasses import dataclass, field
 from multiprocessing import cpu_count
 from pathlib import Path
 
+UPSTREAM_GIT = "https://git.openwrt.org/openwrt/"
+"""Where openwrt.git lives upstream; feeds are under /feed/ and /project/ instead."""
+
 
 @dataclass
 class Config:
@@ -31,9 +34,11 @@ class Config:
     # Origin URL for official OpenWrt builds
     origin_url: str = "https://downloads.openwrt.org"
 
-    # Mirror URL for OpenWrt sources (replaces git.openwrt.org which often returns 503)
-    # Use "https://codeberg.org/openwrt/" or "https://github.com/openwrt/"
-    source_mirror: str = "https://codeberg.org/openwrt/"
+    # Optional mirror for OpenWrt sources, e.g. "https://codeberg.org/openwrt/" or
+    # "https://github.com/openwrt/". None uses git.openwrt.org and the feed URLs
+    # exactly as published in feeds.buildinfo. A mirror replaces both, since it
+    # hosts openwrt.git and the feeds side by side under one prefix.
+    source_mirror: str | None = None
 
     # Number of parallel jobs
     jobs: int = field(default_factory=lambda: cpu_count() + 1)
@@ -59,7 +64,7 @@ class Config:
     @property
     def openwrt_git(self) -> str:
         """Git URL for the main OpenWrt repository."""
-        return f"{self.source_mirror}openwrt.git"
+        return f"{self.source_mirror or UPSTREAM_GIT}openwrt.git"
 
     @property
     def bin_path(self) -> Path:

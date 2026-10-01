@@ -41,7 +41,7 @@ uv run openwrt-rebuilder firmware \
 | `-j`, `--jobs`    | CPU count + 1                   | Number of parallel build jobs                              |
 | `--build-dir`     | `./build/{release}`             | Build tree                                                 |
 | `--dl-dir`        | `{build-dir}/dl`                | Source download cache                                      |
-| `--source-mirror` | `https://codeberg.org/openwrt/` | Git mirror for OpenWrt sources                             |
+| `--source-mirror` | none (`git.openwrt.org`)        | Git mirror for openwrt.git and feeds, e.g. Codeberg        |
 | `--origin-url`    | `https://downloads.openwrt.org` | Origin URL for published OpenWrt builds                    |
 
 ### Rebuild a single apk package
