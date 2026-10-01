@@ -41,6 +41,14 @@ class TestConfig:
         assert config.dl_dir == tmp_path / "here" / "dl"
         assert config.results_dir.is_absolute()
 
+    def test_clones_from_upstream_by_default(self, config: Config):
+        assert config.source_mirror is None
+        assert config.openwrt_git == "https://git.openwrt.org/openwrt/openwrt.git"
+
+    def test_clones_from_mirror_when_given(self, tmp_path: Path):
+        config = Config(rebuild_dir=tmp_path, source_mirror="https://codeberg.org/openwrt/")
+        assert config.openwrt_git == "https://codeberg.org/openwrt/openwrt.git"
+
     def test_bin_path(self, config: Config):
         """Test bin_path property."""
         assert config.bin_path == config.rebuild_dir / "bin"

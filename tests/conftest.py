@@ -17,6 +17,5 @@ def config(tmp_path: Path) -> Config:
         dl_dir=tmp_path / "dl",
         results_dir=tmp_path / "results",
         origin_url="https://downloads.openwrt.org",
-        source_mirror="https://codeberg.org/openwrt/",
         jobs=2,
     )

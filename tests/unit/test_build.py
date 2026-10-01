@@ -3,8 +3,37 @@
 import os
 from pathlib import Path
 
+import pytest
+
+from rebuilder.config import Config
 from rebuilder.core import build
-from rebuilder.core.build import failure_report
+from rebuilder.core.build import OpenWrtBuilder, failure_report
+
+FEEDS_BUILDINFO = """\
+src-git packages https://git.openwrt.org/feed/packages.git^0123abc
+src-git luci https://git.openwrt.org/project/luci.git^4567def
+"""
+
+
+class TestFeedsBuildinfo:
+    """feeds.conf written from the published feeds.buildinfo."""
+
+    @pytest.fixture(autouse=True)
+    def _published(self, monkeypatch):
+        monkeypatch.setattr(build, "download_text", lambda url: FEEDS_BUILDINFO)
+
+    def test_upstream_feeds_used_as_published(self, config: Config):
+        config.rebuild_dir.mkdir(parents=True)
+        assert OpenWrtBuilder(config).setup_feeds_buildinfo() == FEEDS_BUILDINFO
+        assert (config.rebuild_dir / "feeds.conf").read_text() == FEEDS_BUILDINFO
+
+    def test_mirror_replaces_feed_urls(self, config: Config):
+        config.rebuild_dir.mkdir(parents=True)
+        config.source_mirror = "https://codeberg.org/openwrt/"
+        feeds = OpenWrtBuilder(config).setup_feeds_buildinfo()
+        assert "git.openwrt.org" not in feeds
+        assert "https://codeberg.org/openwrt/packages.git^0123abc" in feeds
+        assert "https://codeberg.org/openwrt/luci.git^4567def" in feeds
 
 
 def _log(log_dir: Path, rel: str, text: str, mtime: int = 1000) -> None:

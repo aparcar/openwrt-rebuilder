@@ -66,7 +66,12 @@ def parse_args(args: list[str] | None = None) -> argparse.Namespace:
         "--build-dir", type=Path, default=None, help="Build tree (default: ./build/<release>)"
     )
     fw.add_argument("--dl-dir", type=Path, default=None, help="Source download cache")
-    fw.add_argument("--source-mirror", default=None, help="Git mirror for OpenWrt sources")
+    fw.add_argument(
+        "--source-mirror",
+        default=None,
+        help="Git mirror for openwrt.git and the feeds, e.g. https://codeberg.org/openwrt/ "
+        "(default: git.openwrt.org)",
+    )
     fw.add_argument("--origin-url", default=None, help="Origin URL for published OpenWrt builds")
 
     # package: rebuild a single apk package via the SDK
