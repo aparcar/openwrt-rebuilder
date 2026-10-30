@@ -98,24 +98,38 @@ class OpenWrtBuilder:
             raise ValueError("Kernel version not set - call setup_kernel_magic first")
         return self._kernel_version
 
-    def make(self, *targets: str, jobs: int | None = None, verbose: bool = False) -> None:
+    def make(
+        self,
+        *targets: str,
+        jobs: int | None = None,
+        verbose: bool = False,
+        keep_going: bool = False,
+    ) -> None:
         """Run make with the specified targets.
 
         Args:
             *targets: Make targets to build.
             jobs: Number of parallel jobs (default: from config).
             verbose: If True, show make output. Otherwise suppress it.
+            keep_going: If True, build every target that doesn't depend on a
+                failed one before reporting the failure (make -k).
         """
         j = jobs if jobs is not None else self.config.jobs
         log_dir = self.config.results_dir / "logs"
         cmd = [
             "make",
+            # Skip packages that fail to build whatever they are selected as
+            # (n, m or y): a broken package only loses its own artifacts, which
+            # the verifier records as missing. The buildbot's "n m" lets a single
+            # broken =y package (e.g. one device's U-Boot) fail the whole target.
+            # Only package/Makefile reads this.
             # No shell here: quotes would reach make literally. (package/Makefile
-            # then matched neither word and fell back to its "n m" default.)
-            "IGNORE_ERRORS=n m",
+            # then matched no word and fell back to its "n m" default.)
+            "IGNORE_ERRORS=n m y",
             "BUILD_LOG=1",
             f"BUILD_LOG_DIR={log_dir}",
             f"-j{j}",
+            *(["-k"] if keep_going else []),
             *targets,
         ]
         # Capture output to suppress it (logs are written to BUILD_LOG_DIR).
@@ -287,13 +301,23 @@ CONFIG_MAKE_TOOLCHAIN=n
         """Build all packages."""
         logger.info("Building packages")
         self.make("package/compile")
+        # make skipped the failed packages (see IGNORE_ERRORS), so quote them here
+        report = failure_report(self.config.results_dir / "logs")
+        if report:
+            logger.warning(
+                "Some packages failed to build, their artifacts are missing:\n%s", report
+            )
         self.make("package/install")
         self.make("package/index", "CONFIG_SIGNED_PACKAGES=")
 
     def build_images(self) -> None:
-        """Build firmware images."""
+        """Build firmware images.
+
+        The devices' images are independent, so keep building the others when
+        one fails (e.g. because the U-Boot it embeds failed to build).
+        """
         logger.info("Building images")
-        self.make("target/install")
+        self.make("target/install", keep_going=True)
 
     def generate_metadata(self) -> None:
         """Generate build metadata files."""
@@ -302,10 +326,24 @@ CONFIG_MAKE_TOOLCHAIN=n
         self.make("json_overview_image_info", "V=s", jobs=1)
         self.make("checksum", "V=s")
 
-    def full_build(self) -> None:
-        """Run a complete build from source to images."""
+    def full_build(self) -> list[BuildError]:
+        """Run a complete build from source to images.
+
+        Everything needs the toolchain and the kernel, so their failure is fatal.
+        Past that, a failure only loses the artifacts it would have produced:
+        the remaining steps still run, so the caller can publish whatever got
+        built and the verifier records the rest as missing.
+
+        Returns:
+            The failures of the steps after the kernel, empty if all succeeded.
+        """
         self.build_toolchain()
         self.build_target()
-        self.build_packages()
-        self.build_images()
-        self.generate_metadata()
+        failures = []
+        for step in (self.build_packages, self.build_images, self.generate_metadata):
+            try:
+                step()
+            except BuildError as err:
+                logger.warning("%s\nContinuing with the artifacts built so far", err)
+                failures.append(err)
+        return failures

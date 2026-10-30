@@ -175,9 +175,17 @@ def run_firmware(args: argparse.Namespace) -> int:
 
         builder.setup_config_buildinfo()
         builder.download_sources()
-        builder.full_build()
+        failures = builder.full_build()
 
+        # A partial build is not an error: like a missing package artifact, the
+        # verifier records whatever is missing from the output as BAD.
         _publish_artifacts(config.bin_path / "targets" / config.target, args.output)
+        if failures:
+            logger.warning(
+                "Rebuild incomplete, %d build steps failed: %s",
+                len(failures),
+                ", ".join(err.step for err in failures),
+            )
         return 0
     except EXPECTED_FAILURES as e:
         logger.error("Firmware rebuild failed: %s", e)

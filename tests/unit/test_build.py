@@ -7,7 +7,8 @@ import pytest
 
 from rebuilder.config import Config
 from rebuilder.core import build
-from rebuilder.core.build import OpenWrtBuilder, failure_report
+from rebuilder.core.build import BuildError, OpenWrtBuilder, failure_report
+from rebuilder.core.command import CommandError
 
 FEEDS_BUILDINFO = """\
 src-git packages https://git.openwrt.org/feed/packages.git^0123abc
@@ -101,3 +102,89 @@ class TestFailureReport:
         assert "ERROR: package/b failed to build." in report  # still listed
         assert "b log" not in report
         assert "(logs of the other 1 failures not shown)" in report
+
+
+class FakeRunner:
+    """Records make invocations; fails the ones naming a target in ``failing``."""
+
+    def __init__(self, failing: tuple[str, ...] = ()):
+        self.failing = failing
+        self.cmds: list[list[str]] = []
+
+    def run(self, cmd, **kwargs):
+        self.cmds.append(list(cmd))
+        if any(target in cmd for target in self.failing):
+            raise CommandError(cmd, 2)
+
+    def targets(self) -> list[str]:
+        """The first make target of every invocation, in order."""
+        return [
+            next(arg for arg in cmd[1:] if "=" not in arg and not arg.startswith("-"))
+            for cmd in self.cmds
+        ]
+
+
+def _builder(config: Config, runner: FakeRunner) -> OpenWrtBuilder:
+    builder = OpenWrtBuilder(config)
+    builder.runner = runner  # type: ignore[assignment]
+    return builder
+
+
+class TestMake:
+    """The make command line."""
+
+    def test_ignores_failed_packages_of_any_selection(self, config: Config):
+        runner = FakeRunner()
+        _builder(config, runner).make("package/compile")
+        assert "IGNORE_ERRORS=n m y" in runner.cmds[0]
+        assert "-k" not in runner.cmds[0]
+
+    def test_images_keep_going(self, config: Config):
+        runner = FakeRunner()
+        _builder(config, runner).build_images()
+        assert runner.cmds == [[*runner.cmds[0][:-2], "-k", "target/install"]]
+
+
+class TestFullBuild:
+    """Which failures stop the build and which only lose their artifacts."""
+
+    def test_all_steps_succeed(self, config: Config):
+        assert _builder(config, FakeRunner()).full_build() == []
+
+    @pytest.mark.parametrize("failing", ["tools/install", "toolchain/install", "target/compile"])
+    def test_toolchain_and_kernel_are_fatal(self, config: Config, failing: str):
+        runner = FakeRunner(failing=(failing,))
+        with pytest.raises(BuildError):
+            _builder(config, runner).full_build()
+        assert "package/compile" not in runner.targets()
+
+    def test_failed_package_install_still_attempts_images_and_metadata(self, config: Config):
+        runner = FakeRunner(failing=("package/install",))
+
+        failures = _builder(config, runner).full_build()
+
+        assert [err.step for err in failures] == ["package/install"]
+        targets = runner.targets()
+        assert "package/index" not in targets  # the rest of that step is skipped
+        assert "target/install" in targets
+        assert "checksum" in targets
+
+    def test_failed_images_still_generate_metadata(self, config: Config):
+        runner = FakeRunner(failing=("target/install",))
+
+        failures = _builder(config, runner).full_build()
+
+        assert [err.step for err in failures] == ["target/install"]
+        assert runner.targets()[-3:] == ["buildinfo", "json_overview_image_info", "checksum"]
+
+    def test_skipped_packages_are_reported(self, config: Config, caplog):
+        _log(
+            config.results_dir / "logs",
+            "package/error.txt",
+            "ERROR: package/boot/uboot-fritz4040 failed to build (build variant: fritz7520).\n",
+        )
+
+        with caplog.at_level("WARNING"):
+            assert _builder(config, FakeRunner()).full_build() == []
+
+        assert "uboot-fritz4040 failed to build" in caplog.text
